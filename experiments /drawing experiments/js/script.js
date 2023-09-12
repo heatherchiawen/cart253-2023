@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
- * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * Drawing Experiments 
+ * Heather Chester
+ 
+ * Experimenting with p5's drawing and colour functions. 
  */
 
 "use strict";
