@@ -22,6 +22,7 @@ function preload() {
 function setup() {
     createCanvas (500, 500);
     background (20, 200, 0);
+    noStroke ();
     fill (1, 20, 200, 100)
     ellipse (250, 250, 100, 100);
     
