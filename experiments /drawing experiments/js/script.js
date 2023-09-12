@@ -8,6 +8,8 @@
 
 "use strict";
 
+
+
 /**
  * Description of preload
 */
@@ -24,8 +26,7 @@ function setup() {
     background (20, 200, 0);
     noStroke ();
     fill (1, 20, 200, 100)
-    ellipse (250, 250, 100, 100);
-    
+    ellipse (100, 250, 100, 100);    
 }
 
 
