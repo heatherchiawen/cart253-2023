@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
+ * Draw an Alien 
+ * Heather Chester 
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * Using drawing functions to create an alien. 
  */
 
 "use strict";
@@ -12,6 +11,10 @@
  * Description of preload
 */
 function preload() {
+
+    createCanvas (500, 500);
+    background (180, 10 , 10);
+
 
 }
 
