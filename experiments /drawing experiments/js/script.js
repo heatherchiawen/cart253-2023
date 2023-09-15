@@ -1,15 +1,8 @@
 /**
-<<<<<<< HEAD
  * Drawing Experiments 
  * Heather Chester
  
  * Experimenting with p5's drawing and colour functions. 
-=======
- * Drawing Experiments
- * Heather Chester 
- * 
- * Experimenting with drawing functions 
->>>>>>> 2ce88c31ab4c34edeb09ea7a6fe888dedf044dc3
  */
 
 "use strict";
