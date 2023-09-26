@@ -1,8 +1,9 @@
 /**
- * Dodge-em
- * Heather Chester 
+ * Title of Project
+ * Author Name
  * 
- * Learning about conditions with if-statements, etc. 
+ * This is a template. You must fill in the title, author, 
+ * and this description to match your project!
  */
 
 "use strict";
