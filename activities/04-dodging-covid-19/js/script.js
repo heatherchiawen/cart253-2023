@@ -17,26 +17,39 @@ function preload() {
 let covid19 = {
     x: 0,
     y: 250, 
-    size: 100,
+    size: 100, 
+    vx: 0, 
+    vy: 0, 
     speed: 5,
     fill: {
         r: 250, 
         g: 100, 
         b: 100, 
         a: 255, 
-    },
-    
-    alphaChange: 1, 
-    // alphaAngle:0
-    
-}
+    }
+};
+
+let user = {
+    x: 150,
+    y: 250, 
+    size: 100, 
+    fill: 255
+};
+
+let numStatic = 500;
+
 
 /**
  * Description of setup
 */
 function setup() {
     createCanvas (windowWidth, windowHeight);
-    angleMode (DEGREES);
+
+    covid19.y = random(0,height);
+    covid19.vx = covid19.speed; 
+
+    noCursor();
+
 }
 
 
@@ -44,26 +57,46 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-    background(172, 242, 178);
+    background(0);
 
-    //let sinValue = sin(square.alphaAngle);
-    //square.fill.a = map (sinValue, -1, 1, 0, 255);
-
-    square.fill.a += square.alphaChange;
+    //Display static 
+    for (let i = 0; i < numStatic; i++) {
+        let x = random(0, width); 
+        let y = random(0, height);
+        stroke(255);
+        point(x,y);
+    } 
     
-    if (square.fill.a >= 255); {
-        square.alphaChange *= -1; 
+    //Covid 19 movement 
+    covid19.x = covid19.x + covid19.vx;
+    covid19.y = covid19.y + covid19.vy; 
+
+    if (covid19.x > width) {
+        covid19.x = 0;
+        covid19.y = random(0,height);
     }
 
-    else if (square.fill.a >= 255) {
-        square.alphaChange *= -1; 
-    }
-    
-    rectMODE(CENTER);
-    noStroke();
-    fill(square.fill.r, square.fill.g, square.fill.b, square.fill.a);
-    rect(square.x, square.y, square.size);
+    //User movement 
+    user.x = mouseX;
+    user.y = mouseY; 
 
-    // square.alphaAngle += 2; 
+    //Check for catching covid 19 
+    let d = dist(user.x, user.y, covid19.x, covid19.y);
+    if (d < covid19.size/2 + user.size/2) {
+        noLoop ();
+
+    }
+
+    // Display covid 19  
+    fill(covid19.fill.r, covid19.fill.g, covid19.fill.b);
+    ellipse(covid19.x, covid19.y, covid19.size);
+
+    //Display user 
+    fill(user.fill); 
+    ellipse(user.x, user.y, user.size);
+
+
+
+
 
 }
