@@ -27,18 +27,15 @@ let spaceship = {
     image: undefined 
 }
 
-let fire = { 
-    x: undefined, 
-    y: undefined, 
-    size: 5, 
+let ellipse = { 
+    x: 0, 
+    y: 0, 
+    size: 200, 
     vx: 0, 
     vy: 0, 
-    speed: 5, 
-    fill: {
-        red: 255, 
-        green: 255, 
-        blue: 0
-    }
+    spped: 2,
+    scale: 1, 
+    angle: 0
 
 }
 
@@ -63,6 +60,7 @@ function setup() {
 
     spaceship.y = random(0,height);
     spaceship.vx = spaceship.speed; 
+    ellipse.vx = ellipse.speed;
 }
 
 
@@ -79,6 +77,20 @@ function draw() {
         stroke(255);
         point(x,y);
     } 
+
+    //Display Sun 
+
+    ellipse.x = ellipse.x + ellipse.vx; 
+    ellipse.y = ellipse.y + ellipse.vy; 
+
+    push (); 
+    ellipseMode (CENTER); 
+    rotate(PI);
+    fill(255, 255, 0); 
+    ellipse (250, 250, 100, 100); 
+    pop ();
+    
+
 
     //spaceship movement 
     spaceship.x = spaceship.x + spaceship.vx;
@@ -111,22 +123,6 @@ function draw() {
     if (d < spaceship.size/4 + alien.size/4) {
         noLoop (); 
     }
-
-    //For alien firing 
-    function doubleClicked () {
-    if (spaceship.size > width);
-    rect(fire.x, fire.y, fire.size, fire.size)
-    fire.x = alien.x + fire.vx; 
-    fire.y = alien.y + fire.vy; 
-    fire.vx = -fire.speed; 
-    fire.vy = 0; 
-    }    
-
-    //Check for alien catching spaceship
-    let d2 = dist(spaceship.x, spaceship.y, fire.x, fire.y);
-    if (d2 < spaceship.size + fire) {
-        noLoop ();
-    }
     
     // Display spaceship   
     noStroke();
@@ -138,10 +134,6 @@ function draw() {
     fill(255, 0, 0); 
     image(alien.image, alien.x, alien.y, alien.size, alien.size,);
 
-    //Display fire
-    noStroke (); 
-    fill(fire.fill.red, fire.fill.green, fire.fill.blue); 
-    rect(fire.x, fire.y, fire.size, fire.size)
 
 
 }
