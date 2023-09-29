@@ -8,6 +8,7 @@
 "use strict";
 //White circle becomes an alien 
 
+//Alien png from freepnglogos.com “Alien, Png Meme Stickers.”
 let alien = { 
     x: 150,
     y: 250, 
@@ -17,6 +18,7 @@ let alien = {
     image: undefined 
 }
 
+//Spaceship from topping.com “Layer Space Ship - Space Ship png Pixel Art PNG Image With Transparent Background.” 
 let spaceship = { 
     x: 0,
     y: 250, 
@@ -25,18 +27,6 @@ let spaceship = {
     vy: 0, 
     speed: 5, 
     image: undefined 
-}
-
-let ellipse = { 
-    x: 0, 
-    y: 0, 
-    size: 200, 
-    vx: 0, 
-    vy: 0, 
-    spped: 2,
-    scale: 1, 
-    angle: 0
-
 }
 
 
@@ -77,20 +67,6 @@ function draw() {
         stroke(255);
         point(x,y);
     } 
-
-    //Display Sun 
-
-    ellipse.x = ellipse.x + ellipse.vx; 
-    ellipse.y = ellipse.y + ellipse.vy; 
-
-    push (); 
-    ellipseMode (CENTER); 
-    rotate(PI);
-    fill(255, 255, 0); 
-    ellipse (250, 250, 100, 100); 
-    pop ();
-    
-
 
     //spaceship movement 
     spaceship.x = spaceship.x + spaceship.vx;
