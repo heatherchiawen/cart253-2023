@@ -13,8 +13,8 @@
 function preload() {
 
     let circle1 = { 
-        x: 0, 
-        y: 0, 
+        x: undefined, 
+        y: 250, 
         size: 100, 
         vx: 0,
         vy: 0,
@@ -22,7 +22,7 @@ function preload() {
     };
 
     let circle2 = { 
-        x: 0, 
+        x: undefined, 
         y: 250, 
         size: 100, 
         vx: 0, 
@@ -38,10 +38,11 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight); 
-    setupCircles();
+    setupCircles()
 }
 
-function setupCircles() { 
+function setupCircles() {
+
     // Position circles separated from one another 
     circle1.x = width / 3;
     circle2.x = 2 * width / 3;
@@ -52,7 +53,6 @@ function setupCircles() {
     circle2.vx = random(-circle2.speed, circle2.speed);
     circle2.vy = random(-circle2.speed, circle2.speed);
 }
-
 
 /**
  * Description of draw()
@@ -74,7 +74,7 @@ function draw() {
     }
 }
 
-function title () {
+function title() {
     push();
     textSize(64); 
     fill(200, 100, 100);
