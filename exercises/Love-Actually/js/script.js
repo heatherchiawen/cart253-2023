@@ -27,11 +27,11 @@
         vx: 0, 
         vy: 0, 
         speed: 3,
-        growthRate: 1
+        growthRate: 3
     };
 
     let state = `title`; // Can be: title, simulation, love, sadness  
-
+    let xoff = 0.0; 
 /**
  * Description of setup
 */
@@ -43,11 +43,11 @@ function setup() {
 
 function setupCircles() { 
 
-    // Circle starting position 
-    circle.x = width / 2;
-    circle.y = height / 2;
+    // Circle starting at a random position 
+    circle.x = random(0, width);
+    circle.y = random(0, height);
 
-    // Start circle moving in a random direction with contraints on the y. 
+    // Start circle moving in a random direction
     circle.vx = random(-circle.speed, circle.speed);
     circle.vy = random(-circle.speed, circle.speed);
 
@@ -55,8 +55,8 @@ function setupCircles() {
     user.size = user.size + user.growthRate; 
 
     // Start user moving with mouseX and mouseY 
-    user.x = mouseX
-    user.y = mouseY
+    user.x = mouseX;
+    user.y = mouseY;
 }
 
 
@@ -135,41 +135,19 @@ function love() {
  circle.x = circle.x + circle.vx; 
  circle.y = circle.y + circle.vy; 
 
-//  if (mouseX > circle.x) {
-//     circle.vx = circle.speed;
-// }
-//  else if (mouseX < circle.x) {
-//     circle.vx = - circle.speed;
-// }
-// if (mouseY > circle.y) { 
-//     circle.vy = circle.speed;
-// }
-// else if (mouseY < circle.y ) { 
-//     circle.vy = -circle.speed;
-// }
-
-
- //  circle.y = constrain(circle.y, 0, height);
-
-//  if (circle.y = 0); {
-//     circle.y + circle.speed;
-//  }
-//  if (circle.y = height); {
-//     circle.y - circle.speed;
-//  }
-
   // Users movement 
   user.x = mouseX; 
   user.y = mouseY; 
   
   //User growth rate 
  user.size = user.size + user.growthRate; 
+
  }
 
  function checkOffscreen() {
  //Check if the circles have gone offscreen 
      if (isOffscreen(circle) || isOffscreen(user)) {
-        state === 'sadness';
+        state = 'sadness';
     }
  }
 
@@ -183,7 +161,12 @@ function love() {
  }
 
  function checkOverlap() {
- // Check if the circles overlap 
+ // Check if the circles overlap  
+  xoff = xoff + 0.01; 
+ let n = noise(xoff) * width; 
+ circle.x = n; 
+ circle.y = n; 
+
      let d = dist(circle.x, circle.y, user.x, user.y);
      if (d < circle.size/2 + user.size/2) {
          state = `love`; 
@@ -191,15 +174,19 @@ function love() {
 }
 
 function checkGrowthrate() {
+// Alternative ending 
     if (user.size > width / 2) {
-        state = `selfLove`
+        state = `selfLove`; 
     }
 }
 
 function display() {
- // Display the cirles  
- ellipse(circle.x, circle.y, circle.size);
- ellipse(user.x, user.y, user.size);
+// Display the cirle 
+    xoff = xoff + 0.01; 
+    let n = noise(xoff) * width; 
+    ellipse(n, n, circle.size);
+// Display the user 
+    ellipse(user.x, user.y, user.size);
  }
 
  function mousePressed() {
