@@ -50,6 +50,7 @@ function title() {
     push(); 
     textSize(64); 
     fill(255); 
+    textFont(`DotGothic16`);
     textAlign(CENTER, CENTER); 
     text('title', width/2, height/2);
     pop();
@@ -63,6 +64,7 @@ function fin() {
     push();
     textSize(64); 
     fill(255); 
+    textFont(`DotGothic16`);
     textAlign(CENTER, CENTER); 
     text('fin', width/2, height/2); 
     pop();
