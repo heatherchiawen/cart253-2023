@@ -40,19 +40,6 @@ function setupUser() {
     user.x = windowWidth / 2; 
     user.y = windowHeight - 100; 
 
-    // Users moves left, right, up and down according to arrow keys
-    if (keyIspressed) {
-        if (keyCode === LEFT_ARROW) {
-        user.x--; 
-    }  else if (keyCode === RIGHT_ARROW) {
-        user.x++; 
-    }
-    if (keyCode === UP_ARROW) {
-    user.y--;
-    } else if (keyCode === DOWN_ARROW) {
-        user.y++;
-    }
-}
 
 }
 
@@ -62,17 +49,17 @@ function setupUser() {
 function draw() {
     background(0); 
 
-if (state === `title`) {
-    title();
-}
+    if (state === `title`) {
+        title();
+    }
 
-else if (state === `simulation`) {
-    simulation(); 
-}
+    else if (state === `simulation`) {
+        simulation(); 
+    }
 
-else if (state === `fin`) {
-    fin();
-}
+    else if (state === `fin`) {
+        fin();
+    }
 
 }
 
@@ -105,9 +92,24 @@ function fin() {
 
 // Simulation functions 
 
-// function move() {
+function move() {
 
-// }
+       // Users moves left, right, up and down according to arrow keys
+       if (keyIspressed) {
+        console.log('keyIspressed');
+        if (keyCode === LEFT_ARROW) {
+        user.x--; 
+    }  else if (keyCode === RIGHT_ARROW) {
+        user.x++; 
+    }
+    if (keyCode === UP_ARROW) {
+    user.y--;
+    } else if (keyCode === DOWN_ARROW) {
+        user.y++;
+    }   
+    }
+
+}
 
 function checkUser() {
     if (user.x + (user.size/2) == width || user.x - (user.size/2) == 0 || user.y + (user.size/2) == height) {
