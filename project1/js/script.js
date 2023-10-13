@@ -18,10 +18,16 @@ let user = {
     x: 0, 
     y: 0,
     size: 100, 
-    vx: 0, 
-    vy: 0, 
-    speed: 3
+    vx: 3, 
+    vy: 3, 
+    speed: 7
 }; 
+
+let finish = {
+    x: 0, 
+    y: 0, 
+    segmentSize: 50
+}
 
 let state = `title`;
 let keyIspressed; 
@@ -95,7 +101,6 @@ function move() {
 
     // Users moves left, right, up and down according to arrow keys
     if (keyIsPressed) {
-        console.log('keyIspressed');
     if (keyCode === LEFT_ARROW) {
         user.x--; 
     }  
@@ -120,7 +125,31 @@ function checkUser() {
 
 function display() {
     // Display user 
-    ellipse(user.x, user.y, user.size); 
+    ellipse(user.x, user.y, user.size);
+
+    //1st square display of finish line using segments and loops
+    noStroke(); 
+    fill(255); 
+    
+    let x = finish.x;
+    let y = finish.y; 
+    let numSegments = 4; 
+    let segmentsDrawn = 0; 
+
+    while (segmentsDrawn < numSegments) {
+        rect(finish.x, finish.y, finish.segmentSize); 
+        x = x + 100;
+        y = y - 50; 
+        segmentsDrawn = segmentsDrawn ++; 
+    }
+   
+    while (segmentsDrawn < numSegments) {
+        rect(finish.x, finish.y, finish.segmentSize); 
+        x = x + 100;
+        y = y + 50; 
+        segmentsDrawn = segmentsDrawn ++; 
+    }
+
 }
 
 // Function for moving from title to simulatuion to end 
