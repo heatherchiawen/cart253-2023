@@ -17,7 +17,7 @@ function preload() {
 let user = {
     x: 0, 
     y: 0,
-    size: 100, 
+    size: 50, 
     vx: 3, 
     vy: 3, 
     speed: 7
@@ -32,13 +32,11 @@ let sq = {
     lineSpacing: 50
 }
 
-let ladder = {
+let lad = {
     x: 0, 
     y: 0, 
     vx: 0, 
     vy: 0, 
-    pointX: 0, 
-    pointY: 0, 
     width: 75, 
     height: 150, 
     speed: 5
@@ -46,12 +44,10 @@ let ladder = {
 
 let state = `title`;
 let keyIspressed; 
-let ladder1; 
 
-let fins = []; // empty array 
-let i; 
-let xOff = 50; 
-let yOff = 50; 
+let ladders = [] //empty array 
+
+
 
 
 /**
@@ -60,19 +56,12 @@ let yOff = 50;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     setupUser();
-    // ladder1 = new Ladder(); 
 
-    // Finish line i = segmentsDrawn? 
-    // for (let i = 0; i < 3; i++) {
-    //     fins[i] = new Fin (sq.x + xOff, sq.y);
-    // }
-
-    // for (let i = 0; i < 3; i++) {
-    //     let x = sq.x + xOff; 
-    //     let y = sq.y; 
-    //     fins[i] = new Fin (sq.x + x, y);
-    // }
-
+    let y = lad.y; 
+    for (let i = 0; i < 4; i++) {
+        ladders[i] = new Ladder (random(width), y + lad.height);
+        y = y + lad.height;  
+    }
 }
 
 function setupUser() {
@@ -83,13 +72,6 @@ function setupUser() {
 
 }
 
-
-// function setupLadder() {
-
-//     // Ladder starting position 
-//     ladder.x = random(0, width);
-//     ladder.y = random(0, height);
-// }
 
 /**
  * Description of draw()
@@ -112,42 +94,47 @@ function draw() {
 
 }
 
-// class Ladder {
-//     constructor(x, y) {
-//         this.x = ladder.x; 
-//         this.y = ladder.y; 
-//     } 
+class Ladder {
+    constructor(x, y) {
+        this.x = x; 
+        this.y = y; 
+        this.w = 75; 
+        this.h = 150; 
+    } 
     
-//     body() { 
-//         strokeWeight(5); 
-//         stroke(107, 79, 48);
-//         line(this.x + 0, this.y + 30, this.x + 75, this.y + 30); 
-//         line(this.x + 0, this.y + 60, this.x + 75, this.y + 60);
-//         line(this.x + 0, this.y + 90, this.x + 75, this.y + 90);
-//         line(this.x + 0, this.y + 120, this.x + 75, this.y + 120); 
-//         line(this.x + 0, this.y + 0, this.x + 0, this.y + 150);
-//         line(this.x + 75, this.y + 0, this.x + 75, this.y + 150);
-//     }
-//     move() {
-//         this.x++; 
+    body() { 
+        noStroke(); 
+        fill(107, 79, 48);
+        rect(this.x, this.y, this.w, this.h); 
+        noStroke(); 
+        fill(0);
+        rect(this.x + 5, this.y, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 32.5, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 62.5, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 92.5, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 122.5, this.w - 10, this.h - 122.5); 
 
-//         if (this.x > width) {
-//             this.x = 0; 
-//         }
-//     }
-// }
+        // strokeWeight(5); 
+        // stroke(107, 79, 48);
+        // line(this.x, this.y + 30, this.x + 75, this.y + 30); 
+        // line(this.x, this.y + 60, this.x + 75, this.y + 60);
+        // line(this.x, this.y + 90, this.x + 75, this.y + 90);
+        // line(this.x, this.y + 120, this.x + 75, this.y + 120); 
+        // line(this.x, this.y, this.x, this.y + 150);
+        // line(this.x + 75, this.y, this.x + 75, this.y + 150);
+    }
+    move() {
+        this.x++; 
 
-// class Fin {
-//     constructor(x, y) {
-//         this.x = x; 
-//         this.y = y; 
-//     }
-//     body() {
-//         fill(255);
-//         noStroke();
-//         rect(this.x, this.y, sq.segmentSize); 
-//     }
-// }    
+        if (this.x > width) {
+            this.x = 0; 
+        }
+    }
+    // checkCollision() {
+    //     if (user.x )
+    // }
+}
+
 
 
 function title() {
@@ -162,14 +149,8 @@ function title() {
 
 function simulation() {
     moveUser();
-    // moveLadder(); 
     checkUser();
-    displayUser(); 
-
-    // for (let i = 0; i < 3; i++) {
-    //     fins[i].body();
-    // }
-    
+    display(); 
 }
 
 function end() {
@@ -203,23 +184,28 @@ function moveUser() {
     }
 } 
 
-
-
 function checkUser() {
-    // Simulation ends if user goes off screen 
-    if (user.x + (user.size/2) == width || user.x - (user.size/2) == 0 || user.y + (user.size/2) == height) {
-        state = 'fin'; 
+    // Simulation ends if user goes off screen or passes the finish line
+    if (user.x + (user.size/2) == width || user.x - (user.size/2) == 0 || user.y + (user.size/2) == height || user.y == sq.lineSpacing) {
+        state = 'end'; 
     }
 }
 
 
+function display() {
 
-function displayUser() {
+    // Display ladder 
+    for (let i = 0; i < 4; i++) {
+        ladders[i].body(); 
+        ladders[i].move();
+    }
+
     // Display user 
     noStroke(); 
     fill(255);
     ellipse(user.x, user.y, user.size);
 
+    // Display finish line 
     let x = sq.x;
     let y = sq.y;  
     for (let segmentsDrawn = 0; segmentsDrawn < sq.totalSegments; segmentsDrawn++) {
@@ -228,6 +214,7 @@ function displayUser() {
         rect(x + sq.lineSpacing, y + sq.lineSpacing, sq.segmentSize);
         x = x + sq.segmentSpacing;
     }
+
 }
 
 
