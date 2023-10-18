@@ -23,24 +23,35 @@ let user = {
     speed: 7
 }; 
 
-let finish = {
+let sq = {
     x: 0, 
     y: 0, 
-    segmentSize: 50
+    segmentSize: 50, 
+    totalSegments: 100, 
+    segmentSpacing: 100, 
+    lineSpacing: 50
 }
 
-// let ladder = {
-//     x: 0, 
-//     y: 0, 
-//     vx: 0, 
-//     vy: 0, 
-//     width: 75, 
-//     height: 150, 
-//     speed: 5
-// }
+let ladder = {
+    x: 0, 
+    y: 0, 
+    vx: 0, 
+    vy: 0, 
+    pointX: 0, 
+    pointY: 0, 
+    width: 75, 
+    height: 150, 
+    speed: 5
+}
 
 let state = `title`;
 let keyIspressed; 
+let ladder1; 
+
+let fins = []; // empty array 
+let i; 
+let xOff = 50; 
+let yOff = 50; 
 
 
 /**
@@ -49,7 +60,19 @@ let keyIspressed;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     setupUser();
-    
+    // ladder1 = new Ladder(); 
+
+    // Finish line i = segmentsDrawn? 
+    // for (let i = 0; i < 3; i++) {
+    //     fins[i] = new Fin (sq.x + xOff, sq.y);
+    // }
+
+    // for (let i = 0; i < 3; i++) {
+    //     let x = sq.x + xOff; 
+    //     let y = sq.y; 
+    //     fins[i] = new Fin (sq.x + x, y);
+    // }
+
 }
 
 function setupUser() {
@@ -66,11 +89,6 @@ function setupUser() {
 //     // Ladder starting position 
 //     ladder.x = random(0, width);
 //     ladder.y = random(0, height);
-
-//     // ladder.vx = ladder.vx + ladder.speed; 
-//     // ladder.vx = ladder.vx - ladder.speed; 
-//     // ladder.vy = ladder.vy + ladder.speed; 
-//     // ladder.vy = ladder.vy - ladder.speed; 
 // }
 
 /**
@@ -88,11 +106,49 @@ function draw() {
         simulation(); 
     }
 
-    else if (state === `fin`) {
-        fin();
+    else if (state === `end`) {
+        end();
     }
 
 }
+
+// class Ladder {
+//     constructor(x, y) {
+//         this.x = ladder.x; 
+//         this.y = ladder.y; 
+//     } 
+    
+//     body() { 
+//         strokeWeight(5); 
+//         stroke(107, 79, 48);
+//         line(this.x + 0, this.y + 30, this.x + 75, this.y + 30); 
+//         line(this.x + 0, this.y + 60, this.x + 75, this.y + 60);
+//         line(this.x + 0, this.y + 90, this.x + 75, this.y + 90);
+//         line(this.x + 0, this.y + 120, this.x + 75, this.y + 120); 
+//         line(this.x + 0, this.y + 0, this.x + 0, this.y + 150);
+//         line(this.x + 75, this.y + 0, this.x + 75, this.y + 150);
+//     }
+//     move() {
+//         this.x++; 
+
+//         if (this.x > width) {
+//             this.x = 0; 
+//         }
+//     }
+// }
+
+// class Fin {
+//     constructor(x, y) {
+//         this.x = x; 
+//         this.y = y; 
+//     }
+//     body() {
+//         fill(255);
+//         noStroke();
+//         rect(this.x, this.y, sq.segmentSize); 
+//     }
+// }    
+
 
 function title() {
     push(); 
@@ -106,22 +162,23 @@ function title() {
 
 function simulation() {
     moveUser();
-    moveLadder(); 
+    // moveLadder(); 
     checkUser();
-    // checkLadder(); 
     displayUser(); 
-    ladder(); 
-    ladder(); 
+
+    // for (let i = 0; i < 3; i++) {
+    //     fins[i].body();
+    // }
     
 }
 
-function fin() {
+function end() {
     push();
     textSize(64); 
     fill(255); 
     textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
     textAlign(CENTER, CENTER); 
-    text('fin', width/2, height/2); 
+    text('end', width/2, height/2); 
     pop();
 }
 
@@ -146,19 +203,6 @@ function moveUser() {
     }
 } 
 
-function moveLadder() {
-    // Ladder movement 
-
-    // if (user.x < windowWidth || user.y < windowHeight) {
-
-    // ladder.x = ladder.vx - ladder.speed; 
-    // ladder.y = ladder.vy +- ladder.speed;
-    
-    // ladder.vx = ladder.vx + ladder.speed; 
-    // ladder.vx = ladder.vx - ladder.speed; 
-    // ladder.vy = ladder.vy + ladder.speed; 
-    // ladder.vy = ladder.vy - ladder.speed; 
-    }
 
 
 function checkUser() {
@@ -168,13 +212,6 @@ function checkUser() {
     }
 }
 
-// function checkLadder() { 
-//     // When user touches ladder, user jumps to top of ladder 
-//     if(user.x == ladder.width || user.y == ladder.height) {
-//         user.y = user.y + ladder.height; 
-//     }
-// }
-
 
 
 function displayUser() {
@@ -182,32 +219,17 @@ function displayUser() {
     noStroke(); 
     fill(255);
     ellipse(user.x, user.y, user.size);
+
+    let x = sq.x;
+    let y = sq.y;  
+    for (let segmentsDrawn = 0; segmentsDrawn < sq.totalSegments; segmentsDrawn++) {
+        fill(255); 
+        rect(x, sq.y, sq.segmentSize);
+        rect(x + sq.lineSpacing, y + sq.lineSpacing, sq.segmentSize);
+        x = x + sq.segmentSpacing;
+    }
 }
 
-function ladder(x,y) {
-
-    let speed = 5; 
-
-    push(); 
-    translate(x + speed, y + speed); 
-    strokeWeight(5); 
-    stroke(107, 79, 48);
-    beginShape(LINES); 
-    vertex(0, 30); //1
-    vertex(75, 30); //2
-    vertex(0, 60); //3
-    vertex(75, 60); //4
-    vertex(0, 90); //5
-    vertex(75, 90); //6
-    vertex(0, 120); //7
-    vertex(75, 120); //8
-    vertex(0, 0); //9
-    vertex(0, 150); //10
-    vertex(75, 0); //11
-    vertex(75, 150); //12
-    endShape(); 
-    pop(); 
-}
 
 
 // Function for moving from title to simulatuion to end 
