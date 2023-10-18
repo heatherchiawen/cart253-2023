@@ -42,10 +42,30 @@ let lad = {
     speed: 5
 }
 
+let snak = {
+    x: 0, 
+    y: 0, 
+    vx: 0, 
+    vy: 0, 
+    width: 75, 
+    height: 150, 
+    speed: 5
+}
+// let p1 = {x: 50,y: 0};
+// let p2 = {x: 35,y: 20};
+// let p3 = {x: 35,y: 40};
+// let p4 = {x: 50,y: 60};
+// let p5 = {x: 65,y: 80};
+// let p6 = {x: 65,y: 100};
+// let p7 = {x: 50,y: 120};
+
+
 let state = `title`;
 let keyIspressed; 
 
-let ladders = [] //empty array 
+let ladders = [];
+let ladderNum = 4; 
+// let snakes = [];
 
 
 
@@ -56,12 +76,8 @@ let ladders = [] //empty array
 function setup() {
     createCanvas(windowWidth, windowHeight);
     setupUser();
-
-    let y = lad.y; 
-    for (let i = 0; i < 4; i++) {
-        ladders[i] = new Ladder (random(width), y + lad.height);
-        y = y + lad.height;  
-    }
+    setupLadder();
+    // setupSnak();
 }
 
 function setupUser() {
@@ -71,6 +87,21 @@ function setupUser() {
     user.y = windowHeight - 100; 
 
 }
+
+function setupLadder() {
+    let y = lad.y; 
+    for (let i = 0; i < ladderNum; i++) {
+        ladders[i] = new Ladder (random(width), y + lad.height);
+        y = y + lad.height;  
+    }
+}
+
+// function setupSnak() {
+   
+//     for (let i = 0; i < 4; i++) {
+//         snakes[i] = new Snake (random(width), random(height)); 
+//     }
+// }
 
 
 /**
@@ -114,26 +145,47 @@ class Ladder {
         rect(this.x + 5, this.y + 92.5, this.w - 10, this.h - 122.5); 
         rect(this.x + 5, this.y + 122.5, this.w - 10, this.h - 122.5); 
 
-        // strokeWeight(5); 
-        // stroke(107, 79, 48);
-        // line(this.x, this.y + 30, this.x + 75, this.y + 30); 
-        // line(this.x, this.y + 60, this.x + 75, this.y + 60);
-        // line(this.x, this.y + 90, this.x + 75, this.y + 90);
-        // line(this.x, this.y + 120, this.x + 75, this.y + 120); 
-        // line(this.x, this.y, this.x, this.y + 150);
-        // line(this.x + 75, this.y, this.x + 75, this.y + 150);
     }
     move() {
         this.x++; 
-
         if (this.x > width) {
             this.x = 0; 
         }
     }
-    // checkCollision() {
-    //     if (user.x )
-    // }
+    checkCollision() {
+        if (user.x + user.x / 2 > this.x + user.x / 2) { 
+            
+        }
+    }
 }
+
+// class Snake {
+//     constructor(x, y) {
+//         this.x = x; 
+//         this.y = y; 
+//         // this.w = w; 
+//         this.h = p7.y; 
+//     } 
+    
+//     body() { 
+//         stroke(62, 179, 54);
+//         curve(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y); 
+//         curve(p4.x, p4.y, p5.x, p5.y, p6.x, p6.y, p7.x, this.h); 
+
+//     }
+
+//     move() {
+//         this.x++; 
+//         if (this.x > width) {
+//             this.x = 0; 
+//         }
+//     }
+//     // checkCollision() {
+//     //     if (user.x == this.x + this.h) { 
+            
+//     //     }
+//     // }
+// }
 
 
 
@@ -195,10 +247,16 @@ function checkUser() {
 function display() {
 
     // Display ladder 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < ladderNum; i++) {
         ladders[i].body(); 
         ladders[i].move();
     }
+
+//    // Display snakes
+//    for (let i = 0; i < 4; i++) {
+//         snakes[i].body(); 
+//         // snakes[i].move();
+// }
 
     // Display user 
     noStroke(); 
@@ -216,8 +274,6 @@ function display() {
     }
 
 }
-
-
 
 // Function for moving from title to simulatuion to end 
 function mousePressed() {
