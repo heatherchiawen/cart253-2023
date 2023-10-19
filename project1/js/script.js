@@ -36,10 +36,14 @@ let snake = { // For changing variables with the Gif class
     y: 0,  
     width: 150, 
     height: 150, 
-    totalSegments: 3
 }
 
+let user1; 
+
 let gif; 
+let gifs = [];
+let snakeNum = 3; 
+
 let state = `title`;
 let keyIspressed; 
 
@@ -66,9 +70,7 @@ function setup() {
 }
 
 function setupUser() {
-    // Setup user starting position 
-    user.x = windowWidth / 2; 
-    user.y = windowHeight - 100; 
+    user1 = new User(); 
 }
 
 function setupLadder() {
@@ -80,9 +82,8 @@ function setupLadder() {
 }
 
 function setupSnake() {
-    snake.x = random(width);
-    for (let segmentsDrawn = 0; segmentsDrawn < snake.totalSegments; segmentsDrawn++) {
-        loadImage(gif, snake.x, snake.y, snake.width, snake.height); 
+    for (let i = 0; i < snakeNum; i++) {
+        gifs[i] = new Gif (random(width), random(height));
     }
 }
 
@@ -137,7 +138,80 @@ class Ladder {
     }
 }
 
+class Gif {
+    constructor(x,y) {
+        this.x = x; 
+        this.y = y; 
+        this.w = snake.width; 
+        this.h = snake.height; 
+    }
 
+    body() { 
+        image(gif, this.x, this.y, this.w, this.h);
+    }
+    move() { // Snakes move vertically to the ladders 
+        this.y++; 
+        if (this.y > height) {
+            this.y = 0; 
+        }
+    }
+    home() {
+        let d = dist()
+        if (user1.x + user1.w / 2 > this.x && user1.x < this.x + this.w && user1.y < this.y + this.h){
+            state = 'simulation';  
+            user1.y = height - 50;
+        }
+    }
+}
+
+class User {
+    constructor() {
+        this.x = windowWidth / 2; 
+        this.y = windowHeight - 100; 
+        this.size = 50; 
+        this.speed = 150; 
+    } 
+    
+    body() { 
+        noStroke(); 
+        fill(255);
+        ellipse(this.x, this.y, this.size); 
+    }
+    move() {
+        if (keyIsPressed) {
+            if (keyCode === LEFT_ARROW) {
+                user1.x--; 
+            }  
+            else if (keyCode === RIGHT_ARROW) {
+                user1.x++; 
+            }
+            if (keyCode === UP_ARROW) {
+                user1.y--;
+            } 
+            else if (keyCode === DOWN_ARROW) {
+                user1.y++;
+            }   
+    }
+    }
+
+    home() {
+        // Checks if user has passed the finish line 
+        if (this.y < 0) {
+            state = 'simulation';  
+            this.y = height - 50; 
+        }
+        // Checks if user is off screen on the left, right, and bottom 
+        else if(this.x > width || this.x < 0 || this.y > height) {
+            state = 'end'; 
+        }
+    }
+    bumpCheck() {
+        if (this.x + this.w / 2 > gifs.x && this.x < gifs.x + this.w / 2) {
+            state = 'simulation';  
+            this.y = height - 50; 
+        }
+    }
+}
 
 function title() {
     push(); 
@@ -150,9 +224,6 @@ function title() {
 }
 
 function simulation() {
-    move();
-    checkUser();
-    // userReturn(); 
     display(); 
 }
 
@@ -168,45 +239,6 @@ function end() {
 
 // Simulation functions 
 
-function move() {
-
-    // User movement according to arrow keys
-    if (keyIsPressed) {
-    if (keyCode === LEFT_ARROW) {
-        user.x--; 
-    }  
-    else if (keyCode === RIGHT_ARROW) {
-        user.x++; 
-    }
-    if (keyCode === UP_ARROW) {
-    user.y--;
-    } 
-    else if (keyCode === DOWN_ARROW) {
-        user.y++;
-    }   
-    }
-
-    // Snakes move vertically
-    snake.y++; 
-    if (snake.y > height) {
-        snake.y = 0; 
-    }
-} 
-
-function checkUser() {
-    // Simulation ends if user goes off screen or passes the finish line
-    if (user.x + (user.size / 2) == width || user.x - (user.size/2) == 0 || user.y + (user.size/2) == height || user.y == sq.lineSpacing) {
-        state = 'end'; 
-    }
-}
-
-function userReturn() { 
-    if (user.y > snake.height / 2 && user.x == snake.x / 2) {
-        user.y = height - 100; 
-    }
-}
-
-
 function display() {
 
     // Display ladder 
@@ -216,14 +248,17 @@ function display() {
     }
 
     // Display snakes
-    for (let segmentsDrawn = 0; segmentsDrawn < snake.totalSegments; segmentsDrawn++) {
-        image(gif, snake.x, snake.y, snake.width, snake.height); 
+    for (let i = 0; i < snakeNum; i++) {
+        gifs[i].body(); 
+        gifs[i].move(); 
+        gifs[i].home();
     }
 
-    // Display user 
-    noStroke(); 
-    fill(255);
-    ellipse(user.x, user.y, user.size);
+    // Display user
+    user1.body(); 
+    user1.move();
+    user1.home();  
+    // user1.bumpCheck(); 
 
     // Display finish line 
     let x = sq.x;
