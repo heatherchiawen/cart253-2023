@@ -136,6 +136,17 @@ class Ladder {
             this.x = 0; 
         }
     }
+    home() {
+        // If user comes in conatct with ladders
+        // Users movement is constricted to the surface of the ladder while the ladder is moving 
+        // When users reaches the top, aligning with the y of ladders, user will be released 
+        // if - user1.x, user1.y, this.x + this.w + this.h, this.y + this.h + this.w
+        let d = dist(this.x, this.y, this.x + this.w, this.y + this.h); 
+        if (user1.x == d && user1.y == d){
+            user1.x = this.x + this.w / 2; 
+            user1.y = constrain(this.y, this.y + this.h); 
+        }
+    }
 }
 
 class Gif {
@@ -156,10 +167,13 @@ class Gif {
         }
     }
     home() {
-        let d = dist()
-        if (user1.x + user1.w / 2 > this.x && user1.x < this.x + this.w && user1.y < this.y + this.h){
-            state = 'simulation';  
-            user1.y = height - 50;
+        // If user comes in conatct with snakes 
+        // User will drop down back to starting position 
+        let d = dist(this.x, this.y, this.x + this.w, this.y + this.h); 
+        if (user1.x == d && user1.y == d){
+            // state = 'simulation';  
+            // user1.y = height - 50; 
+            console.log('collsion'); 
         }
     }
 }
@@ -194,8 +208,7 @@ class User {
     }
     }
 
-    home() {
-        // Checks if user has passed the finish line 
+    home() { // Checks if user has passed the finish line 
         if (this.y < 0) {
             state = 'simulation';  
             this.y = height - 50; 
@@ -205,7 +218,7 @@ class User {
             state = 'end'; 
         }
     }
-    bumpCheck() {
+    bumpCheck() { // Checks if user comes in contact with snakes 
         if (this.x + this.w / 2 > gifs.x && this.x < gifs.x + this.w / 2) {
             state = 'simulation';  
             this.y = height - 50; 
@@ -245,6 +258,10 @@ function display() {
     for (let i = 0; i < ladderNum; i++) {
         ladders[i].body(); 
         ladders[i].move();
+        ladders[i].home(); 
+        // If user comes in conatct with ladders
+        // Users movement is constricted to the surface of the ladder while th ladder is moving 
+        // When users reaches the top, aligning with the y of ladders, user will be released 
     }
 
     // Display snakes
