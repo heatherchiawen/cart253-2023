@@ -1,6 +1,6 @@
 /**
  * Project1/Snakes & Ladders Simulation 
- * Heather Chester 
+ * Heather Chester, 40215280
  * 
  * This is a simulation inspired by the popular board game, Snakes and Ladders. 
  * In this simulation, the user is initially restricted to running along the bottom of the canvas, 
@@ -8,8 +8,7 @@
  * Ladders moving across the screen allow for the user climb the ladder, advancing toward to finish line. 
  * If the user doesn't climb the ladder, they will be taken to end of the screen, which will end the game.
  * 
- * The snake gif used was sourced from artstation.com, “Snake Animation,” by Gökhan Yalvaç, (https://www.artstation.com/artwork/nYVrA9). 
- * The runner/user gif used was sourced from devianart.com, "Pixel Man - Running Animation," by SelfTeachingKings (https://www.deviantart.com/selfteachingkings/art/Pixel-Man-Running-Animation-Coursework-679727903). 
+ * See README for more information and atrributions 
  */
 
 "use strict";
@@ -53,8 +52,8 @@ let numStatic = 100; //Amount of static displayed in background
  * Description of preload
 */
 function preload() {
-    gif = loadImage("assets/images/snake.gif"); // Courtesy of artstation.com, “Snake Animation,” by Gökhan Yalvaç
-    runner = loadImage("assets/images/running.gif"); // Courtesy of devianart.com, "Pixel Man - Running Animation," by SelfTeachingKings 
+    gif = loadImage("assets/images/snake.gif"); 
+    runner = loadImage("assets/images/running.gif"); 
 }
 
 
@@ -112,7 +111,7 @@ function draw() {
 
 }
 
-class Ladder {
+class Ladder { 
     constructor(x, y) {
         this.x = x; 
         this.y = y; 
@@ -222,7 +221,7 @@ function title() {
     push(); 
     textSize(32); 
     fill(255); 
-    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
+    textFont(`DotGothic16`);
     textAlign(CENTER, CENTER); 
     text('SNAKES & LADDERS:computer version\nAVOID SNAKES!\nuse left and right arrow keys to move across the screen\nclimb on ladders using the up and down arrow keys\nclick once to start\nclick twice to restart', width/2, height/2);
     pop();
@@ -236,7 +235,7 @@ function again() {
     push();
     textSize(64); 
     fill(255); 
-    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
+    textFont(`DotGothic16`);
     textAlign(CENTER, CENTER); 
     text('AGAIN?\nclick twice', width/2, height/2); 
     pop();
@@ -246,7 +245,7 @@ function loser() {
     push();
     textSize(64); 
     fill(255); 
-    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
+    textFont(`DotGothic16`);
     textAlign(CENTER, CENTER); 
     text('loooooooooooooooooooooser!!!', width/2, height/2); 
     pop();
@@ -275,7 +274,7 @@ function display() {
     user1.move();
     user1.home();  
 
-    // Display finish line 
+    // Display finish line
     let x = sq.x;
     let y = sq.y;  
     for (let segmentsDrawn = 0; segmentsDrawn < sq.totalSegments; segmentsDrawn++) {
@@ -285,7 +284,7 @@ function display() {
         x = x + sq.segmentSpacing;
     }
 
-    //Display static 
+    //Display static
     for (let i = 0; i < numStatic; i++) {
         let x = random(0, width); 
         let y = random(0, height);
@@ -301,7 +300,7 @@ function mousePressed() {
     }
 }
 
-// Function for switching from again (once user has crossed the finish line) back to restart 
+// Function for switching from again (once user has crossed the finish line) back to restart the simulation
 function doubleClicked() { 
     if (state === `again`) { 
         state = `simulation`;
