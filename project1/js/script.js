@@ -1,9 +1,15 @@
 /**
- * Project1 
+ * Project1/Snakes & Ladders Simulation 
  * Heather Chester 
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * This is a simulation inspired by the popular board game, Snakes and Ladders. 
+ * In this simulation, the user is initially restricted to running along the bottom of the canvas, 
+ * avoiding falling snakes that will send the user back to the starting position.
+ * Ladders moving across the screen allow for the user climb the ladder, advancing toward to finish line. 
+ * If the user doesn't climb the ladder, they will be taken to end of the screen, which will end the game.
+ * 
+ * The snake gif used was sourced from artstation.com, “Snake Animation,” by Gökhan Yalvaç, (https://www.artstation.com/artwork/nYVrA9). 
+ * The runner/user gif used was sourced from devianart.com, "Pixel Man - Running Animation," by SelfTeachingKings (https://www.deviantart.com/selfteachingkings/art/Pixel-Man-Running-Animation-Coursework-679727903). 
  */
 
 "use strict";
@@ -18,23 +24,21 @@ let sq = { // For the finish line display
 }
 
 let lad = { // Variables with the Ladder class 
-    y: 0, 
     width: 75, 
     height: 150 
 }
 
-let snake = { // Variables with the Gif class
-    x: 0, 
-    y: 0,  
+let snake = { // Variables with the Gif class  
     width: 150, 
     height: 150, 
 }
 
 let user1; 
+let runner;
 
 let gif; 
 let gifs = [];
-let snakeNum = 3; // Amount of snakes/gifs that appear 
+let snakeNum = 5; // Amount of snakes/gifs that appear 
 
 let state = `title`;
 let keyIspressed; 
@@ -49,7 +53,8 @@ let numStatic = 100; //Amount of static displayed in background
  * Description of preload
 */
 function preload() {
-    gif = loadImage("assets/images/snake.gif");
+    gif = loadImage("assets/images/snake.gif"); // Courtesy of artstation.com, “Snake Animation,” by Gökhan Yalvaç
+    runner = loadImage("assets/images/running.gif"); // Courtesy of devianart.com, "Pixel Man - Running Animation," by SelfTeachingKings 
 }
 
 
@@ -68,7 +73,7 @@ function setupUser() {
 }
 
 function setupLadder() {
-    let y = lad.y; 
+    let y = 0; 
     for (let i = 0; i < ladderNum; i++) {
         ladders[i] = new Ladder (random(width), y + lad.height - 50);
         y = y + lad.height;  
@@ -105,10 +110,6 @@ function draw() {
         loser();
     }
 
-    else if (state === `end`) {
-        end();
-    }
-
 }
 
 class Ladder {
@@ -120,7 +121,6 @@ class Ladder {
     } 
     
     body() { 
-        
         noStroke(); 
         fill(107, 79, 48);
         rect(this.x, this.y, this.w, this.h); 
@@ -131,7 +131,6 @@ class Ladder {
         rect(this.x + 5, this.y + 60, this.w - 10, this.h - 122.5); 
         rect(this.x + 5, this.y + 90, this.w - 10, this.h - 122.5); 
         rect(this.x + 5, this.y + 120, this.w - 10, this.h - 120); 
-
     }
 
     move() {
@@ -140,6 +139,7 @@ class Ladder {
             this.x = 0; 
         }
     }
+
     home() {
         // If user comes in conatct with ladders
         // Users movement is constricted to the surface of the ladder while the ladder is moving 
@@ -147,10 +147,10 @@ class Ladder {
         if (user1.x > this.x && user1.x < this.x + this.w && user1.y > this.y - 20 && user1.y < this.y + this.h + 20){
             user1.x = constrain(user1.x, this.x + this.w / 2, this.x - this.w / 2); 
             if (keyCode === UP_ARROW) {
-                user1.y--;
+                user1.y = user1.y - 3;
             } 
             else if (keyCode === DOWN_ARROW) {
-                user1.y++;
+                user1.y = user1.y + 3;
             }  
     }
 }
@@ -168,15 +168,12 @@ class Gif {
         image(gif, this.x, this.y, this.w, this.h);
     }
     move() { // Snakes move vertically to the ladders 
-        this.y++; 
+        this.y = this.y + 3; 
         if (this.y > height) {
             this.y = 0; 
         }
     }
-    home() {
-        // If user comes in conatct with snakes 
-        // User will drop down back to starting position 
-        // user1.x > this.x - this.w && user1.x < this.x + this.w && user1.y > this.y - this.h && user1.y < this.y + this.h
+    home() { // If user comes in conatct with snakes user will drop down back to starting position 
         if (user1.x > this.x && user1.x < this.x + this.w && user1.y > this.y && user1.y < this.y + this.h) {
             state = 'simulation';  
             user1.y = height - 100; 
@@ -189,24 +186,23 @@ class User {
     constructor() {
         this.x = windowWidth / 2; 
         this.y = windowHeight - 100; 
-        this.size = 50; 
-        this.speed = 150; 
+        this.w = 75; 
+        this.h = 75;
     } 
     
     body() { 
-        noStroke(); 
-        fill(255);
-        ellipse(this.x, this.y, this.size); 
+        image(runner, this.x - this.w / 2, this.y - this.h / 2, this.w, this.h); 
     }
+    
     move() { // User can only move left to right unless it comes in contact with a ladder then it can move only along the ladder
         if (keyIsPressed) {
             if (keyCode === LEFT_ARROW) {
-                this.x--; 
+                this.x = this.x - 3; 
             }  
             else if (keyCode === RIGHT_ARROW) {
-                this.x++; 
+                this.x = this.x + 3; 
             }
-    }
+        }
     }
 
     home() { // Checks if user has passed the finish line LEVEL UP????
@@ -224,11 +220,11 @@ class User {
 
 function title() {
     push(); 
-    textSize(64); 
+    textSize(32); 
     fill(255); 
     textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
     textAlign(CENTER, CENTER); 
-    text('title', width/2, height/2);
+    text('SNAKES & LADDERS:computer version\nAVOID SNAKES!\nuse left and right arrow keys to move across the screen\nclimb on ladders using the up and down arrow keys\nclick once to start\nclick twice to restart', width/2, height/2);
     pop();
 }
 
@@ -242,7 +238,7 @@ function again() {
     fill(255); 
     textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
     textAlign(CENTER, CENTER); 
-    text('AGAIN!!!', width/2, height/2); 
+    text('AGAIN?\nclick twice', width/2, height/2); 
     pop();
 }
 
@@ -253,16 +249,6 @@ function loser() {
     textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
     textAlign(CENTER, CENTER); 
     text('loooooooooooooooooooooser!!!', width/2, height/2); 
-    pop();
-}
-
-function end() {
-    push();
-    textSize(64); 
-    fill(255); 
-    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
-    textAlign(CENTER, CENTER); 
-    text('end', width/2, height/2); 
     pop();
 }
 
@@ -278,11 +264,11 @@ function display() {
     }
 
     // Display snakes
-    // for (let i = 0; i < snakeNum; i++) {
-    //     gifs[i].body(); 
-    //     gifs[i].move(); 
-    //     gifs[i].home();
-    // }
+    for (let i = 0; i < snakeNum; i++) {
+        gifs[i].body(); 
+        gifs[i].move(); 
+        gifs[i].home();
+    }
 
     // Display user
     user1.body(); 
@@ -308,9 +294,16 @@ function display() {
     } 
 }
 
-// Function for moving from title to simulatuion to end 
+// Function for switching from title state to simulatuion 
 function mousePressed() {
     if (state === `title`) {
+        state = `simulation`;
+    }
+}
+
+// Function for switching from again (once user has crossed the finish line) back to restart 
+function doubleClicked() { 
+    if (state === `again`) { 
         state = `simulation`;
     }
 }
