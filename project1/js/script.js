@@ -8,15 +8,7 @@
 
 "use strict";
 
-
-let user = {
-    x: 0, 
-    y: 0,
-    size: 50, 
-    speed: 7
-}; 
-
-let sq = {
+let sq = { // For the finish line display 
     x: 0, 
     y: 0, 
     segmentSize: 50, 
@@ -25,13 +17,13 @@ let sq = {
     lineSpacing: 50
 }
 
-let lad = { // For changing variables with the Ladder class 
+let lad = { // Variables with the Ladder class 
     y: 0, 
     width: 75, 
     height: 150 
 }
 
-let snake = { // For changing variables with the Gif class
+let snake = { // Variables with the Gif class
     x: 0, 
     y: 0,  
     width: 150, 
@@ -42,13 +34,15 @@ let user1;
 
 let gif; 
 let gifs = [];
-let snakeNum = 3; 
+let snakeNum = 3; // Amount of snakes/gifs that appear 
 
 let state = `title`;
 let keyIspressed; 
 
 let ladders = [];
-let ladderNum = 4;
+let ladderNum = 4; // Amount of ladders that appear 
+
+let numStatic = 100; //Amount of static displayed in background 
 
 
 /**
@@ -103,6 +97,14 @@ function draw() {
         simulation(); 
     }
 
+    else if (state === `again`) {
+        again(); 
+    }
+
+    else if (state === `loser`) {
+        loser();
+    }
+
     else if (state === `end`) {
         end();
     }
@@ -118,18 +120,20 @@ class Ladder {
     } 
     
     body() { 
+        
         noStroke(); 
         fill(107, 79, 48);
         rect(this.x, this.y, this.w, this.h); 
         noStroke(); 
         fill(0);
         rect(this.x + 5, this.y, this.w - 10, this.h - 122.5); 
-        rect(this.x + 5, this.y + 32.5, this.w - 10, this.h - 122.5); 
-        rect(this.x + 5, this.y + 62.5, this.w - 10, this.h - 122.5); 
-        rect(this.x + 5, this.y + 92.5, this.w - 10, this.h - 122.5); 
-        rect(this.x + 5, this.y + 122.5, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 30, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 60, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 90, this.w - 10, this.h - 122.5); 
+        rect(this.x + 5, this.y + 120, this.w - 10, this.h - 120); 
 
     }
+
     move() {
         this.x++; 
         if (this.x > width) {
@@ -139,14 +143,17 @@ class Ladder {
     home() {
         // If user comes in conatct with ladders
         // Users movement is constricted to the surface of the ladder while the ladder is moving 
-        // When users reaches the top, aligning with the y of ladders, user will be released 
-        // if - user1.x, user1.y, this.x + this.w + this.h, this.y + this.h + this.w
-        let d = dist(this.x, this.y, this.x + this.w, this.y + this.h); 
-        if (user1.x == d && user1.y == d){
-            user1.x = this.x + this.w / 2; 
-            user1.y = constrain(this.y, this.y + this.h); 
-        }
+        // When users reaches the top, aligning with the y of ladders, user x restriction will be released 
+        if (user1.x > this.x && user1.x < this.x + this.w && user1.y > this.y - 20 && user1.y < this.y + this.h + 20){
+            user1.x = constrain(user1.x, this.x + this.w / 2, this.x - this.w / 2); 
+            if (keyCode === UP_ARROW) {
+                user1.y--;
+            } 
+            else if (keyCode === DOWN_ARROW) {
+                user1.y++;
+            }  
     }
+}
 }
 
 class Gif {
@@ -169,11 +176,11 @@ class Gif {
     home() {
         // If user comes in conatct with snakes 
         // User will drop down back to starting position 
-        let d = dist(this.x, this.y, this.x + this.w, this.y + this.h); 
-        if (user1.x == d && user1.y == d){
-            // state = 'simulation';  
-            // user1.y = height - 50; 
-            console.log('collsion'); 
+        // user1.x > this.x - this.w && user1.x < this.x + this.w && user1.y > this.y - this.h && user1.y < this.y + this.h
+        if (user1.x > this.x && user1.x < this.x + this.w && user1.y > this.y && user1.y < this.y + this.h) {
+            state = 'simulation';  
+            user1.y = height - 100; 
+            user1.x = width / 2; 
         }
     }
 }
@@ -191,37 +198,26 @@ class User {
         fill(255);
         ellipse(this.x, this.y, this.size); 
     }
-    move() {
+    move() { // User can only move left to right unless it comes in contact with a ladder then it can move only along the ladder
         if (keyIsPressed) {
             if (keyCode === LEFT_ARROW) {
-                user1.x--; 
+                this.x--; 
             }  
             else if (keyCode === RIGHT_ARROW) {
-                user1.x++; 
+                this.x++; 
             }
-            if (keyCode === UP_ARROW) {
-                user1.y--;
-            } 
-            else if (keyCode === DOWN_ARROW) {
-                user1.y++;
-            }   
     }
     }
 
-    home() { // Checks if user has passed the finish line 
-        if (this.y < 0) {
-            state = 'simulation';  
-            this.y = height - 50; 
+    home() { // Checks if user has passed the finish line LEVEL UP????
+        if (this.y < 100) {
+            state = 'again';  
+            this.x = width / 2; 
+            this.y = height - 100; 
         }
         // Checks if user is off screen on the left, right, and bottom 
         else if(this.x > width || this.x < 0 || this.y > height) {
-            state = 'end'; 
-        }
-    }
-    bumpCheck() { // Checks if user comes in contact with snakes 
-        if (this.x + this.w / 2 > gifs.x && this.x < gifs.x + this.w / 2) {
-            state = 'simulation';  
-            this.y = height - 50; 
+            state = 'loser'; 
         }
     }
 }
@@ -238,6 +234,26 @@ function title() {
 
 function simulation() {
     display(); 
+}
+
+function again() {
+    push();
+    textSize(64); 
+    fill(255); 
+    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
+    textAlign(CENTER, CENTER); 
+    text('AGAIN!!!', width/2, height/2); 
+    pop();
+}
+
+function loser() {
+    push();
+    textSize(64); 
+    fill(255); 
+    textFont(`DotGothic16`); // Courtesy of Google Fonts, "Dot Gothic 16" 
+    textAlign(CENTER, CENTER); 
+    text('loooooooooooooooooooooser!!!', width/2, height/2); 
+    pop();
 }
 
 function end() {
@@ -258,24 +274,20 @@ function display() {
     for (let i = 0; i < ladderNum; i++) {
         ladders[i].body(); 
         ladders[i].move();
-        ladders[i].home(); 
-        // If user comes in conatct with ladders
-        // Users movement is constricted to the surface of the ladder while th ladder is moving 
-        // When users reaches the top, aligning with the y of ladders, user will be released 
+        ladders[i].home();  
     }
 
     // Display snakes
-    for (let i = 0; i < snakeNum; i++) {
-        gifs[i].body(); 
-        gifs[i].move(); 
-        gifs[i].home();
-    }
+    // for (let i = 0; i < snakeNum; i++) {
+    //     gifs[i].body(); 
+    //     gifs[i].move(); 
+    //     gifs[i].home();
+    // }
 
     // Display user
     user1.body(); 
     user1.move();
     user1.home();  
-    // user1.bumpCheck(); 
 
     // Display finish line 
     let x = sq.x;
@@ -286,6 +298,14 @@ function display() {
         rect(x + sq.lineSpacing, y + sq.lineSpacing, sq.segmentSize);
         x = x + sq.segmentSpacing;
     }
+
+    //Display static 
+    for (let i = 0; i < numStatic; i++) {
+        let x = random(0, width); 
+        let y = random(0, height);
+        stroke(255);
+        point(x,y);
+    } 
 }
 
 // Function for moving from title to simulatuion to end 
