@@ -21,13 +21,19 @@ size: 50
 let school = []; //Open array 
 let schoolSize = 4; //Amount of fish in array 
 
-let state = `title`; 
+let state = `title`; //Title, simulation, win, lose 
 
 let xoff = 0.0; 
 let yoff = 0.0;
 let waveSpacing = 20; 
 let waveHeight = 1000;
 
+let gameOverTimer = 0; //How long game is, in frames 
+let gameLength = 60 * 10; //10 seconds 
+
+
+let newFishTimer = 0; //A timer to count the number of frames in the games state
+let newFishDelay = 60 * 2; // 2 seconds 
 function preload() {
 }
 
@@ -84,10 +90,18 @@ function title() {
     pop();
 }
 
-function simulation() {
+function simulation() { //Calls waves, move and display for user and fish, and contains timer function 
     makeWaves();
-    checkFishClick();
-
+    gameOverTimer++; 
+    if (gameOverTimer >= gameLength) {
+        gameOver();
+    }
+    newFishTimer++; 
+    if (newFishTimer >= newFishDelay) {
+        let fish = createFish(random(0, width), random(0, height)); 
+        school.push(fish);
+        newFishTimer = 0;
+    }
     for (let i = 0; i < school.length; i++) {
         moveFish(school[i]); 
         displayFish(school[i]); 
@@ -96,12 +110,21 @@ function simulation() {
     displayUser();
 }
 
+function gameOver() {
+    if (school.length === 0) {
+        state = `win`; 
+    }
+    else {
+        state = `lose`;
+    }
+}
+
 function win() {
     push();
     textSize(64); 
     fill(200, 100, 100);
     textAlign(CENTER, CENTER);
-    text('LOVE?', width/2, height/2);
+    text('you won', width/2, height/2);
     pop();
 }
 
@@ -110,7 +133,7 @@ function lose() {
     textSize(64); 
     fill(200, 100, 100);
     textAlign(CENTER, CENTER);
-    text('LOVE?', width/2, height/2);
+    text('you lost', width/2, height/2);
     pop();
 }
 
@@ -146,7 +169,7 @@ function moveFish(fish) {
 
 function displayFish(fish) {
     push(); 
-    fill(200, 100, 100); 
+    fill(random(0, 255)); 
     noStroke(); 
     ellipse(fish.x, fish.y, fish.size); 
     pop(); 
@@ -167,12 +190,12 @@ function mousePressed() {
     if (state === `title`) {
         state = `simulation`;
     }
-    // else if (state === `game`) {
-    //     checkFishClick();
-    // }
+    else if (state === `simulation`) {
+        checkFishClick();
+    }
 } 
 
-function checkFishClick() {
+function checkFishClick() { //Function translated from Timers document on Pippin's CART 253 
     for (let i = 0; i < school.length; i++) {
         let fish = school[i]; 
         let d = dist(mouseX, mouseY, fish.x, fish.y); 
@@ -180,6 +203,6 @@ function checkFishClick() {
             school.splice(i, 1);
             break;
         }
-    }
+    }//Create a function that checks if all fish are eaten immediately 
 }
 
