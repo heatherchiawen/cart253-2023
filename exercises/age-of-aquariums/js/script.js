@@ -19,10 +19,9 @@ userSize: 100
 };
 
 let school = []; //Open array 
-let fishNum = 4; //Amount of fish in array 
+let schoolSize = 4; //Amount of fish in array 
 
-// let fish = createFish(100, 100);
-// school.push(fish); 
+let state = `title`; 
 
 function preload() {
 }
@@ -33,7 +32,12 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
-    for (let i = 0; i < fishNum; i++){
+    // for (let i = 0; i < schoolSize; i++){
+    //     let fish = createFish(random(0, width), random(0, height));
+    //     school.push(fish); 
+    // }
+
+    for (let i = 0; i < 4; i++){
         school[i] = createFish(random(0, width), random(0, height));
     }
 }
@@ -56,19 +60,65 @@ function createFish(x, y) {
 function draw() {
     background(0);
 
-    //let fish = school[i]; 
-    for (let i = 0; i < school.length; i++) {
-        moveFish(fish); 
-        displayFish(fish); 
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `simulation`) {
+        simulation(); 
+    }
+    else if (state === `endingOne`) {
+        endingOne();
+   }
+    else if (state === `endingTwo`) {
+        endingTwo();
+   }  
+}
+
+function title() {
+    push();
+    textSize(64); 
+    fill(200, 100, 100);
+    textAlign(CENTER, CENTER);
+    text('LOVE?', width/2, height/2);
+    pop();
+}
+
+function simulation() {
+    moveUser();
+    displayUser();
+
+    for (let i = 0; i < schoolSize; i++) {
+        let fish = school[i]; 
+        moveFish(school[i]); 
+        displayFish(school[i]); 
     }
 }
 
+function endingOne() {
+    push();
+    textSize(64); 
+    fill(200, 100, 100);
+    textAlign(CENTER, CENTER);
+    text('LOVE?', width/2, height/2);
+    pop();
+}
+
+function endingTwo() {
+    push();
+    textSize(64); 
+    fill(200, 100, 100);
+    textAlign(CENTER, CENTER);
+    text('LOVE?', width/2, height/2);
+    pop();
+}
+
+
 function moveFish(fish) {
-    let change = random(0, 1); 
-    if (change < 0.05) {
-        fish.vx = random(-fish.speed, fish.speed); 
+    // let change = random(0, 1);
+    // if (change < 0.05) {
+        fish.vx = random(-fish.speed, fish.speed); // Fish moving in randoim direction 
         fish.vy = random(-fish.speed, fish.speed);  
-    }
+    // }
 
     fish.x = fish.x + fish.vx; 
     fish.y = fish.y + fish.vy; 
@@ -85,4 +135,24 @@ function displayFish(fish) {
     ellipse(fish.x, fish.y, fish.size); 
     pop(); 
 }
+
+function moveUser() {
+    user.x = mouseX; 
+    user.y = mouseY; 
+}
+
+function displayUser() {
+
+    ellipse(user.x, user.y, user.size)
+
+}
+
+function mousePressed() {
+    if (state === `title`) {
+        state = `simulation`;
+    }
+    
+    let fish = createFish(mouseX, mouseY); //Create a fish at the mouse position 
+    school.push(fish); //Add the fish to array 
+} 
 
