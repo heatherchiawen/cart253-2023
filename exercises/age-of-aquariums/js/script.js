@@ -22,6 +22,12 @@ let school = []; //Open array
 let schoolSize = 4; //Amount of fish in array 
 
 let state = `title`; 
+let xoff = 0.0; 
+let yoff = 0.0;
+let scl = 20;
+let margin = 50;
+let waveSpacing = 20; 
+let waveHeight = 1000;
 
 function preload() {
 }
@@ -32,13 +38,9 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
-    // for (let i = 0; i < schoolSize; i++){
-    //     let fish = createFish(random(0, width), random(0, height));
-    //     school.push(fish); 
-    // }
-
-    for (let i = 0; i < 4; i++){
-        school[i] = createFish(random(0, width), random(0, height));
+    for (let i = 0; i < schoolSize; i++){
+        let fish = createFish(random(0, width), random(0, height));
+        school.push(fish); 
     }
 }
 
@@ -58,7 +60,7 @@ function createFish(x, y) {
  * Description of draw()
 */
 function draw() {
-    background(0);
+    background(255);
 
     if (state === `title`) {
         title();
@@ -84,11 +86,11 @@ function title() {
 }
 
 function simulation() {
+    makeWaves();
     moveUser();
     displayUser();
 
-    for (let i = 0; i < schoolSize; i++) {
-        let fish = school[i]; 
+    for (let i = 0; i < school.length; i++) {
         moveFish(school[i]); 
         displayFish(school[i]); 
     }
@@ -112,7 +114,22 @@ function endingTwo() {
     pop();
 }
 
+function makeWaves() { //Wave background from "Nutritious felling" by rapley in p5js https://editor.p5js.org/rapley/sketches/BK_8BfvDk
 
+    let xoff = 0.0;
+  
+  for (let y = 0; y < height; y += waveSpacing) {
+    strokeWeight(3);
+    stroke(50, 100, 255);
+    for (let x = 0; x < width; x += waveSpacing) {
+    	let noiseScale = map(noise(x * xoff, yoff), 0, 1, -waveHeight, waveHeight / 2);
+        line(x, height, x, (y - noiseScale));
+        xoff += 0.00002;
+    }
+    yoff += 0.0001;
+}
+
+}
 function moveFish(fish) {
     // let change = random(0, 1);
     // if (change < 0.05) {
@@ -120,7 +137,7 @@ function moveFish(fish) {
         fish.vy = random(-fish.speed, fish.speed);  
     // }
 
-    fish.x = fish.x + fish.vx; 
+    fish.x = random(0, fish.x) + fish.vx; 
     fish.y = fish.y + fish.vy; 
 
     //Constrains the fish to the canvas 
