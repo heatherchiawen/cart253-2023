@@ -15,17 +15,16 @@
 let user = {
 x: 0, 
 y: 0, 
-userSize: 100 
+size: 50
 };
 
 let school = []; //Open array 
 let schoolSize = 4; //Amount of fish in array 
 
 let state = `title`; 
+
 let xoff = 0.0; 
 let yoff = 0.0;
-let scl = 20;
-let margin = 50;
 let waveSpacing = 20; 
 let waveHeight = 1000;
 
@@ -68,11 +67,11 @@ function draw() {
     else if (state === `simulation`) {
         simulation(); 
     }
-    else if (state === `endingOne`) {
-        endingOne();
+    else if (state === `win`) {
+        win();
    }
-    else if (state === `endingTwo`) {
-        endingTwo();
+    else if (state === `lose`) {
+        lose();
    }  
 }
 
@@ -87,16 +86,17 @@ function title() {
 
 function simulation() {
     makeWaves();
-    moveUser();
-    displayUser();
+    checkFishClick();
 
     for (let i = 0; i < school.length; i++) {
         moveFish(school[i]); 
         displayFish(school[i]); 
     }
+    moveUser();
+    displayUser();
 }
 
-function endingOne() {
+function win() {
     push();
     textSize(64); 
     fill(200, 100, 100);
@@ -105,7 +105,7 @@ function endingOne() {
     pop();
 }
 
-function endingTwo() {
+function lose() {
     push();
     textSize(64); 
     fill(200, 100, 100);
@@ -131,13 +131,12 @@ function makeWaves() { //Wave background from "Nutritious felling" by rapley in 
 
 }
 function moveFish(fish) {
-    // let change = random(0, 1);
-    // if (change < 0.05) {
-        fish.vx = random(-fish.speed, fish.speed); // Fish moving in randoim direction 
-        fish.vy = random(-fish.speed, fish.speed);  
-    // }
 
-    fish.x = random(0, fish.x) + fish.vx; 
+    fish.vx = random(-fish.speed, fish.speed); // Fish moving in random direction 
+    fish.vy = random(-fish.speed, fish.speed);  
+
+
+    fish.x = fish.x + fish.vx; 
     fish.y = fish.y + fish.vy; 
 
     //Constrains the fish to the canvas 
@@ -158,18 +157,29 @@ function moveUser() {
     user.y = mouseY; 
 }
 
-function displayUser() {
-
+function displayUser() { 
+    fill(0); 
+    noStroke(); 
     ellipse(user.x, user.y, user.size)
-
 }
 
 function mousePressed() {
     if (state === `title`) {
         state = `simulation`;
     }
-    
-    let fish = createFish(mouseX, mouseY); //Create a fish at the mouse position 
-    school.push(fish); //Add the fish to array 
+    // else if (state === `game`) {
+    //     checkFishClick();
+    // }
 } 
+
+function checkFishClick() {
+    for (let i = 0; i < school.length; i++) {
+        let fish = school[i]; 
+        let d = dist(mouseX, mouseY, fish.x, fish.y); 
+        if (d < fish.size / 2) {
+            school.splice(i, 1);
+            break;
+        }
+    }
+}
 
