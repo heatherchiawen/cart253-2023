@@ -34,6 +34,8 @@ let gameLength = 60 * 10; //10 seconds
 
 let newFishTimer = 0; //A timer to count the number of frames in the games state
 let newFishDelay = 60 * 2; // 2 seconds 
+
+
 function preload() {
 }
 
@@ -42,8 +44,8 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight);
-
-    for (let i = 0; i < schoolSize; i++){
+    
+    for (let i = 0; i < schoolSize; i++) {
         let fish = createFish(random(0, width), random(0, height));
         school.push(fish); 
     }
@@ -53,10 +55,17 @@ function createFish(x, y) {
     let fish = {
         x: x, 
         y: y, 
-        size: 50,
-        xy: 0, 
-        vy: 0, 
-        speed: 2 
+        // size:
+        width: random(30, 90),
+        height: random(30, 90),
+        // xy: random(-2, 2), 
+        // vy: random(-2, 2), 
+        speed: random(-2, 2), 
+        fill: {
+            r: 212, 
+            g: 121, 
+            b: 17
+        }
     };
     return fish; 
 }
@@ -154,25 +163,45 @@ function makeWaves() { //Wave background from "Nutritious felling" by rapley in 
 
 }
 function moveFish(fish) {
+    // let change = random(0,10); 
+    // if (change < 5) {
+    //     fish.vx = random(-fish.speed, fish.speed); // Fish moving in random direction 
+    //     fish.vy = random(-fish.speed, fish.speed);  
+    // }
 
-    fish.vx = random(-fish.speed, fish.speed); // Fish moving in random direction 
-    fish.vy = random(-fish.speed, fish.speed);  
+    fish.x = fish.x + fish.speed;
+    fish.y = fish.y + fish.speed;
+
+    // let d = dist(mouseX, mouseY, fish.x, fish.y); 
+    
+    if (fish.x > user.x) {
+        fish.x ++; 
+    }
+    else if (fish.x < user.x) {
+        fish.x --; 
+    }
+    else if (fish.y > user.y) {
+        fish.y ++; 
+    }
+    else if (fish.y < user.y) {
+        fish.y --;
+    }
 
 
-    fish.x = fish.x + fish.vx; 
-    fish.y = fish.y + fish.vy; 
-
-    //Constrains the fish to the canvas 
-    fish.x = constrain(fish.x, 0, width); 
-    fish.y = constrain(fish.y, 0, height);
+    // //Constrains the fish to the canvas 
+    // fish.x = constrain(fish.x, 0, width); 
+    // fish.y = constrain(fish.y, 0, height);
 }
 
 function displayFish(fish) {
+    
     push(); 
-    fill(random(0, 255)); 
+    fill(189, 126, 49); 
     noStroke(); 
-    ellipse(fish.x, fish.y, fish.size); 
+    ellipse(fish.x, fish.y, fish. width, fish.height); 
+    triangle(fish.x + fish.width / 1.5, fish.y, fish.x + fish.width, fish.y + fish.height / 2, fish.x + fish.width, fish.y - fish.height / 2); 
     pop(); 
+    
 }
 
 function moveUser() {
@@ -199,7 +228,7 @@ function checkFishClick() { //Function translated from Timers document on Pippin
     for (let i = 0; i < school.length; i++) {
         let fish = school[i]; 
         let d = dist(mouseX, mouseY, fish.x, fish.y); 
-        if (d < fish.size / 2) {
+        if (d < fish.width / 2 || d < fish.height / 2) {
             school.splice(i, 1);
             break;
         }
