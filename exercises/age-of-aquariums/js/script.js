@@ -15,12 +15,15 @@
 let user = {
 x: 0, 
 y: 0, 
-size: 50
+size: 50, 
+width: 70, 
+height: 70
 };
+
+let hook; 
 
 let school = []; //Open array 
 let schoolSize = 4; //Amount of fish in array 
-let fishDist = 100; 
 
 let state = `title`; //Title, simulation, win, lose 
 
@@ -38,6 +41,7 @@ let newFishDelay = 60 * 2; // 2 seconds
 
 
 function preload() {
+    hook = loadImage('assets/images/hook.png');
 }
 
 /**
@@ -45,6 +49,7 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    angleMode(DEGREES); 
     
     for (let i = 0; i < schoolSize; i++) {
         let fish = createFish(random(0, width), random(0, height));
@@ -70,7 +75,7 @@ function createFish(x, y) {
  * Description of draw()
 */
 function draw() {
-    background(255);
+    background(206, 215, 242);
 
     if (state === `title`) {
         title();
@@ -89,9 +94,9 @@ function draw() {
 function title() {
     push();
     textSize(64); 
-    fill(200, 100, 100);
+    fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('LOVE?', width/2, height/2);
+    text('hook the fish!', width/2, height/2);
     pop();
 }
 
@@ -126,19 +131,19 @@ function gameOver() {
 
 function win() {
     push();
-    textSize(64); 
-    fill(200, 100, 100);
+    textSize(60); 
+    fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('you won', width/2, height/2);
+    text('someone is eating good tonight!', width/2, height/2);
     pop();
 }
 
 function lose() {
     push();
     textSize(64); 
-    fill(200, 100, 100);
+    fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('you lost', width/2, height/2);
+    text('I guess you might starve', width/2, height/2);
     pop();
 }
 
@@ -158,49 +163,15 @@ function makeWaves() { //Wave background from "Nutritious felling" by rapley in 
 }
 
 }
+
 function moveFish(fish) {
-    // let change = random(0,10); 
-    // if (change < 5) {
-    //     fish.vx = random(-fish.speed, fish.speed); // Fish moving in random direction 
-    //     fish.vy = random(-fish.speed, fish.speed);  
-    // }
-
-    // fish.x = fish.x + fish.speed;
-    // fish.y = fish.y + fish.speed;
-
-    // let d = dist(mouseX, mouseY, fish.x, fish.y); 
-
-    // fish.x --; 
-    // if (fish.x < 0) {
-    //     fish.x = width; 
-    // }
-
-    // // else if (fish.x > width) {
-    // //     fish.x --; 
-    // // }
-    // else if (fish.y - fish.height < 0) {
-    //     fish.y ++; 
-    // }
-    // else if (fish.y + fish.height > height) {
-    //     fish.y - fish.speed;
-    // }
-
-    // if (frameCount % 20 === 0) {
-    //     fish.y++; 
-    // }
-    // else if ((frameCount % 20 === 0)) {
-    // fish.y --; 
-    // }
+    rotate(fish.angle); 
 
     let vx = fish.speed * cos(fish.angle); 
     let vy = fish.speed * sin(fish.angle); 
     
     fish.x += vx; 
     fish.y += vy; 
-
-    // //Constrains the fish to the canvas 
-    // fish.x = constrain(fish.x, 50, width - 50); 
-    // fish.y = constrain(fish.y, 50, height - 50);
 
     if (fish.x > width) {
         fish.x -= width;
@@ -216,7 +187,6 @@ function moveFish(fish) {
         fish.y += height;
       }
 }
-
 
 function displayFish(fish) {
     
@@ -237,7 +207,7 @@ function moveUser() {
 function displayUser() { 
     fill(0); 
     noStroke(); 
-    ellipse(user.x, user.y, user.size)
+    image(hook, user.x - user.width / 2, user.y - user.height / 2, user.width, user.height)
 }
 
 function mousePressed() {
