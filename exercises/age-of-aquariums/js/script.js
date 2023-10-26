@@ -1,9 +1,10 @@
 /**
  * age-of-aquariums
- * Heather Chester 
+ * Heather Chester, 40215280
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * This exercise uses arrays and for-loops to create and move a school of fish. 
+ * Fish are displayed in a variety of shapes and move in different directions. 
+ * The user is displayed as a hook, clicking on fish to capture. 
  */
 
 "use strict";
@@ -20,9 +21,9 @@ width: 70,
 height: 70
 };
 
-let hook; 
+let hook; //User image 
 
-let school = []; //Open array 
+let school = [];
 let schoolSize = 4; //Amount of fish in array 
 
 let state = `title`; //Title, simulation, win, lose 
@@ -74,7 +75,7 @@ function createFish(x, y) {
 /**
  * Description of draw()
 */
-function draw() {
+function draw() { 
     background(206, 215, 242);
 
     if (state === `title`) {
@@ -147,7 +148,7 @@ function lose() {
     pop();
 }
 
-function makeWaves() { //Wave background from "Nutritious felling" by rapley in p5js https://editor.p5js.org/rapley/sketches/BK_8BfvDk
+function makeWaves() { 
 
     let xoff = 0.0;
   
@@ -219,7 +220,7 @@ function mousePressed() {
     }
 } 
 
-function checkFishClick() { //Function translated from Timers document on Pippin's CART 253 
+function checkFishClick() { 
     for (let i = 0; i < school.length; i++) {
         let fish = school[i]; 
         let d = dist(mouseX, mouseY, fish.x, fish.y); 
@@ -227,6 +228,6 @@ function checkFishClick() { //Function translated from Timers document on Pippin
             school.splice(i, 1);
             break;
         }
-    }//Create a function that checks if all fish are eaten immediately 
+    }
 }
 
