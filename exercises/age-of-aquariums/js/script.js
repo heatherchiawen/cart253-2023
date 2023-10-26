@@ -20,6 +20,7 @@ size: 50
 
 let school = []; //Open array 
 let schoolSize = 4; //Amount of fish in array 
+let fishDist = 100; 
 
 let state = `title`; //Title, simulation, win, lose 
 
@@ -55,17 +56,12 @@ function createFish(x, y) {
     let fish = {
         x: x, 
         y: y, 
-        // size:
         width: random(30, 90),
         height: random(30, 90),
-        // xy: random(-2, 2), 
-        // vy: random(-2, 2), 
-        speed: random(-2, 2), 
-        fill: {
-            r: 212, 
-            g: 121, 
-            b: 17
-        }
+        vx: 0, 
+        vy: 0, 
+        speed: random(-2, 2),
+        angle: 0 
     };
     return fish; 
 }
@@ -169,29 +165,58 @@ function moveFish(fish) {
     //     fish.vy = random(-fish.speed, fish.speed);  
     // }
 
-    fish.x = fish.x + fish.speed;
-    fish.y = fish.y + fish.speed;
+    // fish.x = fish.x + fish.speed;
+    // fish.y = fish.y + fish.speed;
 
     // let d = dist(mouseX, mouseY, fish.x, fish.y); 
-    
-    if (fish.x > user.x) {
-        fish.x ++; 
-    }
-    else if (fish.x < user.x) {
-        fish.x --; 
-    }
-    else if (fish.y > user.y) {
-        fish.y ++; 
-    }
-    else if (fish.y < user.y) {
-        fish.y --;
-    }
 
+    // fish.x --; 
+    // if (fish.x < 0) {
+    //     fish.x = width; 
+    // }
+
+    // // else if (fish.x > width) {
+    // //     fish.x --; 
+    // // }
+    // else if (fish.y - fish.height < 0) {
+    //     fish.y ++; 
+    // }
+    // else if (fish.y + fish.height > height) {
+    //     fish.y - fish.speed;
+    // }
+
+    // if (frameCount % 20 === 0) {
+    //     fish.y++; 
+    // }
+    // else if ((frameCount % 20 === 0)) {
+    // fish.y --; 
+    // }
+
+    let vx = fish.speed * cos(fish.angle); 
+    let vy = fish.speed * sin(fish.angle); 
+    
+    fish.x += vx; 
+    fish.y += vy; 
 
     // //Constrains the fish to the canvas 
-    // fish.x = constrain(fish.x, 0, width); 
-    // fish.y = constrain(fish.y, 0, height);
+    // fish.x = constrain(fish.x, 50, width - 50); 
+    // fish.y = constrain(fish.y, 50, height - 50);
+
+    if (fish.x > width) {
+        fish.x -= width;
+      }
+      else if (fish.x < 0) {
+        fish.x += width;
+      }
+    
+      if (fish > height) {
+        fish.y -= height;
+      }
+      else if (fish.y < 0) {
+        fish.y += height;
+      }
 }
+
 
 function displayFish(fish) {
     
