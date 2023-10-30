@@ -35,7 +35,12 @@ function setup() {
         let flower = new Flower();
         garden.flowers.push(flower);
     }
+    garden.flowers.sort(sortByY); 
+}
 
+function sortByY(flower1, flower2) {
+    // See TMI introducing Object-Oriented Programming 
+    return flower1.y - flower2.y;
 }
 
 
