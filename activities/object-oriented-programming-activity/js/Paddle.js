@@ -1,10 +1,10 @@
 class Paddle {
-    
+
     constructor(w, h) {
-        this.x = 0;
-        this.y = height - this.height / 2;
         this.width = w;
         this.height = h; 
+        this.x = 0;
+        this.y = height - this.height / 2;
     }
 
     move() {

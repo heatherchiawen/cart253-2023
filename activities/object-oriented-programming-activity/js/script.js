@@ -26,7 +26,7 @@ function setup() {
 
     paddle = new Paddle(300, 20);
 
-    for(let i = 0; i < numBalls; i++) {
+    for (let i = 0; i < numBalls; i++) {
         let x = random(0, width); 
         let y = random(-400, -100); 
         let ball = new Ball(x, y);
@@ -46,7 +46,7 @@ function draw() {
     for (let i = 0; i < balls.length; i++) {
         let ball = balls[i]; 
         if (ball.active) {
-            ball.gravoty(gravityForce); 
+            ball.gravity(gravityForce); 
             ball.move(); 
             ball.bounce(paddle); 
             ball.display();
