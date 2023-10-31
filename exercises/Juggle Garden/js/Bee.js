@@ -7,26 +7,47 @@ class Bee {
         this.vxx = 0; 
         this.vy = 0;
         this.speed = 5;
-        this.shrinkRate = 0.05;
-        this.jitteriness = 0.1; 
-        this.alive = true; 
+        this.growRate = 0.1; // Growth based on pollination 
+        this.shrinkRate = 0.05; // Shrink per each frame 
+        this.jitteriness = 0.1; // Change of direction 
+        this.alive = true; // Starts alive 
     }
-    shrink() {
-        this.size = this.size - this.shrinkRate; 
-        if (this.size < this.minSize) {
+    shrink() { 
+        this.size = this.size - this.shrinkRate; // Shrink by set amount
+        if (this.size < this.minSize) { // Shrink check 
             this.alive = false; 
         }
     }
+
+    tryToPollinate(flower) {
+        let d = dist(this.x, this.y, flower.x, flower.y); 
+        // Check for bee and flower overlap 
+        if(d < this.size / 2 + flower.size / 2) { 
+            // Calls bee growth 
+            this.grow(); 
+            // Pollination reaction to bee and flower overlap
+            flower.pollinate(); 
+        }
+    }
+
+    grow() {
+        // Bee increases in size from growRate 
+        this.size = this.size + this.growRate; 
+        // Constrains bee growth to maxSize
+        this.size = constrain(this.size, 0, this.maxSize); 
+    }
+
     move() {
+        // Direction change check 
         let r = random(0, 1); 
-        if (r< this.jitteriness) {
+        if (r < this.jitteriness) {
             this.vx = random(-this.speed, this.speed);
             this.vy = random(-this.speed, this.speed); 
         }
-        
+        // Updated position 
         this.x = this.x + this.x; 
         this.y = this.y + this.vy; 
-
+        // Constrained to canvas 
         this.x = constrain(this.x, 0, width); 
         this.y = constrain(this.y, 0, height); 
     }

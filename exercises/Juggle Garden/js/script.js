@@ -32,10 +32,10 @@ function preload() {
 function setup() { // Creating flowers and bees 
     createCanvas(windowWidth, windowHeight); 
 
-    for (let i = 0; i < garden.numFlowers; i++) { // Creating and adding flowers 
-        // New variables 
+    for (let i = 0; i < garden.numFlowers; i++) { 
+        // Creating and adding flowers with new variables 
         let x = random(0, width);
-        let y = random(o, height); 
+        let y = random(0, height); 
         let size = random(50, 80); 
         let stemLength = random(50, 100); 
         let petalColor = {
@@ -47,20 +47,22 @@ function setup() { // Creating flowers and bees
         let flower = new Flower(x, y, size, stemLength, petalColor);
         garden.flowers.push(flower);
     }
-    garden.flowers.sort(sortByY); 
+    // garden.flowers.sort(sortByY); 
 
-    for (let i = 0; i < garden.numBees; i++) { // Creating and adding bees 
+    for (let i = 0; i < garden.numBees; i++) {
+        // Creating and adding bees 
         let x = random(0, width); 
         let y = random(0, height); 
+        // New bee 
         let bee = new Bee(x, y); 
         garden.bees.push(bee); 
     }
 }
 
-function sortByY(flower1, flower2) {
-    // See TMI introducing Object-Oriented Programming 
-    return flower1.y - flower2.y;
-}
+// function sortByY(flower1, flower2) {
+//     // See TMI introducing Object-Oriented Programming 
+//     return flower1.y - flower2.y;
+// }
 
 
 /**
@@ -68,20 +70,26 @@ function sortByY(flower1, flower2) {
 */
 function draw() {
     background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b); 
-
-    for (let i = 0; i < garden.flowers.length; i++) { // Display for flowers 
+    // Display for flowers 
+    for (let i = 0; i < garden.flowers.length; i++) { 
         let flower = garden.flowers[i]; 
-        if(flower.alive) { // Updates flower with shrink and display 
+        // Updates flower with shrink and display 
+        if(flower.alive) { 
             flower.shrink();
             flower.display();
         }
     }
-
-    for (let i = 0; i < garden.bees.length; i++) { // Display for bees 
+    // Display for bees 
+    for (let i = 0; i < garden.bees.length; i++) { 
         let bee = garden.bees[i]; 
         if (bee.alive) {
             bee.shrink();
             bee.move(); 
+            // Calls bees to pollinate flowers 
+            for (let j = 0; j < garden.flowers.length; j++) {
+                let flower = garden.flowers[j]; 
+                bee.tryToPollinate(flower); 
+            }
             bee.display();
         }
     }
