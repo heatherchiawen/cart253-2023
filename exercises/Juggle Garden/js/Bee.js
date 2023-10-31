@@ -4,7 +4,7 @@ class Bee {
         this.y = y;
         this.size = 40; 
         this.minSize = 10; 
-        this.vxx = 0; 
+        this.vx = 0; 
         this.vy = 0;
         this.speed = 5;
         this.growRate = 0.1; // Growth based on pollination 
@@ -22,7 +22,7 @@ class Bee {
     tryToPollinate(flower) {
         let d = dist(this.x, this.y, flower.x, flower.y); 
         // Check for bee and flower overlap 
-        if(d < this.size / 2 + flower.size / 2) { 
+        if (d < this.size/2 + flower.size/2) { 
             // Calls bee growth 
             this.grow(); 
             // Pollination reaction to bee and flower overlap
@@ -45,7 +45,7 @@ class Bee {
             this.vy = random(-this.speed, this.speed); 
         }
         // Updated position 
-        this.x = this.x + this.xy; 
+        this.x = this.x + this.vx; 
         this.y = this.y + this.vy; 
         // Constrained to canvas 
         this.x = constrain(this.x, 0, width); 
@@ -56,7 +56,7 @@ class Bee {
         // 2 wings 
         fill(255); 
         noStroke(); 
-        ellipse(this.x - this.size/2, this.y, this.size/2); 
+        ellipse(this.x + this.size/2, this.y, this.size/2); 
         ellipse(this.x - this.size/2, this.y, this.size/2);
         pop();
 

@@ -29,13 +29,13 @@ class Flower {
         // Center of flower shrink
         this.size = this.size - shrinkage; 
         // Flower dies if properties reach 0 or less 
-        if(this.petalThickness <= 0 || this.size <= 0) {
+        if (this.petalThickness <= 0 || this.size <= 0) {
             this.alive = false; 
         }
     }
 
     pollinate() {
-        let growth = random(0, 0.05); 
+        let growth = random(0, 0.5); 
         this.petalThickness = this.petalThickness + growth/10; 
         this.size = this.size + growth; 
 

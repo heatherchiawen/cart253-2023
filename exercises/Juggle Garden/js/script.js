@@ -18,6 +18,8 @@ let garden = {
     }
 };
 
+let state = `title`; //Title, simulation, win, lose 
+
 /**
  * Description of preload
 */
@@ -47,8 +49,6 @@ function setup() { // Creating flowers and bees
         let flower = new Flower(x, y, size, stemLength, petalColor);
         garden.flowers.push(flower);
     }
-    // garden.flowers.sort(sortByY); 
-
     for (let i = 0; i < garden.numBees; i++) {
         // Creating and adding bees 
         let x = random(0, width); 
@@ -57,12 +57,13 @@ function setup() { // Creating flowers and bees
         let bee = new Bee(x, y); 
         garden.bees.push(bee); 
     }
+    garden.flowers.sort(sortByY); 
 }
 
-// function sortByY(flower1, flower2) {
-//     // See TMI introducing Object-Oriented Programming 
-//     return flower1.y - flower2.y;
-// }
+function sortByY(flower1, flower2) {
+    //  Sorting the flower array display 
+    return flower1.y - flower2.y;
+}
 
 
 /**
@@ -70,11 +71,36 @@ function setup() { // Creating flowers and bees
 */
 function draw() {
     background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b); 
+
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `simulation`) {
+        simulation(); 
+    }
+    else if (state === `win`) {
+        win();
+   }
+    else if (state === `lose`) {
+        lose();
+   }  
+}
+
+function title() {
+    push();
+    textSize(64); 
+    fill(189, 126, 49);
+    textAlign(CENTER, CENTER);
+    text('title', width/2, height/2);
+    pop();
+}
+
+function simulation() {
     // Display for flowers 
     for (let i = 0; i < garden.flowers.length; i++) { 
         let flower = garden.flowers[i]; 
         // Updates flower with shrink and display 
-        if(flower.alive) { 
+        if (flower.alive) { 
             flower.shrink();
             flower.display();
         }
@@ -94,3 +120,30 @@ function draw() {
         }
     }
 }
+
+function win() {
+    push();
+    textSize(64); 
+    fill(189, 126, 49);
+    textAlign(CENTER, CENTER);
+    text('win', width/2, height/2);
+    pop();
+}
+
+function lose() {
+    push();
+    textSize(64); 
+    fill(189, 126, 49);
+    textAlign(CENTER, CENTER);
+    text('lose', width/2, height/2);
+    pop();
+}
+
+function mousePressed() {
+    if (state === `title`) {
+        state = `simulation`;
+    }
+    // else if (state === `simulation`) {
+    //     checkFishClick();
+    //}
+} 
