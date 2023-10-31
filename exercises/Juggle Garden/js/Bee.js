@@ -45,7 +45,7 @@ class Bee {
             this.vy = random(-this.speed, this.speed); 
         }
         // Updated position 
-        this.x = this.x + this.x; 
+        this.x = this.x + this.xy; 
         this.y = this.y + this.vy; 
         // Constrained to canvas 
         this.x = constrain(this.x, 0, width); 
