@@ -17,7 +17,7 @@ let garden = {
         b: 120
     }
 };
-
+let user; 
 let state = `title`; //Title, simulation, win, lose 
 
 /**
@@ -31,8 +31,10 @@ function preload() {
 /**
  * Description of setup
 */
-function setup() { // Creating flowers and bees 
+function setup() { // Creating user, flowers, and bees 
     createCanvas(windowWidth, windowHeight); 
+
+    user = new User(); 
 
     for (let i = 0; i < garden.numFlowers; i++) { 
         // Creating and adding flowers with new variables 
@@ -119,6 +121,9 @@ function simulation() {
             bee.display();
         }
     }
+    //Display user 
+    user.displayScissor(); 
+    user.move();
 }
 
 function win() {
