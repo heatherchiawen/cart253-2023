@@ -17,8 +17,14 @@ let garden = {
         b: 120
     }
 };
+
 let user; 
+
 let state = `title`; //Title, simulation, win, lose 
+
+let gameOverTimer = 0; // Length of game in frames 
+let gamelength = 60 * 10; // 10 seconds 
+
 
 /**
  * Description of preload
@@ -98,6 +104,11 @@ function title() {
 }
 
 function simulation() {
+    // Game timer 
+    gameOverTimer++; 
+    if (gameOverTimer >= gameLength) {
+        gameOver(); 
+    }
     // Display for flowers 
     for (let i = 0; i < garden.flowers.length; i++) { 
         let flower = garden.flowers[i]; 
@@ -144,11 +155,34 @@ function lose() {
     pop();
 }
 
+function gameOver() {
+    if (bees.length === 0) {
+        state = `win`;
+    }
+    else {
+        state = `lose`;
+    }
+}
+
 function mousePressed() {
     if (state === `title`) {
         state = `simulation`;
     }
-    // else if (state === `simulation`) {
-    //     checkFishClick();
-    //}
-} 
+    else if (state === `simulation`) {
+        checkFlowerClick();
+
+    }
+}
+
+
+function checkFlowerClick() {
+    // Check for user and flower overlap 
+    for (let i = 0; i < garden.flowers.length; i++) {
+        let flower = garden.flowers[i]; 
+        let d = dist(mouseX, mouseY, flower.x, flower.y);
+        if (d < flower.size/2) {
+            garden.flowers.splice(i, 1);
+            break; 
+        }
+    }
+}

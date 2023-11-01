@@ -4,10 +4,11 @@ class Bee {
         this.y = y;
         this.size = 40; 
         this.minSize = 10; 
+        this.maxSize = 80;
         this.vx = 0; 
         this.vy = 0;
         this.speed = 5;
-        this.growRate = 0.1; // Growth based on pollination 
+        this.growRate = 0.25; // Growth based on pollination 
         this.shrinkRate = 0.05; // Shrink per each frame 
         this.jitteriness = 0.1; // Change of direction 
         this.alive = true; // Starts alive 
@@ -30,11 +31,13 @@ class Bee {
         }
     }
 
-    grow() {
+    grow() { 
         // Bee increases in size from growRate 
         this.size = this.size + this.growRate; 
         // Constrains bee growth to maxSize
-        this.size = constrain(this.size, 0, this.maxSize); 
+        if (this.size > this.maxSize){
+            constrain(this.size, 0, this.maxSize); 
+        }
     }
 
     move() {
