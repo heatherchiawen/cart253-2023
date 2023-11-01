@@ -1,4 +1,4 @@
-class User {
+class Scissor {
     constructor(x, y) {
         this.x = x; 
         this.y = y;
@@ -11,15 +11,6 @@ class User {
         this.x = mouseX; 
         this.y = mouseY;
     }
-    checkFlowerClick(flower) {
-        let d = dist(this.x, this.y, flower.x, flower.y); 
-        // Check for user and flower overlap 
-        if (d < this.size/2 + flower.size/2) { 
-            flower.splice(i, 1);
-        }
-    }
-       
-
     displayScissor() {
         // Scissor Blades 
         push();

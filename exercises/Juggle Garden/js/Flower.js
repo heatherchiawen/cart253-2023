@@ -43,14 +43,6 @@ class Flower {
         this.size = constrain(this.size, 0, this.maxSize);
     }
 
-    check() {
-        // Check for user and flower overlap 
-        let d = dist(mouseX, mouseY, this.x, this.y);
-        if (d < user.size/2 + this.size/2) { 
-            this.alive = false; 
-        }
-    }
-
     display() {
         push(); 
         // Strokeweight for petals and stem 

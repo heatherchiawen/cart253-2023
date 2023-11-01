@@ -18,12 +18,15 @@ let garden = {
     }
 };
 
-let user; 
+let scissor; 
 
 let state = `title`; //Title, simulation, win, lose 
 
 let gameOverTimer = 0; // Length of game in frames 
 let gameLength = 60 * 20; // 10 seconds 
+
+let newBeeTimer = 0; //A timer to count the number of frames in the simulation/game state 
+let newBeeDelay = 60 * 2; // A new bee every 2 seconds 
 
 
 /**
@@ -37,10 +40,10 @@ function preload() {
 /**
  * Description of setup
 */
-function setup() { // Creating user, flowers, and bees 
+function setup() { // Creating user/scissor, flowers, and bees 
     createCanvas(windowWidth, windowHeight); 
 
-    user = new User(); 
+        scissor = new Scissor(); 
 
     for (let i = 0; i < garden.numFlowers; i++) { 
         // Creating and adding flowers with new variables 
@@ -109,6 +112,15 @@ function simulation() {
     if (gameOverTimer >= gameLength) {
         gameOver(); 
     }
+    // Adding more bees to the simulation 
+    let x = random(0, width);
+    let y = random(0, height); 
+    newBeeTimer++; 
+    if (newBeeTimer >= newBeeDelay) {
+        let bee = new Bee (x, y); 
+        garden.bees.push(bee); 
+        newBeeTimer = 0;
+    }
     // Display for flowers 
     for (let i = 0; i < garden.flowers.length; i++) { 
         let flower = garden.flowers[i]; 
@@ -132,12 +144,12 @@ function simulation() {
             bee.display();
         }
     }
-    //Display user 
-    user.displayScissor(); 
-    user.move();
+    //Display user/scissor
+    scissor.displayScissor(); 
+    scissor.move();
 }
 
-function win() {
+function win() { // Create final display for flowers picked???
     push();
     textSize(64); 
     fill(189, 126, 49);
@@ -174,9 +186,8 @@ function mousePressed() {
     }
 }
 
-
 function checkFlowerClick() {
-    // Check for user and flower overlap 
+    // Check for user/scissor and flower overlap 
     for (let i = 0; i < garden.flowers.length; i++) {
         let flower = garden.flowers[i]; 
         let d = dist(mouseX, mouseY, flower.x, flower.y);
