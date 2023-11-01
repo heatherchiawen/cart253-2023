@@ -23,7 +23,7 @@ let user;
 let state = `title`; //Title, simulation, win, lose 
 
 let gameOverTimer = 0; // Length of game in frames 
-let gamelength = 60 * 10; // 10 seconds 
+let gameLength = 60 * 20; // 10 seconds 
 
 
 /**
@@ -155,8 +155,8 @@ function lose() {
     pop();
 }
 
-function gameOver() {
-    if (bees.length === 0) {
+function gameOver() { //garden.bees.length === 0 || 
+    if (garden.flowers.length === 0) {
         state = `win`;
     }
     else {
