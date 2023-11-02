@@ -2,6 +2,8 @@
  * Juggle Garden 
  * Heather Chester 
  * 
+ * This exercise uses the garden, bees, and flowers created from the Object Oriented Programming module. 
+ * With the objective to practice working with object interactions and input in OOP.
  */
 
 "use strict";
@@ -103,10 +105,11 @@ function draw() {
 function title() {
     push();
     textSize(64); 
-    fill(189, 126, 49);
+    fill(199, 80, 12);
+    textFont('Great Vibes, cursive');
     textAlign(CENTER, CENTER);
-    text('Make a bouqet!', width/2, height/2);
-    textSize(20);
+    text('Make a bouqet!', width/2, height/2.5);
+    textSize(30);
     text('Your garden has become infested with super bees!\nIf they polinate for too long they will grow too big and take over your garden!\nThe only option now is to pick all the flowers\nRemember to watch out for bees that are getting too big!\nPress "space" to use the net to catch bees\nPress "enter" to use sizzors to pick the flowers', width/2, height/1.5);
     pop();
 }
@@ -156,8 +159,9 @@ function simulation() {
 
 function win() { 
     push();
-    textSize(32); 
-    fill(189, 126, 49);
+    textSize(64); 
+    fill(199, 80, 12);
+    textFont('Great Vibes, cursive');
     textAlign(CENTER, CENTER);
     text('What a pretty bouquet for a pretty winner!', width/2, height/2);
     pop();
@@ -165,14 +169,17 @@ function win() {
 
 function lose() {
     push();
-    textSize(32); 
-    fill(189, 126, 49);
+    textSize(64); 
+    fill(199, 80, 12);
+    textFont('Great Vibes, cursive');
     textAlign(CENTER, CENTER);
     text('The bees have taken over your garden!\nYou lose!', width/2, height/2);
     pop();
 }
 
 function gameOver() { 
+    // When timer elapses, this function checks if all the flowers are gone 
+    // If flowers remain, the bees have taken over the garden, and the user has lost 
     if (garden.flowers.length === 0) {
         state = `win`;
     }
@@ -182,7 +189,8 @@ function gameOver() {
 }
 
 function keyPressed() {
-    // Checks which display the user is 
+    // Checks which display the user is based on what key is pressed
+    // Called in `simulation`
     if (state === `simulation`) {
         if (keyCode === 32) {
             net.display(); 

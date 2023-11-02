@@ -34,11 +34,11 @@ class Flower {
         }
     }
 
-    pollinate() {
+    pollinate() { 
+        // Called within the bee class event handler: tryToPollinate()
         let growth = random(0, 0.5); 
         this.petalThickness = this.petalThickness + growth/10; 
         this.size = this.size + growth; 
-
         this.petalThickness = constrain(this.petalThickness, 0, this.maxPetalThickness);
         this.size = constrain(this.size, 0, this.maxSize);
     }

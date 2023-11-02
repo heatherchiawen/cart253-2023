@@ -19,7 +19,6 @@ class Bee {
             this.alive = false; 
         }
     }
-
     tryToPollinate(flower) {
         let d = dist(this.x, this.y, flower.x, flower.y); 
         // Check for bee and flower overlap 
@@ -30,7 +29,6 @@ class Bee {
             flower.pollinate(); 
         }
     }
-
     grow() { 
         // Bee increases in size from growRate 
         this.size = this.size + this.growRate; 
@@ -39,7 +37,6 @@ class Bee {
             constrain(this.size, 0, this.maxSize); 
         }
     }
-
     move() {
         // Direction change check 
         let r = random(0, 1); 
@@ -54,7 +51,6 @@ class Bee {
         this.x = constrain(this.x, 0, width); 
         this.y = constrain(this.y, 0, height); 
     }
-    
     display() {
         push(); 
         // 2 wings 
