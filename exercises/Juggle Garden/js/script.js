@@ -94,10 +94,10 @@ function draw() {
     }
     else if (state === `win`) {
         win();
-   }
+    }
     else if (state === `lose`) {
         lose();
-   }  
+    }  
 }
 
 function title() {
@@ -105,7 +105,9 @@ function title() {
     textSize(64); 
     fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('title', width/2, height/2);
+    text('Make a bouqet!', width/2, height/2);
+    textSize(20);
+    text('Your garden has become infested with super bees!\nIf they polinate for too long they will grow too big and take over your garden!\nThe only option now is to pick all the flowers\nRemember to watch out for bees that are getting too big!\nPress "space" to use the net to catch bees\nPress "enter" to use sizzors to pick the flowers', width/2, height/1.5);
     pop();
 }
 
@@ -147,32 +149,49 @@ function simulation() {
             bee.display();
         }
     }
+    // When space bar is pressed the user is a net and can execute net related functions 
+    // When enter is pressed the user can execute scissor related functions 
+    keyPressed(); 
 }
 
-function win() { // Create final display for flowers picked???
+function win() { 
     push();
-    textSize(64); 
+    textSize(32); 
     fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('win', width/2, height/2);
+    text('What a pretty bouquet for a pretty winner!', width/2, height/2);
     pop();
 }
 
 function lose() {
     push();
-    textSize(64); 
+    textSize(32); 
     fill(189, 126, 49);
     textAlign(CENTER, CENTER);
-    text('lose', width/2, height/2);
+    text('The bees have taken over your garden!\nYou lose!', width/2, height/2);
     pop();
 }
 
-function gameOver() { //garden.bees.length === 0 || 
+function gameOver() { 
     if (garden.flowers.length === 0) {
         state = `win`;
     }
     else {
         state = `lose`;
+    }
+}
+
+function keyPressed() {
+    // Checks which display the user is 
+    if (state === `simulation`) {
+        if (keyCode === 32) {
+            net.display(); 
+            net.move(); 
+        }
+        else if (keyCode === ENTER) {
+            scissor.display(); 
+            scissor.move();
+        }
     }
 }
 
@@ -182,7 +201,6 @@ function mousePressed() {
     }
     else if (state === `simulation`) {
         checkFlowerClick();
-        // checkBeeDragged();
     }
 }
 
@@ -191,7 +209,7 @@ function checkFlowerClick() {
     // If so, flowers are removed from the array 
     for (let i = 0; i < garden.flowers.length; i++) {
         let flower = garden.flowers[i]; 
-        let d = dist(mouseX, mouseY, flower.x, flower.y);
+        let d = dist(scissor.x, scissor.y, flower.x, flower.y);
         if (d < flower.size/2) {
             garden.flowers.splice(i, 1);
             break; 
@@ -199,21 +217,15 @@ function checkFlowerClick() {
     }
 }
 
-function keyPressed() {
-    if (keyCode === 32) {
-    // scissor.display(); 
-    // scissor.move();
-    net.display(); 
-    net.move(); 
+function mouseDragged() {
+    // Check for user/net and bee overlap 
+    // If so, bees are caught 
+    for ( let i = 0; i < garden.bees.length; i++) {
+        let bee = garden.bees[i];     
+        let d = dist(net.x, net.y, bee.x, bee.y)
+        if (d < bee.size) {
+            garden.bees.splice(i, 1); 
+            break;
+        }
     }
 }
-
-// function checkBeeDragged() {
-//     // Check for user/scissor and bee overlap 
-//     // If so, bees shrink in size 
-//     for ( let i = 0; i < garden.bees.length; i++) {
-//         let bee = garden.bees[i]; 
-//         let d = dist(mouseX, mouseY, bee.x, bee.y); 
-        
-//     }
-// }
