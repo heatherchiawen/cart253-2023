@@ -18,7 +18,9 @@ let garden = {
     }
 };
 
+// User controlled objects, using keyPress to switch between the two 
 let scissor; 
+let net; 
 
 let state = `title`; //Title, simulation, win, lose 
 
@@ -44,6 +46,7 @@ function setup() { // Creating user/scissor, flowers, and bees
     createCanvas(windowWidth, windowHeight); 
 
         scissor = new Scissor(); 
+        net = new Net();
 
     for (let i = 0; i < garden.numFlowers; i++) { 
         // Creating and adding flowers with new variables 
@@ -144,9 +147,6 @@ function simulation() {
             bee.display();
         }
     }
-    //Display user/scissor
-    scissor.displayScissor(); 
-    scissor.move();
 }
 
 function win() { // Create final display for flowers picked???
@@ -182,12 +182,13 @@ function mousePressed() {
     }
     else if (state === `simulation`) {
         checkFlowerClick();
-
+        // checkBeeDragged();
     }
 }
 
 function checkFlowerClick() {
     // Check for user/scissor and flower overlap 
+    // If so, flowers are removed from the array 
     for (let i = 0; i < garden.flowers.length; i++) {
         let flower = garden.flowers[i]; 
         let d = dist(mouseX, mouseY, flower.x, flower.y);
@@ -197,3 +198,22 @@ function checkFlowerClick() {
         }
     }
 }
+
+function keyPressed() {
+    if (keyCode === 32) {
+    // scissor.display(); 
+    // scissor.move();
+    net.display(); 
+    net.move(); 
+    }
+}
+
+// function checkBeeDragged() {
+//     // Check for user/scissor and bee overlap 
+//     // If so, bees shrink in size 
+//     for ( let i = 0; i < garden.bees.length; i++) {
+//         let bee = garden.bees[i]; 
+//         let d = dist(mouseX, mouseY, bee.x, bee.y); 
+        
+//     }
+// }

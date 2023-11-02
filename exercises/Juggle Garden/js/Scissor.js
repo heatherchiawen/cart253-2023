@@ -11,29 +11,22 @@ class Scissor {
         this.x = mouseX; 
         this.y = mouseY;
     }
-    displayScissor() {
+    display() {
         // Scissor Blades 
         push();
         fill(100, 109, 112); //Gray 
         noStroke(); 
-        triangle(this.x - 10, this.y, this.x - 10, this.y - 80, this.x + 10, this.y);
-        triangle(this.x - 10, this.y, this.x + 10, this.y - 80, this.x + 10, this.y); 
+        triangle(this.x - 10, this.y, this.x - 10, this.y - 100, this.x + 10, this.y);
+        triangle(this.x - 10, this.y, this.x + 10, this.y - 100, this.x + 10, this.y); 
         pop();
 
         // Scissor handles 
         push();
-        fill(29, 28, 82); // Blue
-        noStroke(); 
+        strokeWeight(9);
+        stroke(29, 28, 82); // Blue
+        noFill(); 
         ellipse(this.x - 10, this.y + 40, 20, 80); 
         ellipse(this.x + 10, this.y + 40, 20, 80); 
-        pop(); 
-
-        // Interior Scissor handles 
-        push();
-        fill( 120, 180, 120); // Grass/background color 
-        noStroke(); 
-        ellipse(this.x - 10, this.y + 45, 12, 35)
-        ellipse(this.x + 10, this.y + 45, 12, 35)
         pop(); 
     }
 }
