@@ -20,8 +20,11 @@ let synth;
 
 let controller = {
     buttons: [],
-    numButtons: 10
+    numButtons: 10,
+    notes: [`F4`, `G4`, `Ab4`, `Bb4`, `C4`, `Db4`, `F5`] // Scale for F minor 
 };
+
+
 
 function preload() {
 }
@@ -32,6 +35,8 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     userStartAudio();
+    // Create synthesizer 
+    // synth = new p5.PolySynth(); 
 
     for (let i = 0; i < controller.numButtons; i++) { 
         let x = i*100+25;
@@ -39,8 +44,6 @@ function setup() {
         let button = new Button(x, y);
         controller.buttons.push(button);
     }
-
-    // synth = new p5.PolySynth(); 
     // Create oscillator at 440Hz with a sawtooth waveform
     // theramin = new p5.Oscillator(440, `sawtooth`); 
 }
@@ -56,6 +59,8 @@ function draw() {
         let button = controller.buttons[i];
         button.display();
     }
+}
+
 
     // // Calculate the freq between 0-440, based on the mouse Y position 
     // // Goes from 0, as the highest frequency since it equates visually 
@@ -67,14 +72,16 @@ function draw() {
     // let newAmp = map(mouseX, 0, width, 0, 0.5); 
     // // Set the amplitude
     // theramin.amp(newAmp); 
-}
+//}
 
 function mousePressed() {
     // theramin.start(); 
     // synth.play(`C5`, 1, 0, 1);
     for (let i = 0; i < controller.buttons.length; i++) {
         let button = controller.buttons[i];
-            button.mousePressed();
+        if (mouseX < button.x + button.size && mouseX > button.x && mouseY < button.y + button.size && mouseY > button.y) {
+            button.pressed(); 
+        }
     }
 }
 

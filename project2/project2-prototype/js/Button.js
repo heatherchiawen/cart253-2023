@@ -9,33 +9,35 @@ class Button {
         this.onColor = 81, 86, 87; // Darker grey 
         this.buttonOn = false; 
     }
-    mousePressed() {
-        // If mouse position is over any of the boxes 
-        if (mouseX < this.x + this.size && mouseX > this.x && mouseY < this.y + this.size && mouseY > this.y && this.buttonOn == false) {
-            // Starts off off until user clicks, turning in on, making it true 
-            this.buttonOn = true; 
-            this.offColor = this.onColor;  
+    pressed() {
+        if (!this.buttonOn) {
+            this.buttonOn = true;  
         }   
-        // else if (mouseX < this.x + this.size && mouseX > this.x && mouseY < this.y + this.size && mouseY > this.y && this.buttonOn == true){
-        //             this.buttonOn = false; 
-        //             this.onColor = this.offColor;
-        // }
+        // mouseX < this.x + this.size && mouseX > this.x && mouseY < this.y + this.size && mouseY > this.y
+        else if (this.buttonOn) {
+            this.buttonOn = false; 
+            // this.onColor = this.offColor;  
+        } 
     }
+
     
-    // mouseReleased() {
-    //     if (mouseX < this.x + this.size && mouseX > this.x && mouseY < this.y + this.size && mouseY > this.y && this.buttonOn == true) {
-    //         if (this.buttonOn == true) {
-    //             this.buttonOn = false; 
-    //             this.onColor = this.offColor; 
-    //         }
-    //     }
-    // }
+    reset() {
+        if (this.buttonOn) {
+            this.buttonOn = false; 
+            // this.onColor = this.offColor;  
+        } 
+    }
 
     display() {
         push();
         stroke(this.stroke);
         strokeWeight(this.strokeWeight);
-        fill(this.offColor);
+        if (!this.buttonOn) {
+            fill(this.offColor);
+        }
+        else if (this.buttonOn) {
+            fill(this.onColor); 
+        }
         rect(this.x, this.y, this.size, this.size);  
         pop();
     }
