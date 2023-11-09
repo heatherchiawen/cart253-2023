@@ -2,6 +2,8 @@
  * Project 2 - prototype
  * Heather Chester 
  * 
+ * Here is a simple prototype for Project 2. 
+ * While this is on a much smaller scale than what is intended, I hope this provides a rough idea for how I plan on furthering this project. 
  * 
  */
 
