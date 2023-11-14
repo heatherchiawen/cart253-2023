@@ -11,9 +11,8 @@
 */
 
 let balls = []; // Empty array for balls 
-let totalBalls = 5; 
 
-let osc; // to store oscillator 
+let notes = [`F3`, `G3`, `Ab4`, `Bb4`, `C4`, `Db4`, `F4`]; 
 
 function preload() {
 
@@ -25,16 +24,7 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    // userStartAudio(); 
-
-    for (let i = 0; i < totalBalls; i++) {
-        let x = random(0, width); 
-        let y = random(0, height); 
-
-        let ball = new Ball(x, y); 
-        balls.push(ball); 
-    }
-
+    userStartAudio(); 
 }
 
 
@@ -47,9 +37,9 @@ function draw() {
     for(let i = 0; i < balls.length; i++) {
         let ball = balls[i]; 
         ball.move(); 
-        // ball.bounce(); 
+        ball.bounce(); 
         ball.display(); 
-        // ball.mousePressed(); // Calls Ball class for oscillator to start when mouse pressed 
-        // ball.mouseReleased(); // Calls Ball class for oscillator to stop when mouse released 
     }
 }
+
+
