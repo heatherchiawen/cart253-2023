@@ -42,4 +42,10 @@ function draw() {
     }
 }
 
+function createBall(x, y) {
+    let note = random(notes); 
+    let ball = new Ball(x, y, note); 
+    balls.push(ball); 
+}
+
 
