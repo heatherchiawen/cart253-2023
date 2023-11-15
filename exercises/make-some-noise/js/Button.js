@@ -20,34 +20,29 @@ class Button {
         this.oscillator = new p5.Oscillator(); 
         this.oscillator.amp(0); 
         this.oscillator.start(); 
+        this.oscillator.fade(); 
 
         // Synth 
-        this.note = controller.pianoNote; 
+        this.note = controller.pianoNotes; 
         this.synth = new p5.PolySynth(); 
     }
     pressed() {
-        // Function to detect if the button is on or off 
-        if (!this.keysOn) {
-            this.keysOn = true; 
-            // Fade notes in 
-            this.oscillator.fade(0.5, 0.2);
-            this.playNote(); 
-        }   
-        else if (this.keysOn) {
-            this.keysOn = false; 
-            // Fade out of/ending a note
-            this.oscillator.fade(0, 0.2); 
-            // this.endNote(); 
-        } 
-    }
-    playNote() {
-        this.synth.play(this.note, 0.4, 0, 0.1); 
-    }
-    endNote() {
-        this.synth.stop(this.note, 0.4, 0, 0.1); 
+        // Check to see if button has been pressed 
+        if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
+            // Function to detect if the button is on or off 
+            if (!this.keysOn) {
+                this.keysOn = true; 
+                // Fade notes in 
+                this.oscillator.fade(0.5, 0.2);
+            }   
+            else if (this.keysOn) {
+                this.keysOn = false; 
+                // Fade out of/ending a note
+                this.oscillator.fade(0, 0.2); 
+            } 
+        }
     }
     pianoDisplay() {
-        // For natural white keys 
         push();
         noStroke();
         // If button is on display on color and if its off, display off color 
@@ -59,5 +54,6 @@ class Button {
             fill(this.pianoOnColor.r, this.pianoOnColor.g, this.pianoOnColor.b); 
         }
         rect(this.x, this.y, this.w, this.h);  
+        pop(); 
     }
 }
