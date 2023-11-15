@@ -12,7 +12,7 @@
 */
 
 let controller = {
-    buttons: [],
+    pianoKeys: [],
     sharps: [],  
     numPiano: 7,
     numSharps: 5,  
@@ -30,10 +30,10 @@ function setup() {
     for (let i = 0; i < controller.numPiano; i++) {
         let x = ((i*width/7)/2) + width/4;
         let y = height/2;
-        let button = new Button(x, y); 
+        let pianoKey = new PianoKey(x, y); 
         let note = controller.pianoNotes[i];
-        button.oscillator.freq(midiToFreq(note)); 
-        controller.buttons.push(button); 
+        pianoKey.oscillator.freq(midiToFreq(note)); 
+        controller.pianoKeys.push(pianoKey); 
     }
 }
 /**
@@ -41,17 +41,16 @@ function setup() {
 */
 function draw() {
     background(0); 
-    // Shows piano buttons 
-    for (let i = 0; i < controller.buttons.length; i++) {
-        let button = controller.buttons[i];
-        button.pianoDisplay(); 
+    // Shows white keys piano display
+    for (let i = 0; i < controller.pianoKeys.length; i++) {
+        let pianoKey = controller.pianoKeys[i];
+        pianoKey.pianoDisplay(); 
     }
 }
 function mousePressed() {
-    for (let i = 0; i < controller.buttons.length; i++) {
-        let button = controller.buttons[i]; 
-        button.pressed(); 
-        // let note = controller.pianoNotes[i];
-        // button.oscillator.freq(midiToFreq(notes));
+    // Calls for a mouse pressed check on the white piano keys 
+    for (let i = 0; i < controller.pianoKeys.length; i++) {
+        let pianoKey = controller.pianoKeys[i]; 
+        pianoKey.pressed(); 
     }
 }

@@ -1,4 +1,4 @@
-class Button {
+class PianoKey {
     constructor(x, y) {
         this.x = x; 
         this.y = y; 
@@ -27,9 +27,9 @@ class Button {
         this.synth = new p5.PolySynth(); 
     }
     pressed() {
-        // Check to see if button has been pressed 
+        // Check to see if white piano key has been pressed 
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
-            // Function to detect if the button is on or off 
+            // Function to detect if white piano key is on or off 
             if (!this.keysOn) {
                 this.keysOn = true; 
                 // Fade notes in 
@@ -45,8 +45,8 @@ class Button {
     pianoDisplay() {
         push();
         noStroke();
-        // If button is on display on color and if its off, display off color 
-        // On and off of button defined in pressed()
+        // If white piano key is on display on color and if its off, display off color 
+        // On and off white piano key defined in pressed()
         if (!this.keysOn) {
             fill(this.pianoOffColor.r, this.pianoOffColor.g, this.pianoOffColor.b);
         }
