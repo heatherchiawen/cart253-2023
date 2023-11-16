@@ -33,8 +33,8 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     userStartAudio();
 
-    let x = width/2
-    let y = height/2
+    let x = width/2 - 50; 
+    let y = height/3
     recorder = new Recorder(x, y); 
 
     for (let i = 0; i < controller.numPiano; i++) {
@@ -92,4 +92,3 @@ function mousePressed() {
     }
     recorder.recorderPressed(); 
 }
-

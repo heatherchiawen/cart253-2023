@@ -4,10 +4,10 @@ class Recorder {
         this.y = y; 
         this.w = 100;
         this.h = 50;
-        this.recorderOffColor = { // White for whole piano keys 
-            r: 255, 
-            g: 255,
-            b: 255
+        this.recorderOffColor = { 
+            r: 25, 
+            g: 226,
+            b: 2
         };
         this.recordingColor = { // Grey but maybe switch to random??? 
             r: 252,
@@ -23,6 +23,8 @@ class Recorder {
         this.recorder = new p5.SoundRecorder();
         this.soundFile; 
         this.state = 0; 
+        this.recorderOn = false; 
+        this.recorderPlay = false; 
 
         //For recording
         this.recorder.setInput(); 
@@ -30,35 +32,66 @@ class Recorder {
         this.soundFile = new p5.SoundFile(); 
     }
     recorderPressed() { 
-        if (this.state === 0 && mouseIsPressed && mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
-            fill(this.recorderOffColor.r, this.recorderOffColor.g, this.recorderOffColor.b); 
-            text(`record`, width/2, height/2, this.x, this.y); 
-            this.state++;
-        }
-        else if (this.state === 1) {
-            this.recorder.record(this.soundFile); 
-            fill(this.recordingColor.r, this.recordingColor.g, this.recordingColor.b)
-            text(`recording`, width/2, height/2, this.x, this.y); 
-            this.state++; 
-        }
-        else if (this.state === 2) {
-            this.recorder.stop(); // Stops recroder and sends results to sound file 
-            fill(this.playColor.r, this.playColor.g, this.playColor.b); 
-            text(`play`, width/2, height/2, this.x, this.y)
-            this.state++;
-        }
-        else if (this.state === 3) {
-            this.soundFile.play(); // plays the result 
-            save(this.soundFile, 'mySound.wav'); 
-            this.state++; 
+        getAudioContext()
+        if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
+            if (!this.recorderOn && this.state === 0) {
+                this.recorderOn = true; 
+                this.recorderPlay = false; 
+                this.state++;
+            }
+            else if (this.recorderOn && this.state === 1) {
+                this.recorderOn = false;
+                this.recorderPlay = false; 
+                this.recorder.record(this.soundFile); 
+                this.state++; 
+            }
+            else if (!this.recorderOn && !this.recorderPlay && this.state === 2) {
+                this.recorderOn = false;
+                this.recorderPlay = true; 
+                this.recorder.stop(); // Stops recroder and sends results to sound file 
+                this.state++;
+            }
+            else if (this.recorderPlay && this.state === 3) {
+                this.recorderOn = false;
+                this.recorderPlay = false; 
+                this.soundFile.play(); // plays the result 
+                // save(this.soundFile, 'mySound.wav'); 
+                this.state = 0; 
+            }  
         }
     }
+
     display() {
         push(); 
-        stroke(0);
-        strokeWeight(3);
-        noFill()
-        rect(this.x, this.y, this.w, -this.h);
+        noStroke();
+        if (!this.recorderOn && this.state === 0) {
+            fill(this.recorderOffColor.r, this.recorderOffColor.g, this.recorderOffColor.b);
+            rect(this.x, this.y, this.w, this.h);
+            textSize(16);
+            fill(0);
+            text(`record`, this.x + this.w /3.5, this.y + this.h/1.75); 
+        } 
+        else if (this.recorderOn && this.state === 1) {
+            fill(this.recordingColor.r, this.recordingColor.g, this.recordingColor.b);
+            rect(this.x, this.y, this.w, this.h);
+            textSize(16);
+            fill(0);
+            text(`recording`, this.x + this.w /3.5, this.y + this.h/1.75); 
+        }
+        else if (!this.recorderPlay && this.state === 2) {
+            fill(this.playColor.r, this.playColor.g, this.playColor.b); 
+            rect(this.x, this.y, this.w, this.h);
+            textSize(16);
+            fill(0);
+            text(`play`, this.x + this.w /3.5, this.y + this.h/1.75); 
+        }
+        else if (this.recorderPlay && this.state === 3) {
+            fill(this.recorderOffColor.r, this.recorderOffColor.g, this.recorderOffColor.b);
+            rect(this.x, this.y, this.w, this.h);
+            textSize(16);
+            fill(0);
+            text(`restart`, this.x + this.w /3.5, this.y + this.h/1.75)
+        }  
         pop(); 
     }
 } 
