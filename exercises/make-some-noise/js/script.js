@@ -37,6 +37,8 @@ function setup() {
     let y = height/3
     recorder = new Recorder(x, y); 
 
+    
+
     for (let i = 0; i < controller.numPiano; i++) {
         let x = i*width/16 + (width/3.6)
         let y = height/2;
