@@ -2,7 +2,7 @@ class PianoKey {
     constructor(x, y) {
         this.x = x; 
         this.y = y; 
-        this.w = 100;
+        this.w = 50;
         this.h = 200;
         this.pianoOffColor = { // White for whole piano keys 
             r: 255, 
@@ -23,7 +23,7 @@ class PianoKey {
         this.oscillator.fade(); 
 
         // Synth 
-        this.note = controller.pianoNotes; 
+        // this.note = controller.pianoNotes; 
         this.synth = new p5.PolySynth(); 
     }
     pressed() {
@@ -44,7 +44,8 @@ class PianoKey {
     }
     pianoDisplay() {
         push();
-        noStroke();
+        stroke(0);
+        strokeWeight(1); 
         // If white piano key is on display on color and if its off, display off color 
         // On and off white piano key defined in pressed()
         if (!this.keysOn) {
