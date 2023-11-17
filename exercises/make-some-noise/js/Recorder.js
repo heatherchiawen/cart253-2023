@@ -20,17 +20,18 @@ class Recorder {
             b: 214
         };
         this.recorder = new p5.SoundRecorder();
-        this.soundFile; //= new p5.SoundFile(); // To save recording 
+        this.soundFile; 
+        this.soundLoop;
         this.recorder.setInput(); // Empty input records all sounds in program  
-
-        this.state = 0; 
         
+        // Starting state = 0 (no recording) until...
+        this.state = 0; 
+
+        // Booleans for clarity 
         this.recorderOn = false; 
         this.recorderPlay = false; 
     }
     recorderPressed() { 
-        // getAudioContext()
-        // Starting state = 0 (no recording) until...
         // Recording button pressed and state = 0. Then recording starts 
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             if (!this.recorderOn && !this.recorderPlay && this.state === 0) {
@@ -51,32 +52,33 @@ class Recorder {
                 this.recorderOn = false;
                 this.recorderPlay = false; 
                 // Stops recroder and sends results to sound file 
-                this.recorder.stop(); 
-                // To 
-                //this.recorder.record(this.soundFile); 
+                this.recorder.stop();  
                 this.state++; 
             }
-            
-            // State 2 stops plays recorded audio back  
+            // Check if button is pressed again and state = 2
+            // State 2 plays recorded audio back  
+            // Moves to state 3
             else if (!this.recorderOn && !this.recorderPlay && this.state === 2) {
                 this.recorderOn = false;
                 this.recorderPlay = true; 
-                this.soundFile.play(); // plays the result 
-                //this.recorder.stop(); // Stops recroder and sends results to sound file 
+                this.soundFile.loop(); // Plays the reult on loop and can play more loops on top 
+                //this.soundFile.play(); // plays the result once 
                 this.state++;
             } 
-            // 
             // Check if pressed again and state 
             else if (!this.recorderOn && this.recorderPlay && this.state === 3) {
                 this.recorderOn = false;
                 this.recorderPlay = false; 
+                // Uncomment to save sounds created in program 
                 // save(this.soundFile, 'mySound.wav'); 
                 this.state = 0; 
             }  
         }
     }
-
     display() {
+        // Chose to separate display from recorder pressed despite using the same booleans 
+        // This separation is temporary as I plan to condense all this code for Project 2 
+        // For now, it just proves to be easier to read and control object as build up the program
         push(); 
         noStroke();
         if (!this.recorderOn && !this.recorderPlay && this.state === 0) {
