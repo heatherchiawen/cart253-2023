@@ -25,6 +25,8 @@ let controller = {
 
 let recorder; 
 
+let lines = []; 
+
 function preload() {
 }
 /**
@@ -84,6 +86,15 @@ function draw() {
     }
     // For recorder button display 
     recorder.display(); 
+
+    if (mouseIsPressed) {
+        let line = new LineDrawn(); 
+        lines.push(line); 
+    }
+
+    for (let line of lines) {
+        line.show(); 
+    }
 }
 
 function mousePressed() {
