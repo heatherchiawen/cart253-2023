@@ -9,12 +9,12 @@ class Recorder {
             g: 226,
             b: 2
         };
-        this.recordingColor = { // Grey but maybe switch to random??? 
+        this.recordingColor = { // Red but maybe get it to blink?  
             r: 252,
             g: 3, 
             b: 44
         };
-        this.playColor = { // Grey but maybe switch to random??? 
+        this.playColor = { // Blue
             r: 69,
             g: 144, 
             b: 214

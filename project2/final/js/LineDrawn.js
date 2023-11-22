@@ -5,4 +5,9 @@ class LineDrawn {
         this.x = winMouseX; // mouse position in the current frame 
         this.y = winMouseY; 
     }
+    show() {
+        stroke(0); // black 
+        line(this.px, this.py, this.x, this.y);  
+
+    }
 }
