@@ -1,4 +1,6 @@
-Heather Chester, 40215280
+Heather Chester
+
+40215280
 
 CART 253 
 
