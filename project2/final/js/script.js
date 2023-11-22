@@ -11,81 +11,92 @@
  * Description of preload
 */
 
-let osc; // To store oscillator 
-let fft; 
-let amp; 
-let lineSpacing; 
-
+// For all keys 
 let controller = {
-    buttons: [],
-    numButtons: 7, 
-    note: [60, 62, 64, 65, 67, 69, 71] // Midi notes 
-};
-
-function preload() {
-
+    pianoKeys: [],
+    sharpKeys: [],  
+    numPiano: 8,
+    pianoNotes: [60, 62, 64, 65, 67, 69, 71, 72], // Midi notes in C4 octave 
+    twoNumSharps: 2,
+    threeNumSharps: 3,
+    twoSharpNotes: [61, 63], // Midi notes 
+    threeSharpNotes: [66, 68, 70] // Midi notes 
 }
 
+let recorder; 
 
+function preload() {
+}
 /**
  * Description of setup
 */
 function setup() {
-    createCanvas(windowWidth, windowHeight); 
+    createCanvas(windowWidth, windowHeight);
     userStartAudio();
 
-    // Sound
-    osc = new p5.TriOsc(); 
-    // Start silent 
-    osc.start(); 
-    osc.amp(0); 
-
-    // For sound visualization 
-    fft = new p5.FFT(0.9, 128);
-    angleMode(DEGREES);
-    lineSpacing = width/128; 
-
-    // Button setup 
-    for (let i = 0; i < controller.numButtons; i++) { 
-        let x = i*width/7 + (width/14);
-        let y = height/1.2; 
-        let button = new Button(x, y);
-        controller.buttons.push(button);
+    // Setup recorder 
+    let x = width/2 - 50; 
+    let y = height/3
+    recorder = new Recorder(x, y);
+    
+    // Sets up piano and sharp array
+    // Assigns its note value per each object in array 
+    for (let i = 0; i < controller.numPiano; i++) {
+        let x = i*width/16 + (width/3.6)
+        let y = height/2;
+        let pianoKey = new PianoKey(x, y); 
+        let note = controller.pianoNotes[i];
+        pianoKey.oscillator.freq(midiToFreq(note)); 
+        controller.pianoKeys.push(pianoKey); 
+    }
+    // Created separate loops to create the odd separation between sharp keys 
+    for (let i = 0; i < controller.twoNumSharps ; i++) {
+        let x = ((i*width/16) + width/3) - 22
+        let y = height/2 - 30;
+        let sharpKey = new SharpKey(x, y); 
+        let note = controller.twoSharpNotes[i];
+        sharpKey.oscillator.freq(midiToFreq(note)); 
+        controller.sharpKeys.push(sharpKey); 
+    }
+    for (let i = 0; i < controller.threeNumSharps ; i++) {
+        let x = ((i*width/16) + width/2) + 7;
+        let y = height/2 - 30;
+        let sharpKey = new SharpKey(x, y); 
+        let note = controller.threeSharpNotes[i];
+        sharpKey.oscillator.freq(midiToFreq(note)); 
+        controller.sharpKeys.push(sharpKey); 
     }
 }
-
-
 /**
  * Description of draw()
 */
 function draw() {
-    background(0); 
-
-    let spectrum = fft.analyze(); 
-    for (let j = 0; j < spectrum.length; j++) {
-        stroke(255);
-        let amp = spectrum[j];
-        let y = map(amp, 0, 256, height, 0); 
-        rect((width/2) + (j * lineSpacing), y, lineSpacing, height - y);
-        rect((width/2) - (j * lineSpacing), y, lineSpacing, height - y);
+    background(255);
+    // White keys piano display
+    for (let i = 0; i < controller.pianoKeys.length; i++) {
+        let pianoKey = controller.pianoKeys[i];
+        pianoKey.pianoDisplay(); 
     }
-
-    // Show all the buttons 
-    for (let i = 0; i < controller.buttons.length; i++) {
-        let button = controller.buttons[i];
-        button.display();
+    // Black sharp keys display
+    for (let i = 0; i < controller.sharpKeys.length; i++) {
+        let sharpKey = controller.sharpKeys[i];
+        sharpKey.sharpDisplay(); 
     }
+    // For recorder button display 
+    recorder.display(); 
 }
 
 function mousePressed() {
-    for (let i = 0; i < controller.buttons.length; i++) {
-        let button = controller.buttons[i];
-            // If any buttons in the array have been pressed by the mouse 
-            // Then tells the button class whether it is on or off, changing the display colour as well
-        if (mouseX < button.x + button.size && mouseX > button.x && mouseY < button.y + button.size && mouseY > button.y) {
-            button.pressed();
-            // Calls different notes according to the array index   
-            osc.freq(midiToFreq(controller.note[i])); 
-        }
+    // Check if the white piano keys have been pressed 
+    for (let i = 0; i < controller.pianoKeys.length; i++) {
+        let pianoKey = controller.pianoKeys[i]; 
+        pianoKey.pressed(); 
+    } 
+    // Check for sharp keys 
+    for (let i = 0; i < controller.sharpKeys.length; i++) {
+        let sharpKey = controller.sharpKeys[i]; 
+        sharpKey.pressed(); 
     }
+    // Check for recorder button 
+    recorder.recorderPressed(); 
 }
