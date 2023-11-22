@@ -1,3 +1,16 @@
-# Template p5 project
+Heather Chester
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+40215280
+
+CART 253 
+
+Prof. Pippin Barr 
+
+11/21/2023 
+
+
+Course and Progress Reflection 
+
+Before starting this course, I knew nothing about programming. Coming from an Art History background and having primarily studied periods where technology was just in its beginning stages, programming and tech seemed so distant despite being so relevant. This distance, coupled with the daunting reality of having to learn something entirely new, coated me in nervous anticipation and curious excitement. While these sentiments haven’t subsided throughout my experience learning programming, I’ve found myself slowly getting more comfortable and confident in my abilities. Although I did and still do face challenges– such as what seems like endless debugging, navigating a schedule to complete assignments, and the overall stress that usually comes with life and school, I felt saved and encouraged by the idea of learning something new, creating something out of scratch with a foreign medium, and the moments of joy when I figure out a problem. 
+
+However, one of the most troublesome aspects I encountered was deciding when I was finished with a project or assignment. Never seeming to rid myself of the feeling that there is more to do or add, or if the work that I had done was thorough, creative, or original enough. Which I can recognize might be attributed to this being the first studio-based course I have taken at Concordia, and being unfamiliar with what is expected of me and what expectations am I setting for myself within this new environment. Though I understand and foresee that these challenges and mentalities are not solely problems for beginners of programming, I can only hope that confidence in my creativity, ability, and timeliness will come as I further explore and better my knowledge and practice. Nevertheless, this course has served as an eye-opening introduction to the world of programming and brought me closer to its limitless opportunities. I remain optimistic for a continued path in programming as this semester comes to an end and I move on to the second half of this course next semester. I also hope that with what I have learned this semester, I continue to program over the break, creating, experimenting, and putting together and organizing work that can applied to a portfolio as I apply for a minor in the program.  
