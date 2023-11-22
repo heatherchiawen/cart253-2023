@@ -1,7 +1,11 @@
 Heather Chester, 40215280
+
 CART 253 
+
 Prof. Pippin Barr 
+
 11/21/2023 
+
 
 Course and Progress Reflection 
 
