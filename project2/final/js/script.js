@@ -37,14 +37,14 @@ function setup() {
     userStartAudio();
 
     // Setup recorder 
-    let x = width/2 - 50; 
-    let y = height/3
+    let x = width/2; 
+    let y = 50
     recorder = new Recorder(x, y);
     
     // Set up piano array
     // Assigns its note value per each object in array 
     for (let i = 0; i < controller.numPiano; i++) {
-        let x = i*width/49 + 2
+        let x = i*width/49 + width/4
         //let x = i*width/32 + (width/2.6); 
         let y = height - 150; 
         let pianoKey = new PianoKey(x, y); 
