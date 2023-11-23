@@ -2,8 +2,8 @@ class PianoKey {
     constructor(x, y) {
         this.x = x; 
         this.y = y; 
-        this.w = 50;
-        this.h = 200;
+        this.w = 25;
+        this.h = 100;
         this.pianoOffColor = { // White for whole piano keys 
             r: 255, 
             g: 255,

@@ -2,8 +2,8 @@ class SharpKey {
     constructor(x, y) {
         this.x = x; 
         this.y = y; 
-        this.w = 25;
-        this.h = 150;
+        this.w = 10;
+        this.h = 75;
         this.sharpOffColor = { // Black for sharp off color 
             r: 0, 
             g: 0,
