@@ -29,9 +29,13 @@ let controller = {
     threeSharpNotes: [66, 68, 70] // Midi notes 
 }
 
+let c = [100, 0, 0, 100, 100, 100, 0]; 
+
+
 let recorder; 
 
 let lines = []; 
+let start = false; 
 
 function preload() {
 }
@@ -40,6 +44,8 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    colorMode(HSL); 
+    background(255);
     userStartAudio();
 
     // Setup recorder 
@@ -58,66 +64,78 @@ function setup() {
         pianoKey.oscillator.freq(midiToFreq(note)); 
         controller.pianoKeys.push(pianoKey); 
     }
-    // Created separate loops to create the odd separation between sharp keys 
-    for (let i = 0; i < controller.twoNumSharps ; i++) {
-        //let x = i*width/49 + 25
-        let x = ((i*width/32) + width/2.6) + 30;
-        let y = height - 155; 
-        let sharpKey = new SharpKey(x, y); 
-        let note = controller.twoSharpNotes[i];
-        sharpKey.oscillator.freq(midiToFreq(note)); 
-        controller.sharpKeys.push(sharpKey); 
-    }
-    for (let i = 0; i < controller.threeNumSharps ; i++) {
-        //let x = ((i*width/49) + width/2) + 7;
-        let x = ((i*width/32) + width/2) - 1
-        let y = height - 155; 
-        let sharpKey = new SharpKey(x, y); 
-        let note = controller.threeSharpNotes[i];
-        sharpKey.oscillator.freq(midiToFreq(note)); 
-        controller.sharpKeys.push(sharpKey); 
-    }
+    // // Created separate loops to create the odd separation between sharp keys 
+    // for (let i = 0; i < controller.twoNumSharps ; i++) {
+    //     //let x = i*width/49 + 25
+    //     let x = ((i*width/32) + width/2.6) + 30
+    //     let y = height - 155; 
+    //     let sharpKey = new SharpKey(x, y); 
+    //     let note = controller.twoSharpNotes[i];
+    //     sharpKey.oscillator.freq(midiToFreq(note)); 
+    //     controller.sharpKeys.push(sharpKey); 
+    // }
+    // for (let i = 0; i < controller.threeNumSharps ; i++) {
+    //     //let x = ((i*width/49) + width/2) + 7;
+    //     let x = ((i*width/32) + width/2) - 1; 
+    //     let y = height - 155; 
+    //     let sharpKey = new SharpKey(x, y); 
+    //     let note = controller.threeSharpNotes[i];
+    //     sharpKey.oscillator.freq(midiToFreq(note)); 
+    //     controller.sharpKeys.push(sharpKey); 
+    // }
 }
 /**
  * Description of draw()
 */
 function draw() {
-    background(255);
+    // background(255);
     // White keys piano display
     for (let i = 0; i < controller.pianoKeys.length; i++) {
         let pianoKey = controller.pianoKeys[i];
+        fill(100, 100, c[i]); 
         pianoKey.pianoDisplay(); 
     }
-    // Black sharp keys display
-    for (let i = 0; i < controller.sharpKeys.length; i++) {
-        let sharpKey = controller.sharpKeys[i];
-        sharpKey.sharpDisplay(); 
-    }
+    // // Black sharp keys display
+    // for (let i = 0; i < controller.sharpKeys.length; i++) {
+    //     let sharpKey = controller.sharpKeys[i];
+    //     sharpKey.sharpDisplay(); 
+    // }
     // For recorder button display 
     recorder.display(); 
 
-    // Temporarily putting this aside 
-    // for drawing program 
-    // if (mouseIsPressed) {
-    //     let line = new LineDrawn(); 
-    //     lines.push(line); 
-    // }
-    // for (let line of lines) {
-    //     line.show(); 
-    // }
+    // Statements and loops for the drawing bit of code 
+    if (start) {
+        lines.push(createVector(mouseX, mouseY));
+    }
+    stroke(0); 
+    noFill();
+    beginShape(); 
+    for(let i = 0; i <lines.length; i++) {
+        let x = lines[i].x; 
+        let y = lines[i].y;
+        vertex(x, y);  
+    }
+    endShape(); 
 }
 
 function mousePressed() {
+    // For drawing program 
+    start = true; 
+    lines = []; 
     // Check if the white piano keys have been pressed 
     for (let i = 0; i < controller.pianoKeys.length; i++) {
         let pianoKey = controller.pianoKeys[i]; 
         pianoKey.pressed(); 
     } 
-    // Check for sharp keys 
-    for (let i = 0; i < controller.sharpKeys.length; i++) {
-        let sharpKey = controller.sharpKeys[i]; 
-        sharpKey.pressed(); 
-    }
+    // // Check for sharp keys 
+    // for (let i = 0; i < controller.sharpKeys.length; i++) {
+    //     let sharpKey = controller.sharpKeys[i]; 
+    //     sharpKey.pressed(); 
+    // }
     // Check for recorder button 
     recorder.recorderPressed(); 
+}
+function mouseReleased() {
+    start = false; 
+    lines = []; 
 }

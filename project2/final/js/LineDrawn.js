@@ -7,7 +7,6 @@ class LineDrawn {
     }
     show() {
         stroke(0); // black 
-        line(this.px, this.py, this.x, this.y);  
-
+        line(this.px, this.py, this.x, this.y); 
     }
 }

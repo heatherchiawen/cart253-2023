@@ -22,8 +22,10 @@ class SharpKey {
         this.oscillator.start(); 
         this.oscillator.fade(); 
 
+        //this.note = [61, 63, 66, 68, 70] // Midi notes 
+        //this.oscillator.freq(midiToFreq(this.note)); 
+
         // Synth 
-        // this.note = controller.sharpNotes; 
         this.synth = new p5.PolySynth(); 
     }
     pressed() {
