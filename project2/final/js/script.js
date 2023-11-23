@@ -98,4 +98,8 @@ function mousePressed() {
 function mouseReleased() {
     start = false; 
     lines = []; 
+    for (let i = 0; i < controller.pianoKeys.length; i++) {
+        let pianoKey = controller.pianoKeys[i]; 
+        pianoKey.released(); 
+    } 
 }
