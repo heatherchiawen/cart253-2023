@@ -1,7 +1,7 @@
 class Recorder {
-    constructor(x, y) {
-        this.x = x; 
-        this.y = y; 
+    constructor() {
+        this.x = width/2; 
+        this.y = 50; 
         this.size = 35;
         this.w = 35;
         this.h = 35;
@@ -42,8 +42,9 @@ class Recorder {
             if (!this.recorderOn && !this.recorderPlay) {
                 this.recorderOn = false; // Recording is off 
                 this.recorderPlay = true; // Playback is on 
-                this.soundFile.loop(); // Plays the reult on loop and can play more loops on top 
+                this.soundFile.loop(); // Plays the reult on loop  
                 //this.soundFile.play(); // plays the result once 
+                // if using play() maybe add an option for if the play button is played again the audio will play once again 
                 } 
                 else if (!this.recorderOn && this.recorder) {
                     this.recorderOn = false;
@@ -87,12 +88,8 @@ class Recorder {
         pop(); 
 
         // Replace with a save option display?
-        // Display for pause button 
-        // push();
-        // noStroke(); 
-        //     fill(0);  
+        // Use old pause coordinates 
         // rect(this.x - this.w/2 + this.playSpacing, this.y - this.h/2, this.w/4, this.h);
         // rect(this.x + this.playSpacing, this.y - this.h/2, this.w/4, this.h);    
-        // pop(); 
     }
 } 

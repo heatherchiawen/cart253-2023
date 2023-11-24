@@ -21,6 +21,8 @@ let piano = {
 
 let recorder; 
 
+let soundWave; 
+
 let lines = []; 
 let start = false; 
 
@@ -40,9 +42,11 @@ function setup() {
     frameRate(60); 
 
     // Setup recorder 
-    let x = width/2; 
-    let y = 50
-    recorder = new Recorder(x, y);
+    // let x = width/2; 
+    // let y = 50
+    recorder = new Recorder();
+
+    soundWave = new SoundWave(); 
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -68,12 +72,13 @@ function draw() {
     }
     // For recorder button display 
     recorder.display(); 
-
+    // For sound wave display 
+    soundWave.display(); 
      // Statements and loops for drawing 
     if (start) {
         lines.push(createVector(mouseX, mouseY));
     }
-
+    // Drawing program 
     stroke(0); 
     strokeWeight(3); 
     noFill();
@@ -82,7 +87,7 @@ function draw() {
         let x = lines[i].x; 
         let y = lines[i].y;
         vertex(x, y);  
-    }
+    } 
     endShape(); 
 }
 
@@ -98,6 +103,8 @@ function mousePressed() {
     // Check for recorder and play button 
     recorder.recording();
     recorder.play();
+    // For sound waves 
+    soundWave.pressed (); 
 }
 function mouseReleased() {
     // For drawing program 

@@ -28,36 +28,15 @@ class PianoKey {
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             // If mouse is released, then piano key fades off 
             this.keysOn = false; 
-            if (keyCode === 97) {
-                this.oscillator.setType(`triangle`); 
-            }
         }
     }
     pianoDisplay() {
         push();
         stroke(0);
         strokeWeight(1); 
-        // Think about adding an on fill later... 
+        // Think about adding an keyOn fill later... 
         // For now, the fill is controlled by the color array defined in the main script 
         rect(this.x, this.y, this.w, this.h);  
-        pop(); 
-    }
-    soundWaveDisplay() {
-        // Sine 
-        push(); 
-        text(`sine`, )
-        pop(); 
-
-        // Square
-        push(); 
-        pop(); 
-
-        // Triangle 
-        push(); 
-        pop(); 
-
-        // Sawtooth 
-        push(); 
         pop(); 
     }
 }
