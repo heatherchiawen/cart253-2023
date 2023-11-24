@@ -13,6 +13,7 @@ class PianoKey {
         this.oscillator.fade(); 
     }
     pressed() {
+        // Write code for if lines touch the keys 
         // Check to see if white piano key has been pressed 
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             // If pressed, piano key turns on  
