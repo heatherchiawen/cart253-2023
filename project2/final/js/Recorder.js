@@ -68,13 +68,22 @@ class Recorder {
 
         // Display for play button 
         push(); 
-        noStroke(); 
-        if (!this.recorderPlay) {
-            fill(0);  
-        } else {
-            fill(50); 
-        }
-        triangle(this.x - this.w/2, this.y + this.h/2, this.x - this.w/2, this.y - this.h/2, this.x + this.w/2, this.y);  
+        noStroke();
+        if (!this.recorderPlay) {  
+            erase(); // Erases the previous icon 
+            rect(this.x - this.w/2, this.y - this.h/2, this.w/4, this.h);
+            rect(this.x, this.y - this.h/2, this.w/4, this.h);  
+            noErase(); 
+            fill(0);
+            triangle(this.x - this.w/2, this.y + this.h/2, this.x - this.w/2, this.y - this.h/2, this.x + this.w/2, this.y);
+        } else if (this.recorderPlay) {
+            erase(); 
+            triangle(this.x - this.w/2, this.y + this.h/2, this.x - this.w/2, this.y - this.h/2, this.x + this.w/2, this.y);
+            noErase(); 
+            fill(0); 
+            rect(this.x - this.w/2, this.y - this.h/2, this.w/4, this.h);
+            rect(this.x, this.y - this.h/2, this.w/4, this.h);  
+        } 
         pop(); 
 
         // Replace with a save option display?

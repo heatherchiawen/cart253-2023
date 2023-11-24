@@ -8,7 +8,9 @@ class PianoKey {
 
         // Oscillator 
         this.oscillator = new p5.Oscillator(); 
-        this.oscillator.amp(0); 
+        this.env = new p5.Envelope();
+        this.env.setADSR(0.1, 0.1, 1, 0.5); 
+        this.oscillator.amp(this.env); 
         this.oscillator.start(); 
         this.oscillator.fade(); 
     }
@@ -18,16 +20,17 @@ class PianoKey {
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             // If pressed, piano key turns on  
             this.keysOn = true; 
-            // Fade notes in 
-            this.oscillator.fade(0.5, 0.2);
+            // Play sound 
+            this.env.play(); 
         }
     }
     released() {
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             // If mouse is released, then piano key fades off 
             this.keysOn = false; 
-            // Fade out of/ending a note
-            this.oscillator.fade(0, 1); 
+            if (keyCode === 97) {
+                this.oscillator.setType(`triangle`); 
+            }
         }
     }
     pianoDisplay() {
@@ -37,6 +40,24 @@ class PianoKey {
         // Think about adding an on fill later... 
         // For now, the fill is controlled by the color array defined in the main script 
         rect(this.x, this.y, this.w, this.h);  
+        pop(); 
+    }
+    soundWaveDisplay() {
+        // Sine 
+        push(); 
+        text(`sine`, )
+        pop(); 
+
+        // Square
+        push(); 
+        pop(); 
+
+        // Triangle 
+        push(); 
+        pop(); 
+
+        // Sawtooth 
+        push(); 
         pop(); 
     }
 }

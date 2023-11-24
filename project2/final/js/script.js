@@ -43,7 +43,7 @@ function setup() {
     let x = width/2; 
     let y = 50
     recorder = new Recorder(x, y);
-    
+
     // Set up piano array
     // Assigns its note value per each object in array 
     for (let i = 0; i < piano.numPiano; i++) {
@@ -68,12 +68,28 @@ function draw() {
     }
     // For recorder button display 
     recorder.display(); 
+
+     // Statements and loops for drawing 
+    if (start) {
+        lines.push(createVector(mouseX, mouseY));
+    }
+
+    stroke(0); 
+    strokeWeight(3); 
+    noFill();
+    beginShape(); 
+    for(let i = 0; i <lines.length; i++) {
+        let x = lines[i].x; 
+        let y = lines[i].y;
+        vertex(x, y);  
+    }
+    endShape(); 
 }
 
 function mousePressed() {
     // For drawing program 
-    // start = true; 
-    // lines = []; 
+    start = true; 
+    lines = []; 
     // Check for piano keys 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
@@ -85,8 +101,8 @@ function mousePressed() {
 }
 function mouseReleased() {
     // For drawing program 
-    // start = false; 
-    // lines = []; 
+    start = false; 
+    lines = []; 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
         pianoKey.released(); 
