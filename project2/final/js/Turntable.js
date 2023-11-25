@@ -14,7 +14,7 @@ class Turntable {
     pressed() {
     let d = dist(mouseX, mouseY, this.translate, this. translate); 
     this.speed = constrain(this.speed, 0, 1); 
-        if ( d < this.size/2) {
+        if (d < this.size/2) { // Maybe write a specfic if statement acording to the left v right? 
             this.speed -= 0.05; 
             this.rotate = 0; 
         } 
@@ -26,10 +26,12 @@ class Turntable {
         // Problem: the music doesn't stop to the same extent the record stops 
         // Also, if you click outside of the record the sound speeds up 
         // Maybe switch the if and else statement??
+        // Maybe have it so that if you press the left side of the record is slows down but if you press the right side it speeds up? 
+        // Also should have an on and off button 
     }
     display() {
         // houseLoop.loop(); 
-        soundLoop.rate(this.speed); 
+        soundLoop.rate(this.speed); // Change this into soundLoop one 
         push(); 
         translate(this.translate, this.translate); 
         rotate(this.angle); 
@@ -37,5 +39,8 @@ class Turntable {
         line(this.x, this.y, this.x, -this.h/2); 
         this.angle += this.rotate; 
         pop(); 
+
+        // Add another sound loop display 
+        // And a transition slider? 
     }
 }

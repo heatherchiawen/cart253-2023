@@ -25,13 +25,13 @@ let turntable;
 
 let soundLoop; 
 
+let wave; // To measure peaks to create an audio display of what is playing 
+
 let lines = []; 
 let start = false; 
 
 function preload() {
     soundLoop = loadSound(`assets/sounds/house.mp3`); 
-    // Load some fonts or something, probably have to add a starting state to move to actual program 
-    // Load some sounds for more buttons? 
 }
 
 /**
@@ -49,6 +49,7 @@ function setup() {
     turntable = new Turntable(); 
 
     soundLoop.loop(); 
+    wave = soundLoop.getPeaks(200);
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -77,6 +78,10 @@ function draw() {
     recorder.display(); 
     soundWave.display();
     turntable.display();  
+
+    for (let i = 0; i < wave.length; i++) {
+        line(100 + i, 100 + (wave[i]* 100), 100 +i, 100 - (wave[i]* 100))
+    }
 }
 
 function mousePressed() {
