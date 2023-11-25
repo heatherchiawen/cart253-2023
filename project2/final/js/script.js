@@ -93,19 +93,17 @@ function mousePressed() {
     // For drawing program 
     start = true; 
     lines = []; 
-    // Check for piano keys 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
-        // pianoKey.setType(); 
+        // Check for piano keys 
         pianoKey.pressed();
+        // For switching between sound waves 
         soundWave.pressed(pianoKey); 
     } 
     // Check for recorder and play button 
     recorder.recording();
     recorder.play();
-    // For sound waves 
-    // soundWave.pressed();
-    //soundWave.pressed(pianoKey);
+    recorder.save(); 
 }
 function mouseReleased() {
     // For drawing program 

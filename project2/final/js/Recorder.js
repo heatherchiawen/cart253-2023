@@ -50,11 +50,15 @@ class Recorder {
                     this.recorderOn = false;
                     this.recorderPlay = false; 
                     this.soundFile.stop();
-                    // Uncomment to save sounds created in program 
-                    // save(this.soundFile, 'mySound.wav'); 
                 }
             }
         } 
+    save() {
+        if (mouseX < this.x + this.w/2 + this.playSpacing && mouseX > this.x - this.w/2 + this.playSpacing && mouseY < this.y + this.h/7 && mouseY > this.y - this.h/2) {
+            // Saves recorded sound to the users computer 
+            save(this.soundFile, 'mySound.wav'); 
+        }
+    }
     display() {
         // Display for recording button 
         push(); 
@@ -87,9 +91,18 @@ class Recorder {
         } 
         pop(); 
 
-        // Replace with a save option display?
-        // Use old pause coordinates 
-        // rect(this.x - this.w/2 + this.playSpacing, this.y - this.h/2, this.w/4, this.h);
-        // rect(this.x + this.playSpacing, this.y - this.h/2, this.w/4, this.h);    
+        // Display for save option 
+        push(); 
+        stroke(0);
+        strokeWeight(5); 
+        fill(0); 
+        // Horizontal line 
+        line(this.x - this.w/2 + this.playSpacing, this.y + this.h/2, this.x + this.w/2 + this.playSpacing, this.y + this.h/2);
+        // Vertical line 
+        line(this.x + this.playSpacing - this.w/12 + 2.5, this.y - this.h/2, this.x + this.playSpacing - this.w/12 + 2.5, this.y + this.h/7);  
+        // Aarow lines (left, right)
+        line(this.x + this.playSpacing, this.y + this.h/3, this.x + this.playSpacing - this.w/3, this.y); 
+        line(this.x + this.playSpacing, this.y + this.h/3, this.x + this.playSpacing + this.w/3, this.y); 
+        pop();   
     }
 } 

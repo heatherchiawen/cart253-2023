@@ -17,7 +17,7 @@ class PianoKey {
 
     }
     pressed() {
-        // Write code for if lines touch the keys 
+        // Write code for if linesDrawn touch the keys 
         // Check to see if white piano key has been pressed 
         if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
             // If pressed, piano key turns on  
@@ -41,22 +41,7 @@ class PianoKey {
         rect(this.x, this.y, this.w, this.h);  
         pop(); 
     }
-    // setType(SoundWave) {
-    //     soundWave.pressed(); 
-    //     if(soundWave.sine = true && !soundWave.square && !soundWave.triangle && !soundWave.sawtooth) {
-    //         this.oscillator.setType('sine'); 
-    //     }
-    //     else if(soundWave.square = true && !soundWave.sine && !soundWave.triangle && !soundWave.sawtooth) {
-    //         this.oscillator.setType('square'); 
-    //     }
-    //     else if(soundWave.triangle = true && !soundWave.sine && !soundWave.square && !soundWave.sawtooth) {
-    //         this.oscillator.setType('triangle'); 
-    //     }
-    //     else if(soundWave.square = true && !soundWave.sine && !soundWave.square && !soundWave.triangle) {
-    //         this.oscillator.setType('sawtooth'); 
-    //     }
-    // }
-
+    // Sine(), square(), triangle(), sawtooth() are called by the event handler, SoundWave.pressed(pianoKey)  
     sine() {
             this.oscillator.setType('sine'); 
     }
