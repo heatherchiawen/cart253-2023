@@ -23,13 +23,13 @@ let recorder;
 let soundWave; 
 let turntable; 
 
-let bark; // Using bark sound for experiment 
+let soundLoop; 
 
 let lines = []; 
 let start = false; 
 
 function preload() {
-    bark = loadSound(`assets/sounds/bark.wav`); 
+    soundLoop = loadSound(`assets/sounds/house.mp3`); 
     // Load some fonts or something, probably have to add a starting state to move to actual program 
     // Load some sounds for more buttons? 
 }
@@ -48,7 +48,7 @@ function setup() {
     soundWave = new SoundWave(); 
     turntable = new Turntable(); 
 
-    // bark.loop(); 
+    soundLoop.loop(); 
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -99,4 +99,5 @@ function mouseReleased() {
         let pianoKey = piano.pianoKeys[i]; 
         pianoKey.released(); 
     } 
+    // turntable.released(); 
 }
