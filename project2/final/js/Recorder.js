@@ -1,11 +1,12 @@
 class Recorder {
     constructor() {
-        this.x = width/2; 
-        this.y = 50; 
-        this.size = 35;
-        this.w = 35;
-        this.h = 35;
+        this.x = 80; 
+        this.y = 25; 
+        this.size = 20;
+        this.w = 20;
+        this.h = 20;
         this.playSpacing = 50; 
+        this.strokeWeight = 3; 
         this.recorderColor = { // Red but maybe get it to blink?  
             h: 0, 
             s: 100, 
@@ -94,12 +95,12 @@ class Recorder {
         // Display for save option 
         push(); 
         stroke(0);
-        strokeWeight(5); 
+        strokeWeight(this.strokeWeight); 
         fill(0); 
         // Horizontal line 
         line(this.x - this.w/2 + this.playSpacing, this.y + this.h/2, this.x + this.w/2 + this.playSpacing, this.y + this.h/2);
         // Vertical line 
-        line(this.x + this.playSpacing - this.w/12 + 2.5, this.y - this.h/2, this.x + this.playSpacing - this.w/12 + 2.5, this.y + this.h/7);  
+        line(this.x + this.playSpacing - this.w/12 + (this.strokeWeight/2), this.y - this.h/2, this.x + this.playSpacing - this.w/12 + (this.strokeWeight/2), this.y + this.h/7);  
         // Aarow lines (left, right)
         line(this.x + this.playSpacing, this.y + this.h/3, this.x + this.playSpacing - this.w/3, this.y); 
         line(this.x + this.playSpacing, this.y + this.h/3, this.x + this.playSpacing + this.w/3, this.y); 
