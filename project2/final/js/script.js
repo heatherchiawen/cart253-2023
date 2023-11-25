@@ -20,13 +20,16 @@ let piano = {
 }
 
 let recorder; 
-
 let soundWave; 
+let turntable; 
+
+let bark; // Using bark sound for experiment 
 
 let lines = []; 
 let start = false; 
 
 function preload() {
+    bark = loadSound(`assets/sounds/bark.wav`); 
     // Load some fonts or something, probably have to add a starting state to move to actual program 
     // Load some sounds for more buttons? 
 }
@@ -37,14 +40,15 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(HSL); 
-    background(255);
     userStartAudio();
     frameRate(60); 
 
-    // Setup recorder 
+    // Setup recorder, soundwaves, and turntable 
     recorder = new Recorder();
-
     soundWave = new SoundWave(); 
+    turntable = new Turntable(); 
+
+    // bark.loop(); 
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -62,37 +66,20 @@ function setup() {
  * Description of draw()
 */
 function draw() {
+    background(0, 0, 100);
     // Piano key display
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i];
         fill(100, 100, piano.pianoColor[i]); 
         pianoKey.pianoDisplay(); 
     }
-    // For recorder button display 
+    // For recorder button, sound wave, and turntable display 
     recorder.display(); 
-    // For sound wave display 
-    soundWave.display(); 
-     // Statements and loops for drawing 
-    if (start) {
-        lines.push(createVector(mouseX, mouseY));
-    }
-    // Drawing program 
-    stroke(0); 
-    strokeWeight(3); 
-    noFill();
-    beginShape(); 
-    for(let i = 0; i <lines.length; i++) {
-        let x = lines[i].x; 
-        let y = lines[i].y;
-        vertex(x, y);  
-    } 
-    endShape(); 
+    soundWave.display();
+    turntable.display();  
 }
 
 function mousePressed() {
-    // For drawing program 
-    start = true; 
-    lines = []; 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
         // Check for piano keys 
@@ -104,11 +91,10 @@ function mousePressed() {
     recorder.recording();
     recorder.play();
     recorder.save(); 
+
+    turntable.pressed(); 
 }
 function mouseReleased() {
-    // For drawing program 
-    start = false; 
-    lines = []; 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
         pianoKey.released(); 
