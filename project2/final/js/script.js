@@ -42,8 +42,6 @@ function setup() {
     frameRate(60); 
 
     // Setup recorder 
-    // let x = width/2; 
-    // let y = 50
     recorder = new Recorder();
 
     soundWave = new SoundWave(); 
@@ -98,13 +96,16 @@ function mousePressed() {
     // Check for piano keys 
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i]; 
-        pianoKey.pressed(); 
+        // pianoKey.setType(); 
+        pianoKey.pressed();
+        soundWave.pressed(pianoKey); 
     } 
     // Check for recorder and play button 
     recorder.recording();
     recorder.play();
     // For sound waves 
-    soundWave.pressed (); 
+    // soundWave.pressed();
+    //soundWave.pressed(pianoKey);
 }
 function mouseReleased() {
     // For drawing program 

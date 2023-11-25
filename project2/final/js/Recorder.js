@@ -54,7 +54,7 @@ class Recorder {
                     // save(this.soundFile, 'mySound.wav'); 
                 }
             }
-        }
+        } 
     display() {
         // Display for recording button 
         push(); 

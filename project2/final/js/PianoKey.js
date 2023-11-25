@@ -13,6 +13,8 @@ class PianoKey {
         this.oscillator.amp(this.env); 
         this.oscillator.start(); 
         this.oscillator.fade(); 
+        this.oscillator.setType(); 
+
     }
     pressed() {
         // Write code for if lines touch the keys 
@@ -39,4 +41,32 @@ class PianoKey {
         rect(this.x, this.y, this.w, this.h);  
         pop(); 
     }
+    // setType(SoundWave) {
+    //     soundWave.pressed(); 
+    //     if(soundWave.sine = true && !soundWave.square && !soundWave.triangle && !soundWave.sawtooth) {
+    //         this.oscillator.setType('sine'); 
+    //     }
+    //     else if(soundWave.square = true && !soundWave.sine && !soundWave.triangle && !soundWave.sawtooth) {
+    //         this.oscillator.setType('square'); 
+    //     }
+    //     else if(soundWave.triangle = true && !soundWave.sine && !soundWave.square && !soundWave.sawtooth) {
+    //         this.oscillator.setType('triangle'); 
+    //     }
+    //     else if(soundWave.square = true && !soundWave.sine && !soundWave.square && !soundWave.triangle) {
+    //         this.oscillator.setType('sawtooth'); 
+    //     }
+    // }
+
+    sine() {
+            this.oscillator.setType('sine'); 
+    }
+    square() {
+            this.oscillator.setType('square'); 
+        }
+    triangle() {
+            this.oscillator.setType('triangle'); 
+        }
+    sawtooth() {
+            this.oscillator.setType('sawtooth'); 
+        }
 }

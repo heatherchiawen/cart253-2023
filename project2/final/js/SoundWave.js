@@ -6,20 +6,55 @@ class SoundWave {
         this.w = 20; 
         this.h = 20; 
         this.textSize = 15; 
+
+
+        this.sine = false;
+        this.square = false; 
+        this.triangle = false; 
+        this.sawtooth = false; 
     }
-    pressed() {
+    pressed(pianoKey) { 
         // Check over these!!!!!!
         if (mouseX < this.x - 200 + this.size/2 && mouseX > this.x - 200 - this.size/2 && mouseY < this.y + this.size/2 && mouseY > this.y - this.size/2) {
-            pianoKey.oscillator.setType(`sine`); 
+            this.sine = true; 
+            // !this.square; 
+            // !this.triangle; 
+            // !this.sawtooth; 
+            pianoKey.sine(); 
+            
+        } 
+        else {
+            this.sine = false;
         }
-        if (mouseX < this.x - 90 + this.w && mouseX > this.x - 90 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2){
-            pianoKey.oscillator.setType(`square`); 
+        if (mouseX < this.x - 90 + this.w && mouseX > this.x - 90 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
+            this.square = true;  
+            // !this.sine; 
+            // !this.triangle;
+            // !this.sawtooth;
+            pianoKey.square();  
+        }
+        else { 
+            !this.square; 
         }
         if (mouseX < this.x + 40 + this.w && mouseX > this.x + 40 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
-            pianoKey.oscillator.setType(`triangle`);
+            this.triangle = true; 
+            // !this.sine; 
+            // !this.square; 
+            // !this.sawtooth; 
+            pianoKey.triangle();
+        }
+        else {
+            !this.triangle; 
         }
         if(mouseX < this.x + 150 + this.w && mouseX > this.x + 150 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
-            pianoKey.oscillator.setType(`sawtooth`);
+            this.sawtooth = true; 
+            // !this.sine; 
+            // !this.square; 
+            // !this.triangle; 
+            pianoKey.sawtooth();
+        }
+        else {
+            !this.sawtooth; 
         }
     }
     display() {
