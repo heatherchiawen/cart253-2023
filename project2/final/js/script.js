@@ -79,33 +79,20 @@ function draw() {
     // For recorder button, sound wave, and turntable display 
     recorder.display(); 
     soundWave.display();
-    turntable.display();  
-
-    push(); 
-    let durationOne = map(soundLoop.currentTime(), 0, soundLoop.duration(), 375, 1075); 
-    stroke(0, 100, 30); 
-    strokeWeight(2);
-    line(durationOne, 5, durationOne, 110);
-    pop();   
+    turntable.displayRecordOne();
+    // turntable.displayRecordTwo();
+    turntable.displayAudioTracker();
 
     // For audio visualization 
     for (let i = 0; i < waveOne.length; i++) {
         stroke(0); 
         strokeWeight(1)
-        line(375 + i, 60 + (waveOne[i]* 50),375 +i, 60 - (waveOne[i]* 50));
+        line(365 + i, 40 + (waveOne[i]* 35),365 +i, 40 - (waveOne[i]* 35));
     }
-
-    push(); 
-    let durationTwo = map(soundLoop.currentTime(), 0, soundLoop.duration(), 375, 1075); 
-    stroke(0, 100, 30); 
-    strokeWeight(2);
-    line(durationTwo, 145, durationTwo, 260);
-    pop();   
-
-    for (let i = 0; i < waveOne.length; i++) {
+    for (let i = 0; i < waveOne.length; i++) { // Add second sound 
         stroke(0); 
         strokeWeight(1)
-        line(375 + i, 200 + (waveOne[i]* 50),375 +i, 200 - (waveOne[i]* 50));
+        line(365 + i, 120 + (waveOne[i]* 35),365 +i, 120 - (waveOne[i]* 35));
     }
 }
 
