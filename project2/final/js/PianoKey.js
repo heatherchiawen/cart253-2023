@@ -15,7 +15,7 @@ class PianoKey {
         this.oscillator.fade(); 
         this.oscillator.setType(); 
 
-    }
+    } 
     pressed() {
         // Write code for if linesDrawn touch the keys 
         // Check to see if white piano key has been pressed 

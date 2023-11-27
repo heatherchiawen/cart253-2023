@@ -30,7 +30,7 @@ class SoundWave {
             this.sawtooth = true; 
             pianoKey.sawtooth();
         }
-    }
+    } 
     display() {
         // Sine 
         push(); 

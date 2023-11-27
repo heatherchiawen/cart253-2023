@@ -20,7 +20,7 @@ class Recorder {
         // Booleans for clarity 
         this.recorderOn = false; 
         this.recorderPlay = false; 
-    }
+    } 
     recording() { 
         if (mouseX < this.x + this.size/2 - (this.playSpacing*1.2) && mouseX > this.x - this.size/2 - (this.playSpacing*1.2) && mouseY < this.y + this.size/2 && mouseY > this.y - this.size/2) {
             if (!this.recorderOn && !this.recorderPlay) {

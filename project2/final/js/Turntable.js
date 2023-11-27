@@ -6,7 +6,8 @@ class Turntable {
         this.h = 100; 
         this.size = 100; 
         this.speed = 1; 
-        this.translate = width/2; 
+        this.translateWidth = width/2; 
+        this.translateHeight = height/2
         this.angle = 0; 
         this.rotate = 3.333333333333; 
     }
@@ -33,7 +34,7 @@ class Turntable {
         // houseLoop.loop(); 
         soundLoop.rate(this.speed); // Change this into soundLoop one 
         push(); 
-        translate(this.translate, this.translate); 
+        translate(this.translateWidth, this.translateHeight); 
         rotate(this.angle); 
         ellipse(this.x, this.y, this.size); 
         line(this.x, this.y, this.x, -this.h/2); 

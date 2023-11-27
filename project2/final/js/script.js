@@ -25,7 +25,9 @@ let turntable;
 
 let soundLoop; 
 
-let wave; // To measure peaks to create an audio display of what is playing 
+let waveOne; // To measure peaks to create an audio display of what is playing 
+let durationOne;
+let durationTwo;  
 
 let lines = []; 
 let start = false; 
@@ -49,7 +51,7 @@ function setup() {
     turntable = new Turntable(); 
 
     soundLoop.loop(); 
-    wave = soundLoop.getPeaks(200);
+    waveOne = soundLoop.getPeaks(700); // 700 pixels in width 
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -79,8 +81,31 @@ function draw() {
     soundWave.display();
     turntable.display();  
 
-    for (let i = 0; i < wave.length; i++) {
-        line(100 + i, 100 + (wave[i]* 100), 100 +i, 100 - (wave[i]* 100))
+    push(); 
+    let durationOne = map(soundLoop.currentTime(), 0, soundLoop.duration(), 375, 1075); 
+    stroke(0, 100, 30); 
+    strokeWeight(2);
+    line(durationOne, 5, durationOne, 110);
+    pop();   
+
+    // For audio visualization 
+    for (let i = 0; i < waveOne.length; i++) {
+        stroke(0); 
+        strokeWeight(1)
+        line(375 + i, 60 + (waveOne[i]* 50),375 +i, 60 - (waveOne[i]* 50));
+    }
+
+    push(); 
+    let durationTwo = map(soundLoop.currentTime(), 0, soundLoop.duration(), 375, 1075); 
+    stroke(0, 100, 30); 
+    strokeWeight(2);
+    line(durationTwo, 145, durationTwo, 260);
+    pop();   
+
+    for (let i = 0; i < waveOne.length; i++) {
+        stroke(0); 
+        strokeWeight(1)
+        line(375 + i, 200 + (waveOne[i]* 50),375 +i, 200 - (waveOne[i]* 50));
     }
 }
 
