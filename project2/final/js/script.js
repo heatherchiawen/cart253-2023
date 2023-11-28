@@ -49,7 +49,6 @@ function setup() {
     recorder = new Recorder();
     soundWave = new SoundWave(); 
     turntable = new Turntable(); 
-
     soundLoop.loop(); 
     waveOne = soundLoop.getPeaks(700); // 700 pixels in width 
 
@@ -83,17 +82,18 @@ function draw() {
     // turntable.displayRecordTwo();
     turntable.displayAudioTracker();
 
-    // For audio visualization 
+    // For top audio visualization 
     for (let i = 0; i < waveOne.length; i++) {
         stroke(0); 
         strokeWeight(1)
         line(365 + i, 40 + (waveOne[i]* 35),365 +i, 40 - (waveOne[i]* 35));
     }
-    for (let i = 0; i < waveOne.length; i++) { // Add second sound 
-        stroke(0); 
-        strokeWeight(1)
-        line(365 + i, 120 + (waveOne[i]* 35),365 +i, 120 - (waveOne[i]* 35));
-    }
+    // For botton audio visualization 
+    // for (let i = 0; i < waveOne.length; i++) { // Add second sound 
+    //     stroke(0); 
+    //     strokeWeight(1)
+    //     line(365 + i, 120 + (waveOne[i]* 35),365 +i, 120 - (waveOne[i]* 35));
+    // }
 }
 
 function mousePressed() {

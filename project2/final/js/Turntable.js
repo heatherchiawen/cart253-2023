@@ -21,49 +21,34 @@ class Turntable {
     pressed() {
     this.d = dist(mouseX, mouseY, this.translate, this. translate); 
     this.speed = constrain(this.speed, 0, 1); 
-        if (d < this.size/2) { // Maybe write a specfic if statement acording to the left v right? 
-            this.speed -= 0.05; 
-            this.rotate = 0; 
-        } 
-        else {
-            this.speed += 0.05; 
-            this.rotate = 3.333333333333; 
-        }
-
-        // if (mouseX > this.x - this.size/2 && mouseX < this.x + this.size/2 && mouseY > this.y - this.size/2 && mouseY < this.y + this.size/2){
+    // Check for if pause button pressed 
+        //if (mouseX > this.translateWidth + 155 && mouseX < this.translateWidth + 175 && mouseY > this.translateHeight + this.size/2 + 20 && mouseY < this.translateHeight + this.size/2 + 30) {
+            //if (!this.recordOn) { 
+            if (d < this.size/2) {
+                // this.recordOn = true; 
+                // soundLoop.loop(); 
+                this.speed += 0.05; 
+                this.rotate = 3.333333333333; 
+            } 
+            else {
+                this.speed -= 0.05; 
+                this.rotate = 0; 
+            }
         //}
-
-        // soundLoop.loop(); 
-
-
-        // Currently, the music slows down as you press the record and the record stops immediately 
-        // Problem: the music doesn't stop to the same extent the record stops 
-        // Also, if you click outside of the record the sound speeds up 
-        // Maybe switch the if and else statement??
-        // Maybe have it so that if you press the left side of the record is slows down but if you press the right side it speeds up? 
-        // Also should have an on and off button 
     }
     displayRecordOne() {
         // Write something that says that makes it start off false and make it apply only to the soundLoop rate 
-        soundLoop.rate(this.speed); // Change this into soundLoop one 
+        soundLoop.rate(this.speed); // Change this into soundLoopOne 
         push(); 
         translate(this.translateWidth + 200, this.translateHeight); 
-        // rotate(this.angle); 
+        rotate(this.angle); 
         ellipse(this.x, this.y, this.size); 
         line(this.x, this.y, this.x, -this.h/2); 
-        if (this.recordOn = true) {
-            rotate(this.angle); 
-            this.angle += this.rotate; 
-        }
+        // if (this.recordOn = true) {
+        //     rotate(this.angle); 
+             this.angle += this.rotate; 
+        // }
         pop(); 
-
-        // push(); 
-        // translate(this.translateWidth - 200, this.translateHeight); 
-        // rotate(this.angle); 
-        // ellipse(this.x, this.y, this.size); 
-        // line(this.x, this.y, this.x, -this.h/2); 
-        // this.angle += this.rotate; 
-        // pop(); 
 
         // Display for plus sign
         push();
@@ -93,7 +78,6 @@ class Turntable {
     displayRecordTwo() {
         // Add another sound loop display 
         // And a transition slider? 
-
         soundLoop.rate(this.speed); // Change this into soundLoop one 
         push(); 
         translate(this.translateWidth - 200, this.translateHeight); 
@@ -113,15 +97,11 @@ class Turntable {
         pop();  
 
         // Botton
-        push(); 
-        this.durationTwo = map(soundLoop.currentTime(), 0, soundLoop.duration(), 365, 1075); 
-        stroke(0, 100, 30); 
-        strokeWeight(2);
-        line(this.durationTwo, 80, this.durationTwo, 155);
-        pop();   
-    }
-
-    speed() {
-
+        // push(); 
+        // this.durationTwo = map(soundLoop.currentTime(), 0, soundLoop.duration(), 365, 1075); 
+        // stroke(0, 100, 30); 
+        // strokeWeight(2);
+        // line(this.durationTwo, 80, this.durationTwo, 155);
+        // pop();   
     }
 }
