@@ -49,14 +49,12 @@ function setup() {
     recorder = new Recorder();
     soundWave = new SoundWave(); 
     turntable = new Turntable(); 
-    soundLoop.loop(); 
     waveOne = soundLoop.getPeaks(700); // 700 pixels in width 
 
     // Set up piano array
     // Assigns its note value per each object in array 
     for (let i = 0; i < piano.numPiano; i++) {
         let x = i*width/49 + width/4
-        //let x = i*width/32 + (width/2.6); 
         let y = height - 150; 
         let pianoKey = new PianoKey(x, y); 
         let note = piano.pianoNotes[i];
@@ -88,7 +86,7 @@ function draw() {
         strokeWeight(1)
         line(365 + i, 40 + (waveOne[i]* 35),365 +i, 40 - (waveOne[i]* 35));
     }
-    // For botton audio visualization 
+    // For bottom audio visualization 
     // for (let i = 0; i < waveOne.length; i++) { // Add second sound 
     //     stroke(0); 
     //     strokeWeight(1)

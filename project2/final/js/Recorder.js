@@ -26,8 +26,8 @@ class Recorder {
             if (!this.recorderOn && !this.recorderPlay) {
                 this.recorderOn = true; 
                 this.soundFile = new p5.SoundFile(); 
-                this.recorder.record(this.soundFile); // Add duration and callback?
-                this.recorderPlay = false; // Playback stays off 
+                this.recorder.record(this.soundFile);
+                this.recorderPlay = false;
             }
             // If recording button is pressed again then the recording stops 
             else if (this.recorderOn && !this.recorderPlay) {
