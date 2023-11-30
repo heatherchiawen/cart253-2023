@@ -23,9 +23,11 @@ let recorder;
 let soundWave; 
 let turntable; 
 
-let soundLoop; 
+let soundLoopOne; 
+let soundLoopTwo; 
 
 let waveOne; // To measure peaks to create an audio display of what is playing 
+let waveTwo; 
 let durationOne;
 let durationTwo;  
 
@@ -33,7 +35,8 @@ let lines = [];
 let start = false; 
 
 function preload() {
-    soundLoop = loadSound(`assets/sounds/house.mp3`); 
+    soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
+    soundLoopTwo = loadSound(`assets/sounds/beat.mp3`); 
 }
 
 /**
@@ -49,7 +52,8 @@ function setup() {
     recorder = new Recorder();
     soundWave = new SoundWave(); 
     turntable = new Turntable(); 
-    waveOne = soundLoop.getPeaks(700); // 700 pixels in width 
+    waveOne = soundLoopOne.getPeaks(700); // 700 pixels in width 
+    waveTwo = soundLoopTwo.getPeaks(700); 
 
     // Set up piano array
     // Assigns its note value per each object in array 
@@ -77,7 +81,7 @@ function draw() {
     recorder.display(); 
     soundWave.display();
     turntable.displayRecordOne();
-    // turntable.displayRecordTwo();
+    turntable.displayRecordTwo();
     turntable.displayAudioTracker();
 
     // For top audio visualization 
@@ -87,11 +91,11 @@ function draw() {
         line(365 + i, 40 + (waveOne[i]* 35),365 +i, 40 - (waveOne[i]* 35));
     }
     // For bottom audio visualization 
-    // for (let i = 0; i < waveOne.length; i++) { // Add second sound 
-    //     stroke(0); 
-    //     strokeWeight(1)
-    //     line(365 + i, 120 + (waveOne[i]* 35),365 +i, 120 - (waveOne[i]* 35));
-    // }
+    for (let i = 0; i < waveTwo.length; i++) { // Add second sound 
+        stroke(0); 
+        strokeWeight(1)
+        line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
+    }
 }
 
 function mousePressed() {
@@ -114,5 +118,4 @@ function mouseReleased() {
         let pianoKey = piano.pianoKeys[i]; 
         pianoKey.released(); 
     } 
-    // turntable.released(); 
 }
