@@ -111,7 +111,8 @@ function mousePressed() {
     recorder.play();
     recorder.save(); 
 
-    turntable.pressed(); 
+    turntable.pressedRecordOne();
+    turntable.pressedRecordTwo();
 }
 function mouseReleased() {
     for (let i = 0; i < piano.pianoKeys.length; i++) {
