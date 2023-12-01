@@ -14,7 +14,6 @@ class PianoKey {
         this.oscillator.start(); 
         this.oscillator.fade(); 
         this.oscillator.setType(); 
-
     } 
     pressed() {
         // Write code for if linesDrawn touch the keys 
@@ -43,15 +42,15 @@ class PianoKey {
     }
     // Sine(), square(), triangle(), sawtooth() are called by the event handler, SoundWave.pressed(pianoKey)  
     sine() {
-            this.oscillator.setType('sine'); 
+        this.oscillator.setType('sine'); 
     }
     square() {
-            this.oscillator.setType('square'); 
-        }
+        this.oscillator.setType('square'); 
+    }
     triangle() {
-            this.oscillator.setType('triangle'); 
-        }
-    sawtooth() {
-            this.oscillator.setType('sawtooth'); 
-        }
+        this.oscillator.setType('triangle'); 
+    }
+    sawtooth() { 
+        this.oscillator.setType('sawtooth'); 
+    }
 }

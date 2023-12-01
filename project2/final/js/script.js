@@ -31,8 +31,8 @@ let waveTwo;
 let durationOne;
 let durationTwo;  
 
-let lines = []; 
-let start = false; 
+let recordOneVolSlider; 
+let recordTwoVolSlider; 
 
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
@@ -65,12 +65,19 @@ function setup() {
         pianoKey.oscillator.freq(midiToFreq(note)); 
         piano.pianoKeys.push(pianoKey); 
     }
+
+    recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordOneVolSlider.position(width/2 + 350, height/2 - 120);
+
+    recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordTwoVolSlider.position(width/2 - 485, height/2 - 120);
 }
 /**
  * Description of draw()
 */
 function draw() {
     background(0, 0, 100);
+
     // Piano key display
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i];
@@ -96,6 +103,9 @@ function draw() {
         strokeWeight(1)
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
+
+    soundLoopOne.setVolume(recordOneVolSlider.value()); 
+    soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
 }
 
 function mousePressed() {
@@ -110,7 +120,7 @@ function mousePressed() {
     recorder.recording();
     recorder.play();
     recorder.save(); 
-
+    // Check for buttons pressed for records 
     turntable.pressedRecordOne();
     turntable.pressedRecordTwo();
 }
