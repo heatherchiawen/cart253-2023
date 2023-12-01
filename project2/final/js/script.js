@@ -66,12 +66,12 @@ function setup() {
         piano.pianoKeys.push(pianoKey); 
     }
 
-    recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
-    recordOneVolSlider.position(width/2 + 350, height/2 - 120);
+//     recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
+//     recordOneVolSlider.position(width/2 + 350, height/2 - 120);
 
-    recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
-    recordTwoVolSlider.position(width/2 - 485, height/2 - 120);
-}
+//     recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
+//     recordTwoVolSlider.position(width/2 - 485, height/2 - 120);
+ }
 /**
  * Description of draw()
 */
@@ -104,8 +104,8 @@ function draw() {
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
 
-    soundLoopOne.setVolume(recordOneVolSlider.value()); 
-    soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
+    // soundLoopOne.setVolume(recordOneVolSlider.value()); 
+    // soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
 }
 
 function mousePressed() {
