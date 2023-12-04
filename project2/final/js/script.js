@@ -31,6 +31,13 @@ let waveTwo;
 let durationOne;
 let durationTwo;  
 
+// let soundLoopOneGain; 
+// let soundLoopTwoGain;
+// let mixGain; 
+
+let recordOneSpeedSlider; 
+let recordTwoSpeedSlider; 
+
 let recordOneVolSlider; 
 let recordTwoVolSlider; 
 
@@ -47,6 +54,22 @@ function setup() {
     colorMode(HSL); 
     userStartAudio();
     frameRate(60); 
+
+    // mixGain = new p5.Gain(); 
+    // mixGain.connect(); 
+
+    // soundLoopOne.disconnect(); 
+    // soundLoopOneGain = new p5.Gain(); 
+    // soundLoopOneGain.setInput(soundLoopOne);
+    // soundLoopOneGain.connect(soundLoopOne); 
+    // soundLoopOneGain.connect(); 
+
+    // soundLoopTwo.disconnect(); 
+    // soundLoopTwoGain = new p5.Gain(); 
+    // soundLoopTwoGain.setInput(soundLoopTwo); 
+    // soundLoopTwoGain.connect(soundLoopTwo); 
+    // soundLoopTwoGain.connect(); 
+    // connect???
 
     // Setup recorder, soundwaves, and turntable 
     recorder = new Recorder();
@@ -66,11 +89,17 @@ function setup() {
         piano.pianoKeys.push(pianoKey); 
     }
 
-//     recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
-//     recordOneVolSlider.position(width/2 + 350, height/2 - 120);
+    recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordOneVolSlider.position(width/2 + 350, height/2 - 120);
 
-//     recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
-//     recordTwoVolSlider.position(width/2 - 485, height/2 - 120);
+    recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordTwoVolSlider.position(width/2 - 485, height/2 - 100);
+    
+    recordOneSpeedSlider = createSlider(0, 1, 0.8, 0); 
+    recordOneSpeedSlider.position(width/2 + 350, height/2 - 50);
+    
+    recordTwoSpeedSlider = createSlider(0, 1, 0.8, 0); 
+    recordTwoSpeedSlider.position(width/2 - 485, height/2 - 50);
  }
 /**
  * Description of draw()
@@ -104,8 +133,11 @@ function draw() {
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
 
-    // soundLoopOne.setVolume(recordOneVolSlider.value()); 
-    // soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
+    soundLoopOne.setVolume(recordOneVolSlider.value()); 
+    soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
+
+    soundLoopOne.rate(recordOneSpeedSlider.value());
+    soundLoopTwo.rate(recordOneSpeedSlider.value());
 }
 
 function mousePressed() {

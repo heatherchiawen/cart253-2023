@@ -7,14 +7,18 @@ class Turntable {
         this.size = 200; 
         this.speedOne = 1; 
         this.speedTwo = 1; 
-        this.volOne = 1; // Add display and checks!!!
-        this.volTwo = 1; 
+        this.volOne = 0.8; // Add display and checks!!!
+        this.volTwo = 0.8; 
         this.translateWidth = width/2; 
         this.translateHeight = height/2 - 120; 
         this.angle = 0; 
         this.rotate = 3.333333333333; 
         this.durationOne; 
         this.durationTwo; 
+
+        // mixGain = new p5.Gain(); 
+        // soundLoopOneGain = new p5.Gain(); 
+        // soundLoopTwoGain = new p5.Gain(); 
 
         this.recordOneOn = false; 
         this.recordTwoOn = false; 
@@ -40,12 +44,12 @@ class Turntable {
         } 
         // for record one volume plus sign 
         if (mouseX > this.translateWidth + 410 && mouseX < this.translateWidth + 430 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            this.volOne += 0.05; 
+            this.volOne += 0.5; 
         } // for record one volume minus sign
         if (mouseX > this.translateWidth + 320 && mouseX < this.translateWidth + 340 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            this.volOne -= 0.05; 
+            this.volOne -= 0.5; 
         }
-        // CHECK VOLUME!!!
+        // CHECK VOLUME!!! maybe try value???
     }
     pressedRecordTwo() {
         // for left record play check 
@@ -67,11 +71,13 @@ class Turntable {
             this.speedTwo -= 0.05; 
         } 
         if (mouseX > this.translateWidth - 340 && mouseX < this.translateWidth - 320 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            this.volTwo += 0.05; 
+            // soundLoopTwo.volume() += 0.05; 
+            this.volTwo += 0.05
         }
         // for left record volume minus sign 
-        if (mouseX > this.translateWidth - 430 && mouseX < this.translateWidth - 410 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight - 20 ) {
-            this.volTwo -= 0.05; 
+        if (mouseX > this.translateWidth - 430 && mouseX < this.translateWidth - 410 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight) {
+            // soundLoopTwo.volume() -= 0.05; 
+            this.volTwo -= 0.05;  
         }
         // CHECK VOLUME!!!
     }
