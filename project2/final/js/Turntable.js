@@ -5,20 +5,12 @@ class Turntable {
         this.w = 100; 
         this.h = 200; 
         this.size = 200; 
-        this.speedOne = 1; 
-        this.speedTwo = 1; 
-        this.volOne = 0.8; // Add display and checks!!!
-        this.volTwo = 0.8; 
         this.translateWidth = width/2; 
         this.translateHeight = height/2 - 120; 
         this.angle = 0; 
         this.rotate = 3.333333333333; 
         this.durationOne; 
         this.durationTwo; 
-
-        // mixGain = new p5.Gain(); 
-        // soundLoopOneGain = new p5.Gain(); 
-        // soundLoopTwoGain = new p5.Gain(); 
 
         this.recordOneOn = false; 
         this.recordTwoOn = false; 
@@ -34,22 +26,6 @@ class Turntable {
                 soundLoopOne.stop(); 
             }
         }
-        // for record one speed plus sign 
-        if (mouseX > this.translateWidth + 410 && mouseX < this.translateWidth + 430 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight - 20) {
-            this.speedOne += 0.05; 
-        } 
-        // for record one speed minus sign 
-        if (mouseX > this.translateWidth + 320 && mouseX < this.translateWidth + 340 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight - 20) {
-            this.speedOne -= 0.05; 
-        } 
-        // for record one volume plus sign 
-        if (mouseX > this.translateWidth + 410 && mouseX < this.translateWidth + 430 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            this.volOne += 0.5; 
-        } // for record one volume minus sign
-        if (mouseX > this.translateWidth + 320 && mouseX < this.translateWidth + 340 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            this.volOne -= 0.5; 
-        }
-        // CHECK VOLUME!!! maybe try value???
     }
     pressedRecordTwo() {
         // for left record play check 
@@ -62,28 +38,8 @@ class Turntable {
                 soundLoopTwo.stop(); 
             }
         } 
-        // for left record speed plus sign 
-        if (mouseX > this.translateWidth - 340 && mouseX < this.translateWidth - 320 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight - 20) {
-            this.speedTwo += 0.05; 
-        } 
-        // for left record speed minus sign 
-        if (mouseX > this.translateWidth - 430 && mouseX < this.translateWidth - 410 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight - 20) {
-            this.speedTwo -= 0.05; 
-        } 
-        if (mouseX > this.translateWidth - 340 && mouseX < this.translateWidth - 320 && mouseY > this.translateHeight - 20 && mouseY < this.translateHeight) {
-            // soundLoopTwo.volume() += 0.05; 
-            this.volTwo += 0.05
-        }
-        // for left record volume minus sign 
-        if (mouseX > this.translateWidth - 430 && mouseX < this.translateWidth - 410 && mouseY > this.translateHeight - 40 && mouseY < this.translateHeight) {
-            // soundLoopTwo.volume() -= 0.05; 
-            this.volTwo -= 0.05;  
-        }
-        // CHECK VOLUME!!!
     }
     displayRecordOne() {
-        soundLoopOne.rate(this.speedOne);
-        soundLoopOne.setVolume(this.volOne); 
         push(); 
         translate(this.translateWidth + 200, this.translateHeight);
         rotate(this.angle);  
@@ -92,37 +48,19 @@ class Turntable {
         this.angle += this.rotate; // FIX THis so it does'nt spin when off 
         pop(); 
 
-        // Display for record one speed plus sign
-        push();
-        fill(0); 
-        noStroke(); 
-        text(`speed`, this.translateWidth + 360, this.translateHeight - 27.5);
-        rect(this.translateWidth + 410, this.translateHeight - 31.5, 20, 3);  // Horizontal rect
-        rect(this.translateWidth + 418.5, this.translateHeight - 40, 3, 20); // Vertical rect
-        pop(); 
-
-        // Display for record one speed minus sign 
-        push();
-        fill(0); 
-        noStroke(); 
-        rect(this.translateWidth + 320, this.translateHeight - 31.5, 20, 3); 
-        pop(); 
-
         // Display for record one volume plus sign 
         push();
         fill(0); 
         noStroke(); 
-        text(`vol`, this.translateWidth + 367, this.translateHeight + 5);
-        rect(this.translateWidth + 410, this.translateHeight, 20, 3);  // Horizontal rect
-        rect(this.translateWidth + 418.5, this.translateHeight - 8.5, 3, 20);  // Vertical rect
+        text(`volume`, this.translateWidth + 315, this.translateHeight - 75);
         pop(); 
 
-        // Display for record one volume minus sign
+        // Display for record one speed plus sign
         push();
         fill(0); 
         noStroke(); 
-        rect(this.translateWidth + 320, this.translateHeight, 20, 3); 
-        pop();  
+        text(`speed`, this.translateWidth + 315, this.translateHeight - 35);
+        pop(); 
 
         // Display for play sign and stop, switching if soundLoopOne is on or not 
         push(); 
@@ -141,8 +79,6 @@ class Turntable {
         pop(); 
     }
     displayRecordTwo() {
-        soundLoopTwo.rate(this.speedTwo); 
-        soundLoopTwo.setVolume(this.volTwo); 
         push(); 
         translate(this.translateWidth - 205, this.translateHeight); 
         rotate(this.angle); 
@@ -151,36 +87,18 @@ class Turntable {
         this.angle += this.rotate; 
         pop(); // FIX THis so it does'nt spin when off 
 
-        // Display for record two speed plus sign
+        // Display for record two volume 
         push();
         fill(0); 
         noStroke(); 
-        text(`speed`, this.translateWidth - 390, this.translateHeight - 27.5);
-        rect(this.translateWidth - 340, this.translateHeight - 31.5, 20, 3);  // Horizontal rect
-        rect(this.translateWidth - 331.5, this.translateHeight - 40, 3, 20);  // Vertical rect
+        text(`volume`, this.translateWidth - 440, this.translateHeight - 75);
         pop(); 
 
-        //Display for record two speed minus sign 
+        // Display for record two speed 
         push();
         fill(0); 
         noStroke(); 
-        rect(this.translateWidth - 430, this.translateHeight - 31.5, 20, 3); 
-        pop(); 
-
-        // Display for record two volume plus sign
-        push();
-        fill(0); 
-        noStroke(); 
-        text(`vol`, this.translateWidth - 383, this.translateHeight + 5);
-        rect(this.translateWidth - 340, this.translateHeight, 20, 3);  // Horizontal rect
-        rect(this.translateWidth - 331.5, this.translateHeight - 8.5, 3, 20);  // Vertical rect
-        pop(); 
-
-        //Display for record two volume minus sign 
-        push();
-        fill(0); 
-        noStroke(); 
-        rect(this.translateWidth - 430, this.translateHeight, 20, 3); 
+        text(`speed`,  this.translateWidth - 440, this.translateHeight - 35);
         pop(); 
 
         // Display for play sign and stop, switching if soundLoopTwo is on or not 
