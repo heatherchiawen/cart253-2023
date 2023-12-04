@@ -19,34 +19,17 @@ let piano = {
     pianoColor: [100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100]
 }
 
-let recorder; 
-let soundWave; 
-let turntable; 
+let recorder, soundWave, turntable; // Classes
+let soundLoopOne, soundLoopTwo; // For SoundAFiles to load into 
+let waveOne, waveTwo;// To measure peaks to create an audio display of what is playing 
 
-let soundLoopOne; 
-let soundLoopTwo; 
+let recordOneReverb, recordTwoReverb; 
+let recordOneVolSlider, recordOneSpeedSlider, recordOneReverbSlider; 
+let recordTwoVolSlider, recordTwoSpeedSlider, recordTwoReverbSlider; 
+let recordOneDistortion, recordOneDistortionSlider; 
+let recordTwoDistortion, recordTwoDistortionSlider; 
 
-let waveOne; // To measure peaks to create an audio display of what is playing 
-let waveTwo; 
-let durationOne;
-let durationTwo;  
-
-let recordOneReverb; 
-let recordTwoReverb; 
-
-let recordOneVolSlider; 
-let recordOneSpeedSlider; 
-let recordOneReverbSlider; 
-
-let recordTwoVolSlider; 
-let recordTwoSpeedSlider; 
-let recordTwoReverbSlider; 
-
-let recordOneDistortion; 
-let recordOneDistortionSlider; 
-
-let recordTwoDistortion; 
-let recordTwoDistortionSlider; 
+let pianoVolSlider; 
 
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
@@ -61,14 +44,14 @@ function setup() {
     colorMode(HSL); 
     userStartAudio();
     frameRate(60); 
-
-    // Setup recorder, soundwaves, and turntable 
+    // Setup recorder, soundwaves, turntable, and sliders  
     recorder = new Recorder();
     soundWave = new SoundWave(); 
     turntable = new Turntable(); 
+    setUpSliders(); 
+    // For audio tracker display 
     waveOne = soundLoopOne.getPeaks(700); // 700 pixels in width 
     waveTwo = soundLoopTwo.getPeaks(700); 
-
     // Set up piano array
     // Assigns its note value per each object in array 
     for (let i = 0; i < piano.numPiano; i++) {
@@ -79,36 +62,6 @@ function setup() {
         pianoKey.oscillator.freq(midiToFreq(note)); 
         piano.pianoKeys.push(pianoKey); 
     }
-
-    // recordOneDistortion = new p5.Distortion(); 
-    // recordOneDistortion.process(soundLoopOne);
-    // recordOneDistortionSlider = createSlider(0, 1, 0, 0); 
-    // recordOneDistortionSlider.position(width/2 + 310, height/2 - 85); 
-
-    // recordTwoDistortion = new p5.Distortion(); 
-    // recordTwoDistortion.process(soundLoopTwo);
-    // recordTwoDistortionSlider = createSlider(0, 1, 0, 0); 
-    // recordTwoDistortionSlider.position(width/2 - 445, height/2 - 85); 
-
-    // Right record sliders 
-    recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
-    recordOneVolSlider.position(width/2 + 310, height/2 - 190);
-    recordOneSpeedSlider = createSlider(0, 2, 1, 0); 
-    recordOneSpeedSlider.position(width/2 + 310, height/2 - 155);
-    recordOneReverb = new p5.Reverb();
-    recordOneReverb.process(soundLoopOne);
-    recordOneReverbSlider = createSlider(0, 1, 0, 0); 
-    recordOneReverbSlider.position(width/2 + 310, height/2 - 120);
-    
-    // Left record sliders 
-    recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
-    recordTwoVolSlider.position(width/2 - 445, height/2 - 190);
-    recordTwoSpeedSlider = createSlider(0, 2, 1, 0); 
-    recordTwoSpeedSlider.position(width/2 - 445, height/2 - 155);
-    recordTwoReverb = new p5.Reverb(); 
-    recordTwoReverb. process(soundLoopTwo); 
-    recordTwoReverbSlider = createSlider(0, 1, 0, 0); 
-    recordTwoReverbSlider.position(width/2 - 445, height/2 - 120); 
  }
 
 /**
@@ -116,7 +69,6 @@ function setup() {
 */
 function draw() {
     background(0, 0, 100);
-
     // Piano key display
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i];
@@ -129,7 +81,6 @@ function draw() {
     turntable.displayRecordOne();
     turntable.displayRecordTwo();
     turntable.displayAudioTracker();
-
     // For top audio visualization 
     for (let i = 0; i < waveOne.length; i++) {
         stroke(0); 
@@ -178,4 +129,39 @@ function mouseReleased() {
         let pianoKey = piano.pianoKeys[i]; 
         pianoKey.released(); 
     } 
+}
+function setUpSliders() {
+    // For piano 
+    // pianoVolSlider = createSlider(0, 1, 0.8, 0); 
+    // pianoVolSlider.position(width/2 + 350, height - 150); 
+
+    // recordOneDistortion = new p5.Distortion(); 
+    // recordOneDistortion.process(soundLoopOne);
+    // recordOneDistortionSlider = createSlider(0, 1, 0, 0); 
+    // recordOneDistortionSlider.position(width/2 + 310, height/2 - 85); 
+
+    // recordTwoDistortion = new p5.Distortion(); 
+    // recordTwoDistortion.process(soundLoopTwo);
+    // recordTwoDistortionSlider = createSlider(0, 1, 0, 0); 
+    // recordTwoDistortionSlider.position(width/2 - 445, height/2 - 85); 
+
+    // Right record sliders 
+    recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordOneVolSlider.position(width/2 + 310, height/2 - 190);
+    recordOneSpeedSlider = createSlider(0, 2, 1, 0); 
+    recordOneSpeedSlider.position(width/2 + 310, height/2 - 155);
+    recordOneReverb = new p5.Reverb();
+    recordOneReverb.process(soundLoopOne);
+    recordOneReverbSlider = createSlider(0, 1, 0, 0); 
+    recordOneReverbSlider.position(width/2 + 310, height/2 - 120);
+    
+    // Left record sliders 
+    recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
+    recordTwoVolSlider.position(width/2 - 445, height/2 - 190);
+    recordTwoSpeedSlider = createSlider(0, 2, 1, 0); 
+    recordTwoSpeedSlider.position(width/2 - 445, height/2 - 155);
+    recordTwoReverb = new p5.Reverb(); 
+    recordTwoReverb. process(soundLoopTwo); 
+    recordTwoReverbSlider = createSlider(0, 1, 0, 0); 
+    recordTwoReverbSlider.position(width/2 - 445, height/2 - 120); 
 }
