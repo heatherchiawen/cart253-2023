@@ -48,18 +48,25 @@ class Turntable {
         this.angle += this.rotate; // FIX THis so it does'nt spin when off 
         pop(); 
 
-        // Display for record one volume plus sign 
+        // Display for record one volume 
         push();
         fill(0); 
         noStroke(); 
         text(`volume`, this.translateWidth + 315, this.translateHeight - 75);
         pop(); 
 
-        // Display for record one speed plus sign
+        // Display for record one speed 
         push();
         fill(0); 
         noStroke(); 
         text(`speed`, this.translateWidth + 315, this.translateHeight - 35);
+        pop(); 
+        
+        // Display for record one speed 
+        push();
+        fill(0); 
+        noStroke(); 
+        text(`reverb`, this.translateWidth + 315, this.translateHeight);
         pop(); 
 
         // Display for play sign and stop, switching if soundLoopOne is on or not 
@@ -99,6 +106,13 @@ class Turntable {
         fill(0); 
         noStroke(); 
         text(`speed`,  this.translateWidth - 440, this.translateHeight - 35);
+        pop(); 
+
+        // Display for record two speed 
+        push();
+        fill(0); 
+        noStroke(); 
+        text(`reverb`,  this.translateWidth - 440, this.translateHeight);
         pop(); 
 
         // Display for play sign and stop, switching if soundLoopTwo is on or not 

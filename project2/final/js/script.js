@@ -31,10 +31,16 @@ let waveTwo;
 let durationOne;
 let durationTwo;  
 
-let recordOneSpeedSlider; 
-let recordTwoSpeedSlider; 
+let recordOneReverb; 
+let recordTwoReverb; 
+
 let recordOneVolSlider; 
+let recordOneSpeedSlider; 
+let recordOneReverbSlider; 
+
 let recordTwoVolSlider; 
+let recordTwoSpeedSlider; 
+let recordTwoReverbSlider; 
 
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
@@ -73,12 +79,20 @@ function setup() {
     recordOneVolSlider.position(width/2 + 310, height/2 - 190);
     recordOneSpeedSlider = createSlider(0, 2, 1, 0); 
     recordOneSpeedSlider.position(width/2 + 310, height/2 - 155);
+    recordOneReverb = new p5.Reverb();
+    recordOneReverb.process(soundLoopOne);
+    recordOneReverbSlider = createSlider(0, 1, 0, 0); 
+    recordOneReverbSlider.position(width/2 + 310, height/2 - 120);
     
     // Left record sliders 
     recordTwoVolSlider = createSlider(0, 1, 0.8, 0); 
     recordTwoVolSlider.position(width/2 - 445, height/2 - 190);
     recordTwoSpeedSlider = createSlider(0, 2, 1, 0); 
     recordTwoSpeedSlider.position(width/2 - 445, height/2 - 155);
+    recordTwoReverb = new p5.Reverb(); 
+    recordTwoReverb. process(soundLoopTwo); 
+    recordTwoReverbSlider = createSlider(0, 1, 0, 0); 
+    recordTwoReverbSlider.position(width/2 - 445, height/2 - 120); 
  }
 /**
  * Description of draw()
@@ -112,11 +126,15 @@ function draw() {
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
 
-    // For setting connecting slider values defined in setup to each soundFile output 
+    // Right record/soundLoopOne connects to slider values defined in setup  
     soundLoopOne.setVolume(recordOneVolSlider.value()); 
-    soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
     soundLoopOne.rate(recordOneSpeedSlider.value());
+    recordOneReverb.drywet(recordOneReverbSlider.value()); 
+    
+    // Left record/soundLoopTwo connects to slider values defined in setup
+    soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
     soundLoopTwo.rate(recordOneSpeedSlider.value());
+    recordTwoReverb.drywet(recordTwoReverbSlider.value()); 
 }
 
 function mousePressed() {
