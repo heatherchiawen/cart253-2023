@@ -16,27 +16,15 @@ class PianoKey {
         this.oscillator.setType(); 
     } 
     pressed() {
-        // Write code for if linesDrawn touch the keys 
-        // Check to see if white piano key has been pressed 
-        if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
-            // If pressed, piano key turns on  
-            this.keysOn = true; 
-            // Play sound 
-            this.env.play(); 
-        }
-    }
-    released() {
-        if (mouseX < this.x + this.w && mouseX > this.x && mouseY < this.y + this.h && mouseY > this.y) {
-            // If mouse is released, then piano key fades off 
-            this.keysOn = false; 
-        }
+        // Check the keyCode defined in main program 
+        // Play sound 
+        this.env.play(); 
     }
     pianoDisplay() {
         push();
         stroke(0);
+        // Fill is defined by an array stored in the piano object in the main script
         strokeWeight(1); 
-        // Think about adding an keyOn fill later... 
-        // For now, the fill is controlled by the color array defined in the main script 
         rect(this.x, this.y, this.w, this.h);  
         pop(); 
     }
