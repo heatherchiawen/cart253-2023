@@ -21,9 +21,17 @@ let piano = {
     keyText: [`W`, `3`, `E`, `4`, `R`, `T`, `6`, `Y`, `7`, `U`, `8`, `I`, `X`, `D`, `C`, `F`, `V`, `B`, `H`, `N`, `J`, `M`, `K`,`<`], 
     keyCode: [87, 51, 69, 52, 82, 84, 54, 89, 55, 85, 56, 73, 88, 68, 67, 70, 86, 66, 72, 78, 74, 77, 75, 188]
 }
+let beatBox = {
+    beats: [],
+    numBeats: 6, 
+    beatText: [`hi-hat`, `symbol`,`clap`, `beat1`, `beat2`, `beat3`], 
+    sounds: [], 
+    keyCode: [186, 222, 13, 190, 191, 16]
+}
 
 let recorder, soundWave, turntable; // Classes
-let soundLoopOne, soundLoopTwo; // For SoundFiles to load into 
+let soundLoopOne, soundLoopTwo; // For .mp3 files
+let drumAndSymbol, clap, fatDrum, smallBeat, hiHat, symbol; // For .wav files 
 let waveOne, waveTwo;// To measure peaks to create an audio display of what is playing 
 
 let recordOneReverb, recordTwoReverb; 
@@ -37,6 +45,20 @@ let pianoVolSlider;
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
     soundLoopTwo = loadSound(`assets/sounds/beat.mp3`); 
+    
+    beatBox.sounds.push(loadSound(`assets/sounds/drumandsymbol.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/clap.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/fatdrum.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/smallbeat.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/hihat.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/symbol.wav`)); 
+
+    // drumAndSymbol = loadSound(`assets/sounds/drumandsymbol.wav`); 
+    // clap = loadSound(`assets/sounds/clap.wav`); 
+    // fatDrum = loadSound(`assets/sounds/fatdrum.wav`); 
+    // smallBeat = loadSound(`assets/sounds/smallbeat.wav`); 
+    // hiHat = loadSound(`assets/sounds/hihat.wav`); 
+    // symbol = loadSound(`assets/sounds/symbol.wav`); 
 }
 
 /**
@@ -65,7 +87,13 @@ function setup() {
         pianoKey.oscillator.freq(midiToFreq(note)); 
         piano.pianoKeys.push(pianoKey); 
     }
- }
+    for (let i = 0; i < beatBox.numBeats; i++) {
+        let x = i*width/12+ width/4 + 25
+        let y = height - 275;
+        let beat = new Beats(x, y); 
+        beatBox.beats.push(beat); 
+    }
+}
 
 /**
  * Description of draw()
@@ -87,6 +115,19 @@ function draw() {
         text(piano.keyText[i], (i*width/49 + width/4) + 7.5, height - 155); 
         pop(); 
         pianoKey.pianoDisplay(); 
+    }
+    for (let i = 0; i < beatBox.beats.length; i++) {
+        let beat = beatBox.beats[i]; 
+        if (keyIsPressed && keyCode == beatBox.keyCode[i]) {
+            beatBox.sounds[i].play();  
+        }
+        push(); 
+        noStroke(); 
+        fill(0); 
+        textSize(12); 
+        text(beatBox.beatText[i], (i*width/12+ width/4) + 25, height - 275);
+        pop(); 
+        beat.display(); 
     }
     // For recorder button, sound wave, and turntable display 
     recorder.display(); 
