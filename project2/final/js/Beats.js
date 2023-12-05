@@ -5,14 +5,9 @@ class Beats {
         this.w = 50; 
         this.h = 50; 
     }
-    pressed() {
-
-    }
-
     display() {
         push();
-        stroke(0);
-        strokeWeight(1); 
+        noStroke();
         rect(this.x, this.y, this.w, this.h);  
         pop(); 
     }

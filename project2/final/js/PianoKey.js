@@ -4,7 +4,6 @@ class PianoKey {
         this.y = y; 
         this.w = 25;
         this.h = 100;
-        this.keysOn = false; 
 
         // Oscillator 
         this.oscillator = new p5.Oscillator(); 

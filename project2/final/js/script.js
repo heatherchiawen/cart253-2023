@@ -24,7 +24,7 @@ let piano = {
 let beatBox = {
     beats: [],
     numBeats: 6, 
-    beatText: [`hi-hat`, `symbol`,`clap`, `beat1`, `beat2`, `beat3`], 
+    beatText: [`;/:`, `'/"`,`return`, `./>`, `//?`, `shift`], 
     sounds: [], 
     keyCode: [186, 222, 13, 190, 191, 16]
 }
@@ -45,20 +45,13 @@ let pianoVolSlider;
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
     soundLoopTwo = loadSound(`assets/sounds/beat.mp3`); 
-    
-    beatBox.sounds.push(loadSound(`assets/sounds/drumandsymbol.wav`)); 
-    beatBox.sounds.push(loadSound(`assets/sounds/clap.wav`)); 
-    beatBox.sounds.push(loadSound(`assets/sounds/fatdrum.wav`)); 
-    beatBox.sounds.push(loadSound(`assets/sounds/smallbeat.wav`)); 
+     
     beatBox.sounds.push(loadSound(`assets/sounds/hihat.wav`)); 
     beatBox.sounds.push(loadSound(`assets/sounds/symbol.wav`)); 
-
-    // drumAndSymbol = loadSound(`assets/sounds/drumandsymbol.wav`); 
-    // clap = loadSound(`assets/sounds/clap.wav`); 
-    // fatDrum = loadSound(`assets/sounds/fatdrum.wav`); 
-    // smallBeat = loadSound(`assets/sounds/smallbeat.wav`); 
-    // hiHat = loadSound(`assets/sounds/hihat.wav`); 
-    // symbol = loadSound(`assets/sounds/symbol.wav`); 
+    beatBox.sounds.push(loadSound(`assets/sounds/clap.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/drumandsymbol.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/smallbeat.wav`)); 
+    beatBox.sounds.push(loadSound(`assets/sounds/fatdrum.wav`));
 }
 
 /**
@@ -118,14 +111,16 @@ function draw() {
     }
     for (let i = 0; i < beatBox.beats.length; i++) {
         let beat = beatBox.beats[i]; 
+        fill(100, 0, 60);
         if (keyIsPressed && keyCode == beatBox.keyCode[i]) {
             beatBox.sounds[i].play();  
+            fill(100, 0, 30);
         }
         push(); 
         noStroke(); 
         fill(0); 
         textSize(12); 
-        text(beatBox.beatText[i], (i*width/12+ width/4) + 25, height - 275);
+        text(beatBox.beatText[i], (i*width/12+ width/4) + 25, height - 280);
         pop(); 
         beat.display(); 
     }
