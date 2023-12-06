@@ -144,9 +144,6 @@ function draw() {
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
 
-    // recordOneDistortion.set(recordOneDistortionSlider.value()); 
-    // recordTwoDistortion.set(recordTwoDistortionSlider.value()); 
-
     // Right record/soundLoopOne connects to slider values defined in setup  
     soundLoopOne.setVolume(recordOneVolSlider.value()); 
     soundLoopOne.rate(recordOneSpeedSlider.value());
@@ -173,16 +170,6 @@ function mousePressed() {
     turntable.pressedRecordTwo();
 }
 function setUpSliders() {
-
-    // recordOneDistortion = new p5.Distortion(); 
-    // recordOneDistortion.process(soundLoopOne);
-    // recordOneDistortionSlider = createSlider(0, 1, 0, 0); 
-    // recordOneDistortionSlider.position(width/2 + 310, height/2 - 85); 
-
-    // recordTwoDistortion = new p5.Distortion(); 
-    // recordTwoDistortion.process(soundLoopTwo);
-    // recordTwoDistortionSlider = createSlider(0, 1, 0, 0); 
-    // recordTwoDistortionSlider.position(width/2 - 445, height/2 - 85); 
 
     // Right record sliders 
     recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
