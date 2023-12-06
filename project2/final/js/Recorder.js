@@ -16,12 +16,12 @@ class Recorder {
         this.soundFile; 
         this.soundLoop;
         this.recorder.setInput(); // Empty input records all sounds in program  
-
         // Booleans for clarity 
         this.recorderOn = false; 
         this.recorderPlay = false; 
     } 
     recording() { 
+        // If recording button is pressed than the recordingOn is true and a new SoundFile starts recording, the playback stays off 
         if (mouseX < this.x + this.size/2 - (this.playSpacing*1.2) && mouseX > this.x - this.size/2 - (this.playSpacing*1.2) && mouseY < this.y + this.size/2 && mouseY > this.y - this.size/2) {
             if (!this.recorderOn && !this.recorderPlay) {
                 this.recorderOn = true; 
@@ -39,14 +39,14 @@ class Recorder {
         }
     } 
     play() {
+        // If play button is pressed the display switches to a pause icon 
         if (mouseX < this.x + this.w/2 && mouseX > this.x - this.w/2 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
             if (!this.recorderOn && !this.recorderPlay) {
                 this.recorderOn = false; // Recording is off 
                 this.recorderPlay = true; // Playback is on 
                 this.soundFile.loop(); // Plays the reult on loop  
-                //this.soundFile.play(); // plays the result once 
-                // if using play() maybe add an option for if the play button is played again the audio will play once again 
                 } 
+                // If the pause icon is pressed 
                 else if (!this.recorderOn && this.recorder) {
                     this.recorderOn = false;
                     this.recorderPlay = false; 
@@ -55,6 +55,7 @@ class Recorder {
             }
         } 
     save() {
+        // If saved icon is pressed 
         if (mouseX < this.x + this.w/2 + this.playSpacing && mouseX > this.x - this.w/2 + this.playSpacing && mouseY < this.y + this.h/7 && mouseY > this.y - this.h/2) {
             // Saves recorded sound to the users computer 
             save(this.soundFile, 'mySound.wav'); 
@@ -71,8 +72,7 @@ class Recorder {
         }
         ellipse(this.x - (this.playSpacing*1.2), this.y, this.size + 5); 
         pop(); 
-
-        // Display for play button 
+        // Display for play button, switching to a pause display whether or not it is on or not 
         push(); 
         noStroke();
         if (!this.recorderPlay) {  
@@ -91,7 +91,6 @@ class Recorder {
             rect(this.x, this.y - this.h/2, this.w/4, this.h);  
         } 
         pop(); 
-
         // Display for save option 
         push(); 
         stroke(0);

@@ -33,18 +33,18 @@ SoundFiles loaded into the program:
 let piano = {
     pianoKeys: [],
     numPiano: 24,
-    pianoNotes: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71],
-    pianoColor: [100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100], 
-    pianoColorOn: [0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275],
-    keyText: [`W`, `3`, `E`, `4`, `R`, `T`, `6`, `Y`, `7`, `U`, `8`, `I`, `X`, `D`, `C`, `F`, `V`, `B`, `H`, `N`, `J`, `M`, `K`,`<`], 
-    keyCode: [87, 51, 69, 52, 82, 84, 54, 89, 55, 85, 56, 73, 88, 68, 67, 70, 86, 66, 72, 78, 74, 77, 75, 188]
+    pianoNotes: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71], // Midi notes for two octave piano
+    pianoColor: [100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 100, 0, 100, 0, 100, 0, 100], // If pianoKey is off 
+    pianoColorOn: [0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275], // If pianoKey is on
+    keyText: [`W`, `3`, `E`, `4`, `R`, `T`, `6`, `Y`, `7`, `U`, `8`, `I`, `X`, `D`, `C`, `F`, `V`, `B`, `H`, `N`, `J`, `M`, `K`,`<`], // Key text display for user clarity 
+    keyCode: [87, 51, 69, 52, 82, 84, 54, 89, 55, 85, 56, 73, 88, 68, 67, 70, 86, 66, 72, 78, 74, 77, 75, 188] // KeyCode for user to access piano 
 }
 let beatBox = {
-    beats: [],
+    beats: [], // open array for drawing beat display 
     numBeats: 6, 
-    beatText: [`;/:`, `'/"`,`return`, `./>`, `//?`, `shift`], 
-    sounds: [], 
-    keyCode: [186, 222, 13, 190, 191, 16]
+    beatText: [`;/:`, `'/"`,`return`, `./>`, `//?`, `shift`], // Key text display for user clarity 
+    sounds: [], // Open array to load in beats 
+    keyCode: [186, 222, 13, 190, 191, 16] // keyCode for user to access beats 
 }
 
 let recorder, soundWave, turntable; // Classes
@@ -77,9 +77,9 @@ function preload() {
 */
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    colorMode(HSL); 
-    userStartAudio();
-    frameRate(60); 
+    colorMode(HSL); // Set to Hue, Saturation, and Light for clarity 
+    userStartAudio(); // Starts audio in the program 
+    frameRate(60); // Frame rate for blinking 
     // Setup recorder, soundwaves, turntable, and sliders  
     recorder = new Recorder();
     soundWave = new SoundWave(); 
@@ -90,6 +90,7 @@ function setup() {
     waveTwo = soundLoopTwo.getPeaks(700); 
     // Set up piano array
     // Assigns its note value per each object in array 
+    // Assigns midi notes to freq 
     for (let i = 0; i < piano.numPiano; i++) {
         let x = i*width/49 + width/4;
         let y = height - 150; 
@@ -98,6 +99,7 @@ function setup() {
         pianoKey.oscillator.freq(midiToFreq(note)); 
         piano.pianoKeys.push(pianoKey); 
     }
+    // Set up beat array 
     for (let i = 0; i < beatBox.numBeats; i++) {
         let x = i*width/12+ width/4 + 25;
         let y = height - 275;
@@ -114,11 +116,14 @@ function draw() {
     // Piano key display
     for (let i = 0; i < piano.pianoKeys.length; i++) {
         let pianoKey = piano.pianoKeys[i];
+        // Fill for if piano is off 
         fill(100, 100, piano.pianoColor[i]); 
         if (keyIsPressed && keyCode == piano.keyCode[i]) {
             pianoKey.pressed(); 
+            // If piano is on/ has been pressed 
             fill(piano.pianoColorOn[i], 80, 30); 
         }
+        // Text display for user clarity 
         push(); 
         noStroke(); 
         fill(0); 
@@ -131,10 +136,13 @@ function draw() {
     for (let i = 0; i < beatBox.beats.length; i++) {
         let beat = beatBox.beats[i]; 
         fill(100, 0, 60);
+        // If the beats keyCode is pressed then the sound will play 
+        // Sounds are put in order that they are loaded in 
         if (keyIsPressed && keyCode == beatBox.keyCode[i]) {
             beatBox.sounds[i].play();  
             fill(100, 0, 30);
         }
+        // Text display for user clarity 
         push(); 
         noStroke(); 
         fill(0); 
@@ -161,12 +169,10 @@ function draw() {
         strokeWeight(1);
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
-
     // Right record/soundLoopOne connects to slider values defined in setup  
     soundLoopOne.setVolume(recordOneVolSlider.value()); 
     soundLoopOne.rate(recordOneSpeedSlider.value());
     recordOneReverb.drywet(recordOneReverbSlider.value()); 
-    
     // Left record/soundLoopTwo connects to slider values defined in setup
     soundLoopTwo.setVolume(recordTwoVolSlider.value()); 
     soundLoopTwo.rate(recordTwoSpeedSlider.value());
@@ -188,7 +194,8 @@ function mousePressed() {
     turntable.pressedRecordTwo();
 }
 function setUpSliders() {
-
+    // Called in setUp ()
+    // Assigning values in draw()
     // Right record sliders 
     recordOneVolSlider = createSlider(0, 1, 0.8, 0); 
     recordOneVolSlider.position(width/2 + 310, height/2 - 190);

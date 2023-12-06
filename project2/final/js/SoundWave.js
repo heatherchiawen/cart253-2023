@@ -14,18 +14,22 @@ class SoundWave {
         this.sawtooth = false; 
     }
     pressed(pianoKey) { 
+        // If sine button is pressed 
         if (mouseX < this.x - 200 + this.size/2 && mouseX > this.x - 200 - this.size/2 && mouseY < this.y + this.size/2 && mouseY > this.y - this.size/2) {
             this.sine = true; 
             pianoKey.sine(); 
         }
+        // If square button is pressed
         if (mouseX < this.x - 90 + this.w && mouseX > this.x - 90 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
             this.square = true;  
             pianoKey.square();  
         }
+        // If triangle button is pressed
         if (mouseX < this.x + 40 + this.w && mouseX > this.x + 40 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
             this.triangle = true; 
             pianoKey.triangle();
         }
+        // If sawtooth button is pressed
         if(mouseX < this.x + 150 + this.w && mouseX > this.x + 150 && mouseY < this.y + this.h/2 && mouseY > this.y - this.h/2) {
             this.sawtooth = true; 
             pianoKey.sawtooth();

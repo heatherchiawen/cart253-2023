@@ -8,10 +8,9 @@ class Turntable {
         this.translateWidth = width/2; 
         this.translateHeight = height/2 - 120; 
         this.angle = 0; 
-        this.rotate = 3.333333333333; 
-        this.durationOne; 
+        this.rotate = 3.333333333333; // Rate at which the record spins 
+        this.durationOne; // For lines to track the soundFile display 
         this.durationTwo; 
-
         this.recordOneOn = false; 
         this.recordTwoOn = false; 
     }
@@ -19,9 +18,11 @@ class Turntable {
     // Check for if right record pause button pressed 
         if (mouseX > this.translateWidth + 195 && mouseX < this.translateWidth + 220 && mouseY > this.translateHeight + this.size/2 + 20 && mouseY < this.translateHeight + this.size/2 + 30) {
             if (!this.recordOneOn) { 
+                // If so, the record starts playing 
                 this.recordOneOn = true; 
                 soundLoopOne.loop(); 
             } else {
+                // If pressed again, the record stops 
                 this.recordOneOn = false; 
                 soundLoopOne.stop(); 
             }
@@ -31,9 +32,11 @@ class Turntable {
         // for left record play check 
         if (mouseX > this.translateWidth - 215 && mouseX < this.translateWidth - 190 && mouseY > this.translateHeight + this.size/2 + 20 && mouseY < this.translateHeight + this.size/2 + 30) {
             if (!this.recordTwoOn) {
-                this.recordTwoOn = true; 
+                // If so, the record starts playing
+                this.recordTwoOn = true;
                 soundLoopTwo.loop(); 
             } else {
+                // If pressed again, the record stops 
                 this.recordTwoOn = false; 
                 soundLoopTwo.stop(); 
             }
@@ -41,14 +44,14 @@ class Turntable {
     }
     displayRecordOne() {
         push(); 
-        translate(this.translateWidth + 200, this.translateHeight);
+        translate(this.translateWidth + 200, this.translateHeight); // Translation so that the record does move but spins in one place 
         if (this.recordOneOn) { // Record only spins when on 
             rotate(this.angle);  
         }
         fill(0); 
         ellipse(this.x, this.y, this.size);
         stroke(100); 
-        line(this.x, this.y, this.x, -this.h/2); 
+        line(this.x, this.y, this.x, -this.h/2); // White line that shows the record spinning 
         this.angle += this.rotate; 
         pop(); 
 
@@ -91,14 +94,14 @@ class Turntable {
     }
     displayRecordTwo() {
         push(); 
-        translate(this.translateWidth - 205, this.translateHeight); 
+        translate(this.translateWidth - 205, this.translateHeight); // Translation so that the record does move but spins in one place 
         if (this.recordTwoOn) { // Record only spins when on 
             rotate(this.angle); 
         }
         fill(0);
         ellipse(this.x, this.y, this.size); 
         stroke(100); 
-        line(this.x, this.y, this.x, - this.h/2); 
+        line(this.x, this.y, this.x, - this.h/2); // White line that shows the record spinning
         this.angle += this.rotate; 
         pop(); 
 

@@ -6,6 +6,7 @@ class Beats {
         this.h = 50; 
     }
     display() {
+        // Display for square buttons 
         push();
         noStroke();
         rect(this.x, this.y, this.w, this.h);  
