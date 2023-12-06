@@ -34,13 +34,15 @@ let soundLoopOne, soundLoopTwo; // For .mp3 files
 let drumAndSymbol, clap, fatDrum, smallBeat, hiHat, symbol; // For .wav files 
 let waveOne, waveTwo;// To measure peaks to create an audio display of what is playing 
 
+// Sliders 
 let recordOneReverb, recordTwoReverb; 
 let recordOneVolSlider, recordOneSpeedSlider, recordOneReverbSlider; 
 let recordTwoVolSlider, recordTwoSpeedSlider, recordTwoReverbSlider; 
 let recordOneDistortion, recordOneDistortionSlider; 
 let recordTwoDistortion, recordTwoDistortionSlider; 
 
-let pianoVolSlider; 
+let beatVolSlider, beatReverbSlider;
+let beatReverb;  
 
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
@@ -108,8 +110,6 @@ function draw() {
         text(piano.keyText[i], (i*width/49 + width/4) + 7.5, height - 155); 
         pop(); 
         pianoKey.pianoDisplay();
-        // pianoKey.setVolume(pianoVolSlider.value()); 
-        // outPutVolume(pianoVolSlider.value());
     }
     for (let i = 0; i < beatBox.beats.length; i++) {
         let beat = beatBox.beats[i]; 
@@ -147,6 +147,8 @@ function draw() {
 
     // recordOneDistortion.set(recordOneDistortionSlider.value()); 
     // recordTwoDistortion.set(recordTwoDistortionSlider.value()); 
+    // beatBox.sounds.setVolume(beatVolSlider.value()); 
+    beatBox.sounds.drywet(beatVolSlider.value()); 
 
     // Right record/soundLoopOne connects to slider values defined in setup  
     soundLoopOne.setVolume(recordOneVolSlider.value()); 
@@ -174,9 +176,15 @@ function mousePressed() {
     turntable.pressedRecordTwo();
 }
 function setUpSliders() {
-    // For piano 
-    pianoVolSlider = createSlider(0, 1, 0.8, 0); 
-    pianoVolSlider.position(width/2 - 75, height - 200); 
+
+    beatVolSlider = createSlider(0, 1, 0.8, 0);
+    beatVolSlider.position(width/2 + 145, height - 325);
+
+
+    beatReverb = new p5.Reverb();
+    beatReverb.process(beatBox.sounds);  
+    beatReverbSlider = createSlider(0, 1, 0.8, 0);
+    beatReverbSlider.position(width/2 - 265, height - 325);
 
     // recordOneDistortion = new p5.Distortion(); 
     // recordOneDistortion.process(soundLoopOne);
@@ -204,7 +212,7 @@ function setUpSliders() {
     recordTwoSpeedSlider = createSlider(0, 2, 1, 0); 
     recordTwoSpeedSlider.position(width/2 - 445, height/2 - 155);
     recordTwoReverb = new p5.Reverb(); 
-    recordTwoReverb. process(soundLoopTwo); 
+    recordTwoReverb.process(soundLoopTwo); 
     recordTwoReverbSlider = createSlider(0, 1, 0, 0); 
     recordTwoReverbSlider.position(width/2 - 445, height/2 - 120); 
 }
