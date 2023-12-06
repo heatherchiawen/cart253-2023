@@ -7,7 +7,7 @@ class Recorder {
         this.h = 20;
         this.playSpacing = 50; 
         this.strokeWeight = 3; 
-        this.recorderColor = { // Red but maybe get it to blink?  
+        this.recorderColor = { // Red 
             h: 0, 
             s: 100, 
             l: 30, 

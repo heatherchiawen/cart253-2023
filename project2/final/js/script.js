@@ -41,9 +41,6 @@ let recordTwoVolSlider, recordTwoSpeedSlider, recordTwoReverbSlider;
 let recordOneDistortion, recordOneDistortionSlider; 
 let recordTwoDistortion, recordTwoDistortionSlider; 
 
-let beatVolSlider, beatReverbSlider;
-let beatReverb;  
-
 function preload() {
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
     soundLoopTwo = loadSound(`assets/sounds/beat.mp3`); 
@@ -147,8 +144,6 @@ function draw() {
 
     // recordOneDistortion.set(recordOneDistortionSlider.value()); 
     // recordTwoDistortion.set(recordTwoDistortionSlider.value()); 
-    // beatBox.sounds.setVolume(beatVolSlider.value()); 
-    beatBox.sounds.drywet(beatVolSlider.value()); 
 
     // Right record/soundLoopOne connects to slider values defined in setup  
     soundLoopOne.setVolume(recordOneVolSlider.value()); 
@@ -176,15 +171,6 @@ function mousePressed() {
     turntable.pressedRecordTwo();
 }
 function setUpSliders() {
-
-    beatVolSlider = createSlider(0, 1, 0.8, 0);
-    beatVolSlider.position(width/2 + 145, height - 325);
-
-
-    beatReverb = new p5.Reverb();
-    beatReverb.process(beatBox.sounds);  
-    beatReverbSlider = createSlider(0, 1, 0.8, 0);
-    beatReverbSlider.position(width/2 - 265, height - 325);
 
     // recordOneDistortion = new p5.Distortion(); 
     // recordOneDistortion.process(soundLoopOne);

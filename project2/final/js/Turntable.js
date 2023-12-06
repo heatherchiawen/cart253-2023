@@ -42,14 +42,14 @@ class Turntable {
     displayRecordOne() {
         push(); 
         translate(this.translateWidth + 200, this.translateHeight);
-        if (this.recordOneOn) {
+        if (this.recordOneOn) { // Record only spins when on 
             rotate(this.angle);  
         }
         fill(0); 
         ellipse(this.x, this.y, this.size);
         stroke(100); 
         line(this.x, this.y, this.x, -this.h/2); 
-        this.angle += this.rotate; // FIX THis so it does'nt spin when off 
+        this.angle += this.rotate; 
         pop(); 
 
         // Display for record one volume 
@@ -92,8 +92,8 @@ class Turntable {
     displayRecordTwo() {
         push(); 
         translate(this.translateWidth - 205, this.translateHeight); 
-        if (this.recordTwoOn) {
-            rotate(this.angle);  
+        if (this.recordTwoOn) { // Record only spins when on 
+            rotate(this.angle); 
         }
         fill(0);
         ellipse(this.x, this.y, this.size); 
@@ -113,14 +113,14 @@ class Turntable {
         push();
         fill(0); 
         noStroke(); 
-        text(`speed`,  this.translateWidth - 440, this.translateHeight - 35);
+        text(`speed`, this.translateWidth - 440, this.translateHeight - 35);
         pop(); 
 
         // Display for record two speed 
         push();
         fill(0); 
         noStroke(); 
-        text(`reverb`,  this.translateWidth - 440, this.translateHeight);
+        text(`reverb`, this.translateWidth - 440, this.translateHeight);
         pop(); 
 
         // Display for play sign and stop, switching if soundLoopTwo is on or not 
