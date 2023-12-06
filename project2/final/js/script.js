@@ -42,9 +42,10 @@ let recordOneDistortion, recordOneDistortionSlider;
 let recordTwoDistortion, recordTwoDistortionSlider; 
 
 function preload() {
+    // Record sounds 
     soundLoopOne = loadSound(`assets/sounds/house.mp3`); 
     soundLoopTwo = loadSound(`assets/sounds/beat.mp3`); 
-     
+     // Beat sounds, loaded into an array 
     beatBox.sounds.push(loadSound(`assets/sounds/hihat.wav`)); 
     beatBox.sounds.push(loadSound(`assets/sounds/symbol.wav`)); 
     beatBox.sounds.push(loadSound(`assets/sounds/clap.wav`)); 
@@ -108,6 +109,7 @@ function draw() {
         pop(); 
         pianoKey.pianoDisplay();
     }
+    // Beat displays 
     for (let i = 0; i < beatBox.beats.length; i++) {
         let beat = beatBox.beats[i]; 
         fill(100, 0, 60);
@@ -132,13 +134,13 @@ function draw() {
     // For top audio visualization 
     for (let i = 0; i < waveOne.length; i++) {
         stroke(0); 
-        strokeWeight(1)
+        strokeWeight(1);
         line(365 + i, 40 + (waveOne[i]* 35),365 +i, 40 - (waveOne[i]* 35));
     }
     // For bottom audio visualization 
     for (let i = 0; i < waveTwo.length; i++) { // Add second sound 
         stroke(0); 
-        strokeWeight(1)
+        strokeWeight(1);
         line(365 + i, 120 + (waveTwo[i]* 35),365 +i, 120 - (waveTwo[i]* 35));
     }
 

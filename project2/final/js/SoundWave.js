@@ -42,7 +42,7 @@ class SoundWave {
         // Square
         push(); 
         noStroke(); 
-        fill(0); 
+        fill(0);
         rect(this.x - 90, this.y - this.h/2, this.w, this.h); 
         pop(); 
 
