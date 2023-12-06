@@ -107,7 +107,9 @@ function draw() {
         textSize(12); 
         text(piano.keyText[i], (i*width/49 + width/4) + 7.5, height - 155); 
         pop(); 
-        pianoKey.pianoDisplay(); 
+        pianoKey.pianoDisplay();
+        // pianoKey.setVolume(pianoVolSlider.value()); 
+        // outPutVolume(pianoVolSlider.value());
     }
     for (let i = 0; i < beatBox.beats.length; i++) {
         let beat = beatBox.beats[i]; 
@@ -173,8 +175,8 @@ function mousePressed() {
 }
 function setUpSliders() {
     // For piano 
-    // pianoVolSlider = createSlider(0, 1, 0.8, 0); 
-    // pianoVolSlider.position(width/2 + 350, height - 150); 
+    pianoVolSlider = createSlider(0, 1, 0.8, 0); 
+    pianoVolSlider.position(width/2 - 75, height - 200); 
 
     // recordOneDistortion = new p5.Distortion(); 
     // recordOneDistortion.process(soundLoopOne);

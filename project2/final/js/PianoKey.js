@@ -8,11 +8,13 @@ class PianoKey {
         // Oscillator 
         this.oscillator = new p5.Oscillator(); 
         this.env = new p5.Envelope();
-        this.env.setADSR(0.1, 0.1, 1, 0.5); 
+        this.env.setADSR(0.1, 0.1, 1, 0.1); 
         this.oscillator.amp(this.env); 
         this.oscillator.start(); 
         this.oscillator.fade(); 
         this.oscillator.setType(); 
+        this.oscillator.freq(); 
+        // this.env.ramp();
     } 
     pressed() {
         // Check the keyCode defined in main program 
@@ -26,6 +28,8 @@ class PianoKey {
         strokeWeight(1); 
         rect(this.x, this.y, this.w, this.h);  
         pop(); 
+        
+        // this.env.ramp(pianoVolSlider.value());
     }
     // Sine(), square(), triangle(), sawtooth() are called by the event handler, SoundWave.pressed(pianoKey)  
     sine() {

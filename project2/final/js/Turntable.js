@@ -42,7 +42,9 @@ class Turntable {
     displayRecordOne() {
         push(); 
         translate(this.translateWidth + 200, this.translateHeight);
-        rotate(this.angle);  
+        if (this.recordOneOn) {
+            rotate(this.angle);  
+        }
         fill(0); 
         ellipse(this.x, this.y, this.size);
         stroke(100); 
@@ -90,13 +92,15 @@ class Turntable {
     displayRecordTwo() {
         push(); 
         translate(this.translateWidth - 205, this.translateHeight); 
-        rotate(this.angle); 
+        if (this.recordTwoOn) {
+            rotate(this.angle);  
+        }
         fill(0);
         ellipse(this.x, this.y, this.size); 
         stroke(100); 
-        line(this.x, this.y, this.x, -this.h/2); 
+        line(this.x, this.y, this.x, - this.h/2); 
         this.angle += this.rotate; 
-        pop(); // FIX THis so it does'nt spin when off 
+        pop(); 
 
         // Display for record two volume 
         push();
