@@ -2,7 +2,25 @@
  * Project 2 - Final 
  * Heather Chester 
  * 
+ * For Project 2 - final, I created a sound board that I have titled "Soundmixer," where the user can play with different sounds either with the piano, beat buttons, or sounds already loaded into the program. 
+ * Additionally, the user has the option to record sounds and save them to their computer. See README.md for more information. 
  * 
+ * Attributions: 
+The turntable imagery and audio tracker were adapted from: 
+Mister Bomb, "p5.js tutorial - Recreating Hip Hop Google Doodle Part 1," Youtube.com, July 12, 2020. https://www.youtube.com/watch?v=b58aWzjHi6Y. 
+Mister Bomb, "p5.js tutorial - Recreating Hip Hop Google Doodle Part 2," Youtube.com, July 12, 2020. https://www.youtube.com/watch?v=4HdbPCb1uwk.
+Mister Bomb, "p5.js tutorial - Recreating Hip Hop Google Doodle Part 3," Youtube.com, July 12, 2020. https://www.youtube.com/watch?v=orfgTW6smtA. 
+Mister Bomb, "p5.js tutorial - Recreating Hip Hop Google Doodle Part 4," Youtube.com, July 12, 2020. https://www.youtube.com/watch?v=6LIKEYAd-7M&t=204s. 
+
+SoundFiles loaded into the program: 
+“Fluffy Song drop,” Pixabay, https://pixabay.com/sound-effects/search/house%20beat%20loop/. 
+“Some House Loop Patterns (Wav),” Pixabay, https://pixabay.com/sound-effects/search/house%20beat%20loop/.
+"Big Drum Kick, Drum Kit," Mike Koening,  free-loops.com, https://free-loops.com/8140-big-drum-kick.html#google_vignette.
+"Clean Snare Hit, Drum Kit," Mike Koening, free-loops.com, https://free-loops.com/8137-clean-snare-hit.html.
+"Clean Drum Kick 10, Drum Kit," soundshifter, free-loops.com, https://free-loops.com/3066-drum-kick-10.html.
+"Lil John HiHat 1, Drum Kit," free-loops.com, https://free-loops.com/714-lil-john-hihat-1.html. 
+"Lil John Crunk Clap 3, Drum Kit," free-loops.com, https://free-loops.com/712-lil-john-crunk-clap3.html.
+"Lil John HiHAT 2, Drum Kit" free-loops.com, https://free-loops.com/715-lil-john-hihat-2.html.
  */
 
 "use strict";
@@ -73,7 +91,7 @@ function setup() {
     // Set up piano array
     // Assigns its note value per each object in array 
     for (let i = 0; i < piano.numPiano; i++) {
-        let x = i*width/49 + width/4
+        let x = i*width/49 + width/4;
         let y = height - 150; 
         let pianoKey = new PianoKey(x, y); 
         let note = piano.pianoNotes[i];
@@ -81,7 +99,7 @@ function setup() {
         piano.pianoKeys.push(pianoKey); 
     }
     for (let i = 0; i < beatBox.numBeats; i++) {
-        let x = i*width/12+ width/4 + 25
+        let x = i*width/12+ width/4 + 25;
         let y = height - 275;
         let beat = new Beats(x, y); 
         beatBox.beats.push(beat); 

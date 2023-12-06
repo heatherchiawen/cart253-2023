@@ -15,6 +15,7 @@ As for the recording function, although I made some small adjustments during the
 
 All in all, I was quite impressed with how this turned out as well as seeing how far my abilities have come since the start of the course. As I attempt to further this program over the break, I hope that I can also further my ability in actually creating some decent sound mixes from this. 
 
+Attributions: 
 
 The turntable imagery and audio tracker were adapted from: 
 Mister Bomb, "p5.js tutorial - Recreating Hip Hop Google Doodle Part 1," Youtube.com, July 12, 2020. https://www.youtube.com/watch?v=b58aWzjHi6Y. 
